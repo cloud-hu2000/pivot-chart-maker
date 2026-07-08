@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Privacy-first Pivot Chart Maker</title>
+  <rect width="64" height="64" rx="14" fill="#1f6feb"/>
+  <path d="M16 18h32v8H16zM16 30h14v16H16zM34 30h14v16H34z" fill="#ffffff"/>
+  <path d="M20 22h24M20 34h6M38 34h6M20 40h6M38 40h6" stroke="#14a7a5" stroke-width="3" stroke-linecap="round"/>
+</svg>

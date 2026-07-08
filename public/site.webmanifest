@@ -1,0 +1,21 @@
+{
+  "name": "Privacy-first Pivot Chart Maker",
+  "short_name": "Pivot Chart Maker",
+  "description": "Free privacy-first pivot chart maker for CSV and XLSX files.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fbff",
+  "theme_color": "#1f6feb",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml"
+    }
+  ]
+}
