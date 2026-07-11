@@ -1115,6 +1115,67 @@ th {
   line-height: 1.55;
 }
 
+.eyebrow {
+  color: #0f65dc !important;
+  font-size: 12px !important;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.guide-grid article,
+.guide-callout {
+  border: 1px solid #dfe7f2;
+  border-radius: 8px;
+  background: #f8fbff;
+}
+
+.guide-grid article {
+  padding: 17px;
+}
+
+.guide-grid article > span {
+  color: #0f65dc;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.guide-grid h3 {
+  margin-top: 7px;
+}
+
+.guide-grid p,
+.guide-callout p {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.guide-callout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  margin-top: 14px;
+  padding: 18px;
+}
+
+.guide-callout h3 {
+  margin-bottom: 7px;
+}
+
+.guide-button {
+  min-width: 220px;
+  min-height: 42px;
+}
+
 .faq-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1180,6 +1241,10 @@ th {
 
   .faq-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .guide-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -1257,6 +1322,10 @@ th {
     grid-template-columns: 1fr;
   }
 
+  .guide-callout {
+    grid-template-columns: 1fr;
+  }
+
   .contact-section a {
     justify-self: start;
   }
@@ -1324,6 +1393,10 @@ th {
   }
 
   .faq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guide-grid {
     grid-template-columns: 1fr;
   }
 }

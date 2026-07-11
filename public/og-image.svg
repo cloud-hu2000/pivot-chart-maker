@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">Privacy-first Pivot Chart Maker</title>
-  <desc id="desc">Free browser-based pivot table and pivot chart maker for CSV and XLSX files.</desc>
+  <title id="title">How to Create a Pivot Chart Online</title>
+  <desc id="desc">Free browser-based tool to create pivot tables and pivot charts from CSV and XLSX files.</desc>
   <rect width="1200" height="630" fill="#f8fbff"/>
   <rect x="72" y="70" width="1056" height="490" rx="28" fill="#ffffff" stroke="#d8e2ef" stroke-width="3"/>
-  <text x="120" y="170" fill="#0f172a" font-family="Inter, Arial, sans-serif" font-size="58" font-weight="800">Privacy-first Pivot Chart Maker</text>
+  <text x="120" y="170" fill="#0f172a" font-family="Inter, Arial, sans-serif" font-size="58" font-weight="800">How to Create a Pivot Chart</text>
   <text x="120" y="230" fill="#334155" font-family="Inter, Arial, sans-serif" font-size="28">Upload CSV or XLSX. Build pivot tables and charts locally in your browser.</text>
   <rect x="120" y="300" width="370" height="160" rx="16" fill="#edf5ff" stroke="#b8cdf1" stroke-width="2"/>
   <rect x="152" y="334" width="306" height="28" rx="6" fill="#1f6feb"/>

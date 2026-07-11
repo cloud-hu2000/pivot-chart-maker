@@ -48,9 +48,9 @@ ChartJS.register(
 );
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
-const MAX_ROWS = 10000;
-const MAX_COLUMNS = 80;
-const MAX_CELLS = 500000;
+const MAX_ROWS = 200;
+const MAX_COLUMNS = 30;
+const MAX_CELLS = MAX_ROWS * MAX_COLUMNS;
 const FILTER_PAGE_SIZE = 100;
 const TYPE_OPTIONS = ["text", "number", "date", "currency", "percent"];
 const TYPE_LABELS = {
@@ -749,7 +749,7 @@ export default function App() {
       const parsed = await parseFile(file);
       if (!parsed.rows.length) throw new Error("No data rows were detected.");
       if (parsed.rows.length > MAX_ROWS) {
-        setError(`This file has ${parsed.rows.length.toLocaleString()} rows. The browser tool supports up to 10,000 rows.`);
+        setError(`This file has ${parsed.rows.length.toLocaleString()} rows. The browser tool supports up to ${MAX_ROWS.toLocaleString()} rows.`);
         return;
       }
       if (parsed.columns.length > MAX_COLUMNS) {
@@ -1100,6 +1100,7 @@ export default function App() {
         <nav className="nav-links" aria-label="Primary navigation">
           <a href="#features">Features</a>
           <a href="#how-it-works">How It Works</a>
+          <a href="#pivot-chart-guide">Guide</a>
           <a href="#privacy">Privacy</a>
           <a href="#faq">FAQ</a>
           <a href="#contact">Contact</a>
@@ -1115,14 +1116,15 @@ export default function App() {
       </header>
 
       <section className="hero-section" id="top">
-        <h1>Build Pivot Charts Directly in Your Browser</h1>
+        <h1>How to Create a Pivot Chart Online</h1>
         <p>
-          Your data never leaves your device. Upload, pivot, visualize, and export all locally, privately, and securely.
+          Turn CSV or XLSX data into a pivot table and chart in minutes. This free pivot chart maker runs locally in your
+          browser, so your spreadsheet stays on your device.
         </p>
         <div className="hero-actions">
           <button className="primary-button" type="button" onClick={() => fileInputRef.current?.click()}>
             <CloudUpload size={20} />
-            Try the Tool
+            Create a Pivot Chart
           </button>
           <button className="secondary-button" type="button" onClick={loadSampleData}>
             <FileText size={20} />
@@ -1173,7 +1175,7 @@ export default function App() {
                 <Upload size={27} />
                 <strong>Drag and drop CSV or XLSX here</strong>
                 <span>or click to browse</span>
-                <small>Max 10MB, 10,000 rows, {MAX_COLUMNS} columns, {MAX_CELLS.toLocaleString()} cells.</small>
+                <small>Max 10MB, {MAX_ROWS.toLocaleString()} rows, {MAX_COLUMNS} columns, {MAX_CELLS.toLocaleString()} cells.</small>
               </label>
               <div className="file-chip">
                 <FileSpreadsheet size={18} />
@@ -1522,14 +1524,14 @@ export default function App() {
         </div>
       ) : null}
 
-      <section className="workflow-strip" id="how-it-works" aria-label="How Privacy-first Pivot Chart Maker works">
+      <section className="workflow-strip" id="how-it-works" aria-label="How to create a pivot chart">
         <article>
           <span className="step-number">1</span>
           <span className="step-icon">
             <Upload size={28} />
           </span>
           <div>
-            <h2>Upload CSV or XLSX</h2>
+            <h2>1. Upload CSV or XLSX data</h2>
             <p>Select a spreadsheet file and parse it locally in your browser.</p>
           </div>
         </article>
@@ -1540,7 +1542,7 @@ export default function App() {
             <Table2 size={28} />
           </span>
           <div>
-            <h2>Build a pivot table</h2>
+            <h2>2. Build a pivot table</h2>
             <p>Choose row fields, column fields, value fields, aggregation, and filters.</p>
           </div>
         </article>
@@ -1551,7 +1553,7 @@ export default function App() {
             <BarChart3 size={28} />
           </span>
           <div>
-            <h2>Export charts</h2>
+            <h2>3. Create and export your pivot chart</h2>
             <p>Download pivot tables as CSV or XLSX, or export the chart as PNG.</p>
           </div>
         </article>
@@ -1574,7 +1576,7 @@ export default function App() {
           </span>
           <div>
             <h2>Flexible aggregations</h2>
-            <p>Sum, Average, Count, Min, Max, Distinct Count, and more.</p>
+            <p>Summarize data with Sum, Average, or Count.</p>
             <span>Full control over your insights.</span>
           </div>
         </article>
@@ -1600,12 +1602,100 @@ export default function App() {
         </article>
       </section>
 
+      <section className="seo-section guide-section" id="pivot-chart-guide" aria-labelledby="pivot-chart-guide-title">
+        <div className="seo-section-heading">
+          <p className="eyebrow">Pivot chart tutorial</p>
+          <h2 id="pivot-chart-guide-title">How to Create a Pivot Chart from Your Data</h2>
+          <p>
+            A pivot chart turns a summarized pivot table into a visual answer. Instead of reading rows of sales, expenses,
+            inventory, or survey data, you can compare categories, spot trends over time, and share the result in a format
+            that is easier to understand. Use the free tool above when you need to create a pivot chart online from a CSV or
+            XLSX file without uploading the spreadsheet to a server.
+          </p>
+        </div>
+
+        <div className="guide-grid">
+          <article>
+            <span>Step 1</span>
+            <h3>Prepare a tidy source table</h3>
+            <p>
+              Put one descriptive header in every column, such as Region, Product, Order Date, Sales, or Quantity. Each row
+              should represent one record. Avoid merged cells, empty header rows, and totals mixed into the raw data; these
+              make it harder to group and summarize values accurately.
+            </p>
+          </article>
+          <article>
+            <span>Step 2</span>
+            <h3>Upload your CSV or XLSX file</h3>
+            <p>
+              Click <strong>Create a Pivot Chart</strong> or use the upload area above. The file is parsed in your browser.
+              After upload, review the detected field types. Dates should be dates, labels should be text, and columns such
+              as Sales should be numbers or currency before you build the pivot table.
+            </p>
+          </article>
+          <article>
+            <span>Step 3</span>
+            <h3>Choose the pivot table fields</h3>
+            <p>
+              Select the question you want to answer. For example, set Region as the row field, Category as the column field,
+              and Sales as the value field. Then choose Sum to compare total sales, Count to compare records, or Average to
+              compare typical values. Optional filters let you narrow the result to a period or segment.
+            </p>
+          </article>
+          <article>
+            <span>Step 4</span>
+            <h3>Pick the right pivot chart</h3>
+            <p>
+              Use a bar chart to compare categories, a line chart to show a date-based trend, or a pie chart when a small
+              number of categories make up one whole. Keep labels readable and avoid too many series. A focused pivot chart
+              communicates one comparison better than a crowded chart that tries to show everything.
+            </p>
+          </article>
+          <article>
+            <span>Step 5</span>
+            <h3>Review and export your result</h3>
+            <p>
+              Switch between the chart, pivot table, and data preview to verify the summary. When the totals and labels look
+              right, export the pivot chart as PNG for a presentation, or download the pivot table as CSV or XLSX for
+              continued analysis. You can reset the sample data and make another chart at any time.
+            </p>
+          </article>
+          <article>
+            <span>Excel alternative</span>
+            <h3>How to create a pivot chart in Excel</h3>
+            <p>
+              In Excel, select your source data, choose Insert &gt; PivotTable, place the fields in Rows, Columns, Values, and
+              Filters, then select PivotChart from the PivotTable Analyze tab. The same planning applies here: start with a
+              clean table, decide the comparison you need, and make sure the value field uses the correct aggregation.
+            </p>
+          </article>
+        </div>
+
+        <div className="guide-callout">
+          <div>
+            <h3>What is the difference between a pivot table and a pivot chart?</h3>
+            <p>
+              A pivot table groups and calculates the data; a pivot chart visualizes that grouped result. Create the pivot
+              table first, then use the chart to make the comparison clear. For example, a table can show sales by region and
+              category, while a clustered column chart immediately reveals which region leads in each category.
+            </p>
+          </div>
+          <button className="secondary-button guide-button" type="button" onClick={() => toolRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}>
+            Start Creating Your Pivot Chart
+          </button>
+        </div>
+      </section>
+
       <section className="seo-section" id="faq" aria-labelledby="faq-title">
         <div className="seo-section-heading">
-          <h2 id="faq-title">FAQ</h2>
-          <p>Quick answers for people comparing spreadsheet tools, pivot table builders, and local data analysis workflows.</p>
+          <h2 id="faq-title">Pivot Chart FAQ</h2>
+          <p>Quick answers about how to create a pivot chart, build a pivot table, and analyze spreadsheet data locally.</p>
         </div>
         <div className="faq-grid">
+          <article>
+            <h3>How do I create a pivot chart?</h3>
+            <p>Upload a clean CSV or XLSX file, select row, column, and value fields, choose an aggregation, then select a bar, line, or pie chart. Review the pivot table before exporting the chart.</p>
+          </article>
           <article>
             <h3>Is this pivot chart maker free?</h3>
             <p>Yes. The current browser tool is free to use for CSV and XLSX files within the listed size limits.</p>
@@ -1620,7 +1710,7 @@ export default function App() {
           </article>
           <article>
             <h3>Can I create pivot tables without Excel?</h3>
-            <p>Yes. You can upload a spreadsheet, choose fields, aggregate values, filter categories, and export the result without opening Excel.</p>
+            <p>Yes. You can create a pivot table and a chart from it by uploading a spreadsheet, choosing fields, aggregating values, filtering categories, and exporting the result without opening Excel.</p>
           </article>
           <article>
             <h3>What happens if my data has messy headers?</h3>
