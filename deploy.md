@@ -14,7 +14,7 @@ This project now includes the baseline SEO files needed for a public tool site:
 The production domain was not provided, so the SEO files currently use this placeholder:
 
 ```text
-https://pivotchartmaker.com/
+https://www.pivotchartmaker.org/
 ```
 
 Before deploying, replace that value everywhere if the final domain is different:
@@ -41,7 +41,7 @@ Recommended final path:
 After deployment:
 
 - Verify the production domain in Google Search Console.
-- Submit `https://YOUR_DOMAIN/sitemap.xml`.
+- Submit `https://www.pivotchartmaker.org/sitemap.xml`.
 - Test the homepage with Google's Rich Results Test and URL Inspection.
 - Test Open Graph rendering with LinkedIn Post Inspector, Facebook Sharing Debugger, or another card preview tool.
 

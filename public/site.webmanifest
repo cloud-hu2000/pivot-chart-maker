@@ -1,7 +1,7 @@
 {
-  "name": "Privacy-first Pivot Chart Maker",
+  "name": "Free Online Pivot Chart Maker",
   "short_name": "Pivot Chart Maker",
-  "description": "Free pivot chart maker: create a pivot table and chart from CSV or XLSX files locally in your browser.",
+  "description": "Create pivot tables and charts from CSV or XLSX files locally in your browser.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f8fbff",
