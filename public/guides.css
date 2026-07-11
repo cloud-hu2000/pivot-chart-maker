@@ -17,5 +17,11 @@ h3 { margin-top: 24px; font-size: 20px; }
 .button { display: inline-block; margin-top: 8px; padding: 11px 16px; border-radius: 7px; background: #1266d6; color: #fff; font-weight: 750; text-decoration: none; }
 .related { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
 .related a { display: block; padding: 16px; border: 1px solid #d7e4f1; border-radius: 8px; background: #fff; font-weight: 700; text-decoration: none; }
+.tutorial-figure { margin: 30px 0; overflow: hidden; border: 1px solid #d7e4f1; border-radius: 10px; background: #fff; box-shadow: 0 10px 24px rgba(23, 32, 51, .08); }
+.tutorial-figure img { display: block; width: 100%; height: auto; }
+.tutorial-figure figcaption { padding: 14px 18px; color: #475569; font-size: 14px; }
+.example-data { margin: 24px 0; padding: 20px; border-left: 4px solid #1266d6; background: #f0f7ff; }
+.example-data p { margin: 0 0 12px; }
+.example-data p:last-child { margin-bottom: 0; }
 footer { padding: 30px 24px; border-top: 1px solid #dce7f4; text-align: center; color: #64748b; }
 @media (max-width: 700px) { .site-header { align-items: flex-start; flex-direction: column; } .hero { padding-top: 42px; } .related { grid-template-columns: 1fr; } }

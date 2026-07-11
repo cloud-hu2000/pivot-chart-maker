@@ -1625,6 +1625,10 @@ export default function App() {
             <strong>How to turn a CSV into a pivot chart</strong>
             <span>Prepare a clean CSV file and create a focused visual summary.</span>
           </a>
+          <a href="/pivot-chart-examples.html">
+            <strong>Pivot chart examples</strong>
+            <span>Download a sales CSV and recreate a chart from a real worked example.</span>
+          </a>
         </div>
       </section>
 
