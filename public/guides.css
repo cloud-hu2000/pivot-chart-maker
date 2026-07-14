@@ -25,3 +25,48 @@ h3 { margin-top: 24px; font-size: 20px; }
 .example-data p:last-child { margin-bottom: 0; }
 footer { padding: 30px 24px; border-top: 1px solid #dce7f4; text-align: center; color: #64748b; }
 @media (max-width: 700px) { .site-header { align-items: flex-start; flex-direction: column; } .hero { padding-top: 42px; } .related { grid-template-columns: 1fr; } }
+
+/* FAQ guide page */
+.faq-guide-page { background: #f8fbff; }
+.faq-hero { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(280px, .75fr); gap: 44px; align-items: end; padding: 76px max(24px, calc((100% - 1080px) / 2)) 58px; background: radial-gradient(circle at 87% 20%, #d9ecff 0, transparent 29%), linear-gradient(135deg, #edf7ff, #fff 62%); }
+.faq-hero-copy .lede { margin-bottom: 0; }
+.quick-answer { padding: 24px; border: 1px solid #b9d8f7; border-radius: 16px; background: #fff; box-shadow: 0 18px 42px rgba(15, 95, 206, .12); }
+.quick-answer > span { display: inline-flex; padding: 4px 9px; border-radius: 999px; background: #e8f3ff; color: #0f5fce; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
+.quick-answer p { margin: 13px 0 4px; color: #334155; font-size: 16px; line-height: 1.6; }
+.faq-guide-main { width: min(100% - 48px, 980px); margin: 0 auto 76px; }
+.setup-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: -28px; overflow: hidden; border: 1px solid #d7e6f6; border-radius: 14px; background: #d7e6f6; box-shadow: 0 12px 28px rgba(23, 32, 51, .06); }
+.setup-strip div { padding: 24px; background: #fff; }
+.setup-number { display: block; margin-bottom: 12px; color: #0f5fce; font-size: 12px; font-weight: 900; letter-spacing: .08em; }
+.setup-strip strong { font-size: 17px; }
+.setup-strip p { margin: 6px 0 0; color: #64748b; font-size: 14px; line-height: 1.55; }
+.workflow-section, .choice-section, .questions-section { margin-top: 66px; }
+.section-intro { max-width: 700px; }
+.section-intro .eyebrow { margin-bottom: 7px; }
+.section-intro h2 { margin: 0; font-size: clamp(27px, 4vw, 36px); }
+.section-intro > p:last-child { margin: 12px 0 0; color: #475569; }
+.workflow-list { display: grid; gap: 0; margin: 30px 0 0; padding: 0; list-style: none; border: 1px solid #d7e4f1; border-radius: 14px; overflow: hidden; background: #fff; }
+.workflow-list li { display: grid; grid-template-columns: 46px 1fr; gap: 18px; padding: 22px 24px; border-bottom: 1px solid #e4edf6; }
+.workflow-list li:last-child { border-bottom: 0; }
+.workflow-list li > span { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: #e8f3ff; color: #0f5fce; font-weight: 850; }
+.workflow-list strong { font-size: 18px; }
+.workflow-list p { margin: 5px 0 0; color: #526174; }
+.chart-choice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; }
+.chart-choice-grid article { min-height: 230px; padding: 22px; border: 1px solid #d7e4f1; border-radius: 14px; background: #fff; }
+.chart-choice-grid h3 { margin: 18px 0 4px; font-size: 19px; }
+.chart-choice-grid p { margin: 0; color: #526174; font-size: 15px; line-height: 1.55; }
+.chart-symbol { display: block; position: relative; width: 50px; height: 36px; color: #0f5fce; }
+.chart-symbol.bars { border-bottom: 3px solid currentColor; background: linear-gradient(to top, currentColor 0 62%, transparent 62% 100%) 4px 100% / 9px 24px no-repeat, linear-gradient(to top, currentColor 0 98%, transparent 98% 100%) 20px 100% / 9px 30px no-repeat, linear-gradient(to top, currentColor 0 45%, transparent 45% 100%) 36px 100% / 9px 18px no-repeat; }
+.chart-symbol.line { border-bottom: 3px solid currentColor; background: linear-gradient(145deg, transparent 0 42%, currentColor 43% 48%, transparent 49% 100%), linear-gradient(28deg, transparent 0 55%, currentColor 56% 61%, transparent 62% 100%); }
+.chart-symbol.pie { width: 38px; height: 38px; border-radius: 50%; background: conic-gradient(#0f5fce 0 55%, #86bdf6 55% 78%, #d4e8fb 78% 100%); }
+.tip-note { margin-top: 18px; padding: 16px 18px; border-left: 4px solid #1266d6; border-radius: 0 10px 10px 0; background: #edf7ff; color: #334155; }
+.question-list { display: grid; gap: 10px; margin-top: 30px; }
+.question-list details { border: 1px solid #d7e4f1; border-radius: 10px; background: #fff; }
+.question-list summary { padding: 18px 46px 18px 20px; color: #172033; font-weight: 800; cursor: pointer; }
+.question-list details[open] summary { border-bottom: 1px solid #e4edf6; }
+.question-list p { margin: 0; padding: 16px 20px 19px; color: #526174; }
+.final-cta { display: flex; align-items: center; justify-content: space-between; gap: 28px; margin-top: 64px; padding: 32px; border-radius: 16px; background: #14365f; color: #fff; }
+.final-cta .eyebrow { color: #a8d0ff; }
+.final-cta strong { font-size: 25px; line-height: 1.2; }
+.final-cta p { max-width: 620px; margin: 8px 0 0; color: #dbeafe; }
+.final-cta .button { flex: 0 0 auto; margin: 0; background: #fff; color: #0f5fce; }
+@media (max-width: 700px) { .faq-hero { grid-template-columns: 1fr; gap: 28px; padding-top: 48px; } .setup-strip, .chart-choice-grid { grid-template-columns: 1fr; } .setup-strip { margin-top: -18px; } .workflow-section, .choice-section, .questions-section { margin-top: 50px; } .final-cta { align-items: flex-start; flex-direction: column; } .final-cta .button { width: 100%; text-align: center; } }

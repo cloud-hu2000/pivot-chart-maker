@@ -1610,8 +1610,8 @@ export default function App() {
         </div>
         <div className="resource-grid">
           <a href="/how-to-create-pivot-chart.html">
-            <strong>How to create a pivot chart online</strong>
-            <span>A complete five-step tutorial for CSV and XLSX data.</span>
+            <strong>How to create a pivot chart: FAQ</strong>
+            <span>Get a clear workflow plus practical answers for CSV and XLSX data.</span>
           </a>
           <a href="/create-pivot-chart-in-excel.html">
             <strong>How to create a pivot chart in Excel</strong>
