@@ -1115,6 +1115,25 @@ th {
   line-height: 1.55;
 }
 
+.pivot-table-longform {
+  max-width: 980px;
+}
+
+.seo-prose {
+  display: grid;
+  gap: 16px;
+}
+
+.seo-prose h3 {
+  margin-top: 10px;
+  font-size: 19px;
+}
+
+.seo-prose p {
+  font-size: 15px;
+  line-height: 1.72;
+}
+
 .eyebrow {
   color: #0f65dc !important;
   font-size: 12px !important;

@@ -535,7 +535,108 @@ function getInitialTypes() {
   return inferTypes(SAMPLE_ROWS, SAMPLE_COLUMNS);
 }
 
+function PivotTableSeoContent() {
+  return (
+    <section className="seo-section pivot-table-longform" aria-labelledby="pivot-table-guide-title">
+      <div className="seo-section-heading">
+        <p className="eyebrow">Free browser tool and practical guide</p>
+        <h2 id="pivot-table-guide-title">How to Use an Online Pivot Table Maker</h2>
+        <p>Use the online pivot table maker above to upload data, build a summary, inspect the result, and export it without leaving this page. This online pivot table maker keeps the full workflow together.</p>
+      </div>
+
+      <div className="seo-prose">
+        <p>An <strong>online pivot table maker</strong> turns a detailed spreadsheet into a compact answer to a business question. Instead of reading hundreds of transactions line by line, you can group them by region, category, month, or any other field, then calculate a total, average, or count. This <strong>online pivot table maker</strong> is ready to use above: upload a CSV or XLSX file, select your fields, and review the table and chart in one workspace.</p>
+
+        <h3>Start with a tidy source table</h3>
+        <p>Every <strong>online pivot table maker</strong> works best with a simple rectangular dataset. Put one unique label in each header cell, keep one record on each row, and avoid merged cells, subtotal rows, or blank lines inside the data. A sales file, for example, might include Order Date, Region, Category, Sales, and Quantity. The <strong>online pivot table maker</strong> reads those labels so you can decide how to group and calculate the data.</p>
+
+        <p>For a reliable result, make sure amount columns contain numbers rather than text. Dates should use a consistent format. Remove report titles above the headers and remove pre-calculated totals from the end of the range. These small checks help an <strong>online pivot table maker</strong> produce a summary you can trust. If your file is not ready, the sample data in this <strong>online pivot table maker</strong> is a safe way to learn the workflow first.</p>
+
+        <h3>Create a pivot table online in three decisions</h3>
+        <p>First, choose a row field such as Region, optionally choose a column field such as Category, then choose a value field and calculation. Sum adds numeric values, Average finds a typical value, and Count counts records. These decisions let the online pivot table maker answer questions such as "Which region generated the most sales?"</p>
+        {/* The legacy paragraph below contains damaged encoding; keep it out of the rendered page.
+        <p>First, choose a row field. This is the category listed down the left side of the result, such as Region. Second, optionally choose a column field, such as Category, to compare groups across the page. Third, choose a value field and calculation. In this <strong>online pivot table maker</strong>, Sum adds numeric values, Average finds a typical value, and Count counts records. Those three decisions let the <strong>online pivot table maker</strong> answer questions such as “Which region generated the most sales?”</p>
+
+        */}
+        <p>Filters make the answer more focused. You can use an <strong>online pivot table maker</strong> to look only at one year, one product family, or one customer segment before comparing totals. Check the number of included rows after filtering, then read the grand totals at the bottom of the table. A free online pivot table maker is most useful when it reduces a broad dataset to a specific, verifiable comparison rather than adding unnecessary complexity.</p>
+
+        <h3>Review the table before you share it</h3>
+        <p>The table is the evidence behind every visual. An <strong>online pivot table maker</strong> lets you switch between the chart, pivot table, and source-data preview, so you can confirm the calculation before exporting. Look for unexpected blanks, totals that seem too large, or categories that should be combined. If a value is missing, check the detected field type and ensure the source cell is truly numeric. This <strong>online pivot table maker</strong> makes those controls available next to the result.</p>
+
+        <p>Once the summary looks right, choose a chart only if it helps your audience compare values. Bar charts are useful for ranking regions or categories. Line charts are useful for time-based trends. Pie charts work only when there are a few clear parts of a whole. Because the <strong>online pivot table maker</strong> keeps the chart and summary together, you can compare the visualization with the exact figures before saving it. The online pivot table maker keeps that review step close to the export buttons.</p>
+
+        <h3>Free online pivot table maker, local processing</h3>
+        <p>This free online pivot table maker processes CSV and XLSX files in your browser. Your spreadsheet stays on your device while the <strong>online pivot table maker</strong> parses rows, calculates the pivot, and prepares exports. That is helpful when you need a quick analysis without installing desktop spreadsheet software or sending a working file to a third-party server. Refreshing the page clears the current working data from the tool.</p>
+
+        <p>You can export the completed summary as CSV or XLSX, and you can save the accompanying chart as PNG. This means an <strong>online pivot table maker</strong> can support both analysis and presentation: use the table for exact values, then use the visual in a slide, report, or email. The export includes the configuration and source data where appropriate, making the <strong>online pivot table maker</strong> useful for repeatable, transparent work.</p>
+
+        <h3>Common online pivot table maker questions</h3>
+        <p><strong>Can I create a pivot table online for free?</strong> Yes. This free online pivot table maker accepts CSV and XLSX files within the displayed browser limits. <strong>Do I need Excel?</strong> No. The online pivot table maker runs in a modern browser, so you can create a pivot table online without installing Excel. <strong>What should I calculate?</strong> Use Sum for totals such as revenue, Count for the number of orders, and Average for typical values such as order size.</p>
+
+        <p><strong>Can I make a chart too?</strong> Yes. The online pivot table maker creates the pivot table first and lets you view a matching bar, line, or pie chart in the same place. <strong>Is my data private?</strong> The online pivot table maker is designed to process your file locally in the browser. <strong>What if my data is messy?</strong> Start with the data preview, correct headers or types, and rebuild the summary. This online pivot table maker gives you a practical, no-install route from raw spreadsheet to checked result.</p>
+
+        <h3>Use the tool now</h3>
+        <p>Upload your file or load the sample data above to begin. This online pivot table maker combines the landing page, working tool, and result view so you do not have to switch between a tutorial and a separate application. Build the pivot, validate the table, export what you need, and return whenever you need to create a pivot table online. The online pivot table maker is available here whenever you need another summary.</p>
+      </div>
+    </section>
+  );
+}
+
+function PivotTableGeneratorSeoContent() {
+  return (
+    <section className="seo-section pivot-table-longform" aria-labelledby="pivot-table-generator-guide-title">
+      <div className="seo-section-heading">
+        <p className="eyebrow">One workspace for spreadsheet summaries</p>
+        <h2 id="pivot-table-generator-guide-title">A Pivot Table Generator for Clearer Decisions</h2>
+        <p>Upload a file, shape the summary, inspect the result, and export it without leaving this page.</p>
+      </div>
+
+      <div className="seo-prose">
+        <p>A pivot table generator turns a long list of transactions into a useful summary. Instead of manually sorting rows, you can group records by region, product, customer, or date and calculate a total, average, or count. This pivot table generator runs in your browser, so the landing page, analysis tool, and result view stay together. Start with the sample data before using your own CSV or XLSX file.</p>
+
+        <h3>Start with a clean source table</h3>
+        <p>Every pivot table generator works best with a simple rectangle: one header row, one record per row, and one value per cell. Give columns clear names such as Region, Category, Order Date, Sales, or Quantity. Avoid merged cells, blank rows, report titles above the headers, and pre-calculated subtotal rows. A tidy source lets the pivot table generator recognize dimensions and measures with less correction.</p>
+        <p>Store numbers as numbers where possible, and use one consistent date format. If a file contains currency symbols, percentages, or common date formats, this pivot table generator can detect and normalize many values in the browser. Use Data Preview to spot an empty header, copied total, or column interpreted as text.</p>
+
+        <h3>Build the first summary in three choices</h3>
+        <p>The row field controls labels down the left side. Choose Region to compare territories, Category to compare products, or Order Date to reveal a trend. The column field adds a second dimension across the top, such as Category within each Region. Then choose the value field that answers your question. A pivot table generator is most useful when rows define the comparison, columns add context, and values provide the measurement.</p>
+        <p>Choose Sum for revenue, units, or costs; Average for order size; and Count for the number of records. This simple pivot table generator keeps those calculations visible, making the result easier to explain. For a quick first pass, choose one row field and one value field, read the total, then add a column field only when it improves the comparison.</p>
+
+        <h3>Use an automatic pivot table generator for a first pass</h3>
+        <p>An automatic pivot table generator should get you from raw data to a sensible starting point without hiding important decisions. This tool detects likely field types, suggests a chart, and loads a sales example with a useful default layout. Change the row, column, value, date grouping, or aggregation and see the result update immediately. Each choice remains available for review.</p>
+        <p>For a date column, group by day, week, month, quarter, year, or the original date. For text columns, use distinct values as categories. For numeric columns, use the value as a measure or correct the detected type. This automatic pivot table generator shortens setup while leaving the final summary under your control.</p>
+
+        <h3>Keep a simple pivot table generator workflow</h3>
+        <p>A simple pivot table generator is easier to trust because the path from source to answer is visible. Ask one question, choose only the fields needed, check the included row count and grand total, then compare the table with the chart. This simple pivot table generator approach avoids crowded layouts that look impressive but are hard to verify.</p>
+        <p>Filters are useful when the dataset is broad. Add a filter for a year, region, category, or other dimension, select the values to keep, and review how many rows remain. A pivot table generator should make filtering a visible refinement. If the result looks surprising, clear filters, restore defaults, and compare the unfiltered total.</p>
+
+        <h3>Review the result before you export</h3>
+        <p>The table is the source of truth for the visual summary. Look for blank categories, missing measures, a small row count, or a total that does not match the source. When a number is missing, inspect the detected type and original value in the preview. This pivot table generator keeps the chart, pivot table, and data preview together so you can move between evidence and presentation.</p>
+        <p>When ready, export the pivot table as CSV or XLSX, or export the chart as PNG. The export step is part of the workflow: a good pivot table generator preserves the exact summary as well as the quick visual comparison. Refresh the page whenever you want to start a new local session.</p>
+
+        <h3>Why use a free pivot table generator online?</h3>
+        <p>A free pivot table generator is useful when you need a fast answer without installing desktop software or building formulas by hand. This tool accepts CSV and XLSX files within the displayed browser limits, parses them locally, and performs grouping and aggregation on your device. Your spreadsheet is not intentionally sent to a remote server. That makes a free pivot table generator practical for quick checks, internal reporting, and learning.</p>
+        <p>You do not need Excel to create a useful pivot table. You need a modern browser, a header row, and a question worth answering. Whether you call it a free pivot table generator, an automatic pivot table generator, or a simple pivot table generator, the result is fewer manual steps between raw rows and a checked summary.</p>
+
+        <h3>Pivot table generator questions</h3>
+        <p><strong>What does a pivot table generator do?</strong> It groups records by selected fields and calculates a value for each group. <strong>Can I use it for free?</strong> Yes. The free pivot table generator works in the browser without an account. <strong>Can I use CSV and Excel files?</strong> Yes, CSV and XLSX are supported. <strong>Can I make a chart?</strong> Yes, the pivot table generator can show a bar, line, or pie chart beside the summary.</p>
+        <p><strong>What is the best setup for beginners?</strong> A simple pivot table generator setup starts with one row field, one numeric value field, and Sum or Count. <strong>What if I want less setup?</strong> Try the automatic pivot table generator with sample data, then replace it with your file. <strong>Is my file private?</strong> The free pivot table generator processes spreadsheet contents locally; refreshing the page clears the working session.</p>
+
+        <h3>Use the pivot table generator now</h3>
+        <p>Click Use Sample Data to explore the default summary, or upload a CSV or XLSX file to begin. Adjust the fields until the answer is clear, validate the included rows and grand totals, then export the result. This pivot table generator is ready whenever you need to turn a spreadsheet into a concise view.</p>
+      </div>
+    </section>
+  );
+}
+
 export default function App() {
+  const isPivotTableGeneratorPage = window.location.pathname.endsWith("/pivot-table-generator.html");
+  const isPivotTableLandingPage = isPivotTableGeneratorPage || window.location.pathname.endsWith("/online-pivot-table-maker.html");
+  const toolName = isPivotTableGeneratorPage
+    ? "Pivot Table Generator"
+    : isPivotTableLandingPage
+      ? "Free Online Pivot Table Maker"
+      : "Free Online Pivot Chart Maker";
   const [fileName, setFileName] = useState("sales_sample.csv");
   const [rows, setRows] = useState(SAMPLE_ROWS);
   const [columns, setColumns] = useState(SAMPLE_COLUMNS);
@@ -1091,13 +1192,15 @@ export default function App() {
   return (
     <main className="site-shell">
       <header className="top-nav">
-        <a className="brand" href="#top" aria-label="Free Online Pivot Chart Maker">
+        <a className="brand" href="#top" aria-label={toolName}>
           <span className="brand-mark">
             <BarChart3 size={25} />
           </span>
           <span>Pivot Chart Maker</span>
         </a>
         <nav className="nav-links" aria-label="Primary navigation">
+          {!isPivotTableLandingPage ? <a href="/online-pivot-table-maker.html">Pivot Table Maker</a> : null}
+          {isPivotTableLandingPage ? <a href="#pivot-table-guide-title">Pivot table guide</a> : null}
           <a href="#features">Features</a>
           <a href="#how-it-works">How It Works</a>
           <a href="#resources">Guides</a>
@@ -1116,15 +1219,18 @@ export default function App() {
       </header>
 
       <section className="hero-section" id="top">
-        <h1>Free Online Pivot Chart Maker</h1>
+        <h1>{isPivotTableGeneratorPage ? "Pivot Table Generator" : isPivotTableLandingPage ? "Online Pivot Table Maker" : "Free Online Pivot Chart Maker"}</h1>
         <p>
-          Create pivot tables and pivot charts from CSV or XLSX data in minutes. This free online tool runs locally in your
-          browser, so your spreadsheet stays on your device.
+          {isPivotTableGeneratorPage
+            ? "Build a pivot table from CSV or XLSX data with a free, automatic workflow that stays simple from upload to export."
+            : isPivotTableLandingPage
+            ? "Create a pivot table online from CSV or XLSX data in minutes. This free online pivot table maker runs locally in your browser, so your spreadsheet stays on your device."
+            : "Create pivot tables and pivot charts from CSV or XLSX data in minutes. This free online tool runs locally in your browser, so your spreadsheet stays on your device."}
         </p>
         <div className="hero-actions">
           <button className="primary-button" type="button" onClick={() => fileInputRef.current?.click()}>
             <CloudUpload size={20} />
-            Create a Pivot Chart
+            {isPivotTableLandingPage ? "Create a Pivot Table" : "Create a Pivot Chart"}
           </button>
           <button className="secondary-button" type="button" onClick={loadSampleData}>
             <FileText size={20} />
@@ -1139,7 +1245,7 @@ export default function App() {
         <div className="tool-titlebar">
           <div className="tool-brand">
             <BarChart3 size={18} />
-            <strong>Free Online Pivot Chart Maker</strong>
+            <strong>{toolName}</strong>
           </div>
           <div className="view-tabs" role="tablist" aria-label="Output views">
             <button className={activeView === "chart" ? "active" : ""} type="button" onClick={() => setActiveView("chart")}>
@@ -1553,8 +1659,8 @@ export default function App() {
             <BarChart3 size={28} />
           </span>
           <div>
-            <h2>3. Create and export your pivot chart</h2>
-            <p>Download pivot tables as CSV or XLSX, or export the chart as PNG.</p>
+            <h2>{isPivotTableLandingPage ? "3. Review and export your pivot table" : "3. Create and export your pivot chart"}</h2>
+            <p>{isPivotTableLandingPage ? "Check the pivot table, then download it as CSV or XLSX or export its chart as PNG." : "Download pivot tables as CSV or XLSX, or export the chart as PNG."}</p>
           </div>
         </article>
       </section>
@@ -1601,6 +1707,8 @@ export default function App() {
           </div>
         </article>
       </section>
+
+      {isPivotTableGeneratorPage ? <PivotTableGeneratorSeoContent /> : isPivotTableLandingPage ? <PivotTableSeoContent /> : null}
 
       <section className="seo-section resource-section" id="resources" aria-labelledby="resources-title">
         <div className="seo-section-heading">
