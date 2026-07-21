@@ -1195,6 +1195,18 @@ th {
   min-height: 42px;
 }
 
+.chart-landing-longform {
+  max-width: 980px;
+}
+
+.chart-guide-callout .guide-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-decoration: none;
+}
+
 .resource-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

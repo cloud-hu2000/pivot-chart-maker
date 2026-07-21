@@ -531,8 +531,219 @@ function parseFile(file) {
   });
 }
 
-function getInitialTypes() {
-  return inferTypes(SAMPLE_ROWS, SAMPLE_COLUMNS);
+function getInitialTypes(rows = SAMPLE_ROWS, columns = SAMPLE_COLUMNS) {
+  return inferTypes(rows, columns);
+}
+
+const CHART_LANDING_PAGES = {
+  "/csv-to-bar-chart.html": {
+    keyword: "CSV to bar chart",
+    chart: "bar",
+    source: "CSV",
+    toolName: "CSV to Bar Chart",
+    h1: "CSV to Bar Chart",
+    cta: "Create a Bar Chart from CSV",
+    sampleFile: "csv-bar-chart-campaign-spend.csv",
+    sampleColumns: ["Campaign", "Leads", "Spend"],
+    sampleRows: [
+      { Campaign: "Spring search", Leads: "184", Spend: "9200" },
+      { Campaign: "Partner webinar", Leads: "146", Spend: "6100" },
+      { Campaign: "Product launch", Leads: "128", Spend: "7400" },
+      { Campaign: "Newsletter", Leads: "94", Spend: "2600" },
+      { Campaign: "Retargeting", Leads: "78", Spend: "3800" },
+      { Campaign: "Community event", Leads: "61", Spend: "4500" },
+    ],
+    rowField: "Campaign",
+    valueField: "Leads",
+    columnField: "",
+    intent: "compare",
+    sampleDownload: "/samples/csv-bar-chart-campaign-spend.csv",
+    sampleLabel: "campaign leads CSV",
+  },
+  "/csv-to-line-chart.html": {
+    keyword: "CSV to line chart",
+    chart: "line",
+    source: "CSV",
+    toolName: "CSV to Line Chart",
+    h1: "CSV to Line Chart",
+    cta: "Create a Line Chart from CSV",
+    sampleFile: "csv-line-chart-monthly-traffic.csv",
+    sampleColumns: ["Month", "Website Visits", "Trial Signups"],
+    sampleRows: [
+      { Month: "2026-01-01", "Website Visits": "12400", "Trial Signups": "418" },
+      { Month: "2026-02-01", "Website Visits": "13780", "Trial Signups": "466" },
+      { Month: "2026-03-01", "Website Visits": "15260", "Trial Signups": "522" },
+      { Month: "2026-04-01", "Website Visits": "14920", "Trial Signups": "508" },
+      { Month: "2026-05-01", "Website Visits": "16840", "Trial Signups": "576" },
+      { Month: "2026-06-01", "Website Visits": "18110", "Trial Signups": "628" },
+    ],
+    rowField: "Month",
+    valueField: "Website Visits",
+    columnField: "",
+    intent: "compare",
+    sampleDownload: "/samples/csv-line-chart-monthly-traffic.csv",
+    sampleLabel: "monthly traffic CSV",
+  },
+  "/csv-to-pie-chart.html": {
+    keyword: "CSV to pie chart",
+    chart: "pie",
+    source: "CSV",
+    toolName: "CSV to Pie Chart",
+    h1: "CSV to Pie Chart",
+    cta: "Create a Pie Chart from CSV",
+    sampleFile: "csv-pie-chart-support-requests.csv",
+    sampleColumns: ["Request Type", "Tickets"],
+    sampleRows: [
+      { "Request Type": "Account access", Tickets: "92" },
+      { "Request Type": "Billing", Tickets: "61" },
+      { "Request Type": "Product question", Tickets: "48" },
+      { "Request Type": "Bug report", Tickets: "35" },
+      { "Request Type": "Feature request", Tickets: "22" },
+    ],
+    rowField: "Request Type",
+    valueField: "Tickets",
+    columnField: "",
+    intent: "share",
+    sampleDownload: "/samples/csv-pie-chart-support-requests.csv",
+    sampleLabel: "support request CSV",
+  },
+  "/excel-to-bar-chart.html": {
+    keyword: "Excel to bar chart",
+    chart: "bar",
+    source: "Excel",
+    toolName: "Excel to Bar Chart",
+    h1: "Excel to Bar Chart",
+    cta: "Create a Bar Chart from Excel",
+    sampleFile: "excel-bar-chart-store-sales.xlsx",
+    sampleColumns: ["Store", "Net Sales", "Orders"],
+    sampleRows: [
+      { Store: "Harbor", "Net Sales": "84200", Orders: "912" },
+      { Store: "Central", "Net Sales": "76100", Orders: "846" },
+      { Store: "Riverside", "Net Sales": "69400", Orders: "775" },
+      { Store: "Northgate", "Net Sales": "63800", Orders: "704" },
+      { Store: "Hillview", "Net Sales": "57100", Orders: "661" },
+      { Store: "Market Square", "Net Sales": "48900", Orders: "590" },
+    ],
+    rowField: "Store",
+    valueField: "Net Sales",
+    columnField: "",
+    intent: "compare",
+    sampleDownload: "/samples/excel-bar-chart-store-sales.csv",
+    sampleLabel: "store sales CSV",
+  },
+  "/excel-to-line-chart.html": {
+    keyword: "Excel to line chart",
+    chart: "line",
+    source: "Excel",
+    toolName: "Excel to Line Chart",
+    h1: "Excel to Line Chart",
+    cta: "Create a Line Chart from Excel",
+    sampleFile: "excel-line-chart-monthly-revenue.xlsx",
+    sampleColumns: ["Month", "Monthly Revenue", "Target Revenue"],
+    sampleRows: [
+      { Month: "2026-01-01", "Monthly Revenue": "42000", "Target Revenue": "40000" },
+      { Month: "2026-02-01", "Monthly Revenue": "44700", "Target Revenue": "43000" },
+      { Month: "2026-03-01", "Monthly Revenue": "46100", "Target Revenue": "45000" },
+      { Month: "2026-04-01", "Monthly Revenue": "43800", "Target Revenue": "47000" },
+      { Month: "2026-05-01", "Monthly Revenue": "48900", "Target Revenue": "48000" },
+      { Month: "2026-06-01", "Monthly Revenue": "52600", "Target Revenue": "50000" },
+    ],
+    rowField: "Month",
+    valueField: "Monthly Revenue",
+    columnField: "",
+    intent: "compare",
+    sampleDownload: "/samples/excel-line-chart-monthly-revenue.csv",
+    sampleLabel: "monthly revenue CSV",
+  },
+  "/excel-to-pie-chart.html": {
+    keyword: "Excel to pie chart",
+    chart: "pie",
+    source: "Excel",
+    toolName: "Excel to Pie Chart",
+    h1: "Excel to Pie Chart",
+    cta: "Create a Pie Chart from Excel",
+    sampleFile: "excel-pie-chart-budget-allocation.xlsx",
+    sampleColumns: ["Department", "Budget"],
+    sampleRows: [
+      { Department: "Engineering", Budget: "420000" },
+      { Department: "Sales", Budget: "260000" },
+      { Department: "Marketing", Budget: "180000" },
+      { Department: "Customer success", Budget: "90000" },
+      { Department: "Operations", Budget: "50000" },
+    ],
+    rowField: "Department",
+    valueField: "Budget",
+    columnField: "",
+    intent: "share",
+    sampleDownload: "/samples/excel-pie-chart-budget-allocation.csv",
+    sampleLabel: "budget allocation CSV",
+  },
+};
+
+function ChartLandingSeoContent({ page }) {
+  const isBar = page.chart === "bar";
+  const isLine = page.chart === "line";
+  const isPie = page.chart === "pie";
+  const topic = isBar
+    ? "category comparison, ordered rankings, and differences between teams, products, channels, or locations"
+    : isLine
+      ? "date fields, monthly movement, and a trend that becomes meaningful only when time is in order"
+      : "part-to-whole relationships, percentage shares, and a short list of clearly different categories";
+  const setup = isBar
+    ? "Put the category name in one column and the number to compare in another. Sort the values when a ranking matters."
+    : isLine
+      ? "Put one consistent date field in the first column and one numeric measure in the next. Use one row per date or month."
+      : "Put one category label in the first column and one positive numeric total in the next. Keep the list to a handful of meaningful slices.";
+  const avoid = isBar
+    ? "too many categories, duplicated category names, and totals mixed into the source rows"
+    : isLine
+      ? "mixed date formats, unsorted dates, missing months that should be shown as zero, and date labels stored as plain text"
+      : "more than about six to eight slices, values that do not add up to a useful whole, and labels that repeat the same idea";
+  const outcome = isBar
+    ? "a scan-friendly ranking that makes the highest and lowest performers obvious"
+    : isLine
+      ? "a readable time series that makes acceleration, seasonality, and unusual months easier to investigate"
+      : "a compact share-of-total view that makes the largest contributors easy to explain";
+
+  return (
+    <section className="seo-section chart-landing-longform" id="chart-guide" aria-labelledby="chart-guide-title">
+      <div className="seo-section-heading">
+        <p className="eyebrow">Free {page.source.toLowerCase()} chart tool and guide</p>
+        <h2 id="chart-guide-title">Make a {page.keyword} without leaving this page</h2>
+        <p>This {page.keyword} workspace combines the upload screen, chart builder, data preview, and downloadable result. Start with the included {page.sampleLabel}, then replace it with your own file when you are ready.</p>
+      </div>
+
+      <div className="seo-prose">
+        <p>A <strong>{page.keyword}</strong> turns a small table into a visual answer instead of a list of values to read one by one. Use this <strong>{page.keyword}</strong> tool when the question is about {topic}. A focused <strong>{page.keyword}</strong> gives a reader the conclusion before they have to scan a spreadsheet. The tool works in a browser: choose a CSV or XLSX file, confirm the field names, and review the result in the same place. No account is required, and the working data remains on the device running the browser.</p>
+
+        <h3>Prepare data for a {page.keyword}</h3>
+        <p>For a reliable <strong>{page.keyword}</strong>, begin with a simple header row and one observation per row. {setup} Remove report titles, merged cells, blank separator rows, and pre-calculated grand totals before uploading. A tidy table lets the <strong>{page.keyword}</strong> tool identify text, number, currency, and date columns more accurately. Good source structure is the fastest way to make a <strong>{page.keyword}</strong> that needs little manual cleanup. The included example is deliberately small, so you can inspect every source value before you apply the same setup to a larger report.</p>
+
+        <h3>Build the chart and check the result</h3>
+        <p>Open the tool above and use the first button to upload your file. The page automatically selects the {isBar ? "bar" : isLine ? "line" : "pie"} chart for this <strong>{page.keyword}</strong> workflow. Next, choose the label field as the row field and the metric as the value field. Use Sum for totals, Count for records, or Average for a typical value. The live preview, pivot table, and data preview make a <strong>{page.keyword}</strong> easier to verify before you export it. That immediate result is why a <strong>{page.keyword}</strong> can move from raw file to review without a separate chart editor.</p>
+
+        <h3>Choose fields that answer one question</h3>
+        <p>The best <strong>{page.keyword}</strong> has a single clear purpose. A marketing team might compare campaign leads, follow monthly traffic, or show the distribution of ticket types. Keep the measure consistent and name the chart after the decision it supports. Filters can narrow the result to a region, product line, or time period. This focused approach keeps a <strong>{page.keyword}</strong> useful in a slide, email, or report instead of turning it into a decorative but unclear visual. It also makes a <strong>{page.keyword}</strong> easier to update when the next reporting period arrives.</p>
+
+        <h3>Common {page.keyword} mistakes to avoid</h3>
+        <p>Before sharing a <strong>{page.keyword}</strong>, check for {avoid}. Check that values are actually numeric, that each source record belongs to one category, and that an aggregation has not doubled a subtotal. If a result looks surprising, switch to Data Preview and compare a few records with the pivot table. That audit trail helps a <strong>{page.keyword}</strong> stand up to a second look. A careful review makes a <strong>{page.keyword}</strong> more trustworthy and gives other people a clear path back to the source data.</p>
+
+        <h3>Export a {page.keyword} in the format you need</h3>
+        <p>When the visual is correct, export the <strong>{page.keyword}</strong> as a PNG for a deck or report. You can also download the summarized data as CSV or XLSX for review. The exported table preserves the same grouping used by the <strong>{page.keyword}</strong>, which is useful when someone needs the numbers behind the visual. A reusable <strong>{page.keyword}</strong> export keeps the graphic and the supporting numbers together. Because the browser creates the result locally, you can repeat this workflow with another file without sending a spreadsheet to a third-party service.</p>
+
+        <h3>When this chart is the right choice</h3>
+        <p>Choose a <strong>{page.keyword}</strong> when you want {outcome}. If the question changes, change the chart rather than forcing unrelated data into the same picture: use a line for a time sequence, a bar chart for a ranked comparison, and a pie chart for a small, simple share of a whole. The chart selector remains available in the workspace, but this <strong>{page.keyword}</strong> page begins with the right choice for its job.</p>
+
+        <div className="guide-callout chart-guide-callout">
+          <div>
+            <h3>Try the {page.keyword} sample</h3>
+            <p>Load the unique example, see the selected chart type, and use the <strong>{page.keyword}</strong> workflow before testing the source file in another spreadsheet program.</p>
+          </div>
+          <a className="guide-button primary-button" href={page.sampleDownload} download>Download example CSV</a>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function PivotTableSeoContent() {
@@ -629,28 +840,92 @@ function PivotTableGeneratorSeoContent() {
   );
 }
 
+function ExcelPivotTableOnlineSeoContent() {
+  return (
+    <section className="seo-section pivot-table-longform" aria-labelledby="excel-pivot-table-online-guide-title">
+      <div className="seo-section-heading">
+        <p className="eyebrow">Browser-based Excel summary tool</p>
+        <h2 id="excel-pivot-table-online-guide-title">Excel Pivot Table Online: Build, Check, and Export a Summary</h2>
+        <p>Use the Excel pivot table online workspace above to turn a spreadsheet into a clear, shareable answer without changing applications.</p>
+      </div>
+
+      <div className="seo-prose">
+        <p>An <strong>Excel pivot table online</strong> workflow makes a long spreadsheet easier to understand. Instead of manually sorting hundreds of records, select the fields that describe the question, group matching rows, and calculate a total, average, or count. The <strong>Excel pivot table online</strong> workspace above combines upload, setup, result review, and export in one browser workspace. The Excel pivot table online approach keeps every part of the analysis close together. Start with the sample file or choose your own CSV or XLSX file and create a useful summary in a few focused steps.</p>
+
+        <h3>Prepare an Excel file for an Excel pivot table online workflow</h3>
+        <p>For a dependable <strong>Excel pivot table online</strong> result, begin with a plain rectangular data table. Use one header row, give every column a distinct name, and keep one observation on each following row. A sales worksheet might use Order Date, Region, Product, Sales, and Quantity. Avoid merged cells, blank rows inside the range, report titles above the headers, and manually added subtotal rows. This structure lets the <strong>Excel pivot table online</strong> tool identify the fields you can group or calculate. It is the simplest way to begin an Excel pivot table online project.</p>
+
+        <p>Check that monetary amounts and quantities are stored as numbers, not labels that only look numeric. Keep dates in a consistent format and remove totals copied from a previous report. A clean source file gives an <strong>Excel pivot table online</strong> analysis a reliable foundation. This Excel pivot table online preparation also makes repeat reports easier to compare. An Excel pivot table online table is easiest to audit when the input stays consistent. If you are unsure how your sheet will behave, load the sample data first: it shows a standard table layout and lets you experiment safely before opening a business file.</p>
+
+        <h3>Create a pivot table online from Excel in three choices</h3>
+        <p>First, choose the row field. This creates the labels down the left side of the summary, such as Region or Product Category. Next, add an optional column field when you need a second comparison, such as Category within each Region. Finally, select the value field and calculation. An <strong>Excel pivot table online</strong> setup can use Sum for sales, Count for orders, or Average for a typical order value. In an Excel pivot table online report, those choices turn raw data into a direct answer instead of a dense list of cells.</p>
+
+        <p>Use one row field and one value field for a quick first pass. Then add a column only when it clarifies the comparison. The <strong>Excel pivot table online</strong> view updates as you change the configuration, so you can see whether a layout is useful before exporting it. A focused Excel pivot table online configuration is easier to explain than a crowded report. This Excel pivot table online choice keeps the calculation focused on the decision. You can also filter a year, region, product family, or other dimension to focus the question. Always check how many source rows remain after filtering before drawing a conclusion from a smaller subset.</p>
+
+        <h3>Review an Excel pivot table online result, not just the chart</h3>
+        <p>A chart can make a pattern easy to spot, but the table contains the exact evidence. This <strong>Excel pivot table online</strong> page keeps the source preview, pivot table, and chart beside the controls. Each Excel pivot table online review should compare the grand total with your expectations, look for blank categories, and confirm that numeric fields were interpreted correctly. If a result seems unexpected, return to Data Preview, inspect the headers and original values, then change the field type or configuration.</p>
+
+        <p>The <strong>Excel pivot table online</strong> tool can recommend a bar, line, or pie chart after it builds the summary. For an Excel pivot table online chart, use a bar chart to compare categories, a line chart to show change over time, and a pie chart only for a small number of meaningful parts of a whole. The Excel pivot table online tool keeps that chart connected to its checked figures. The chart should make the checked result quicker to read, not replace it. Keeping both views together helps you catch an error before it reaches a presentation, report, or customer update.</p>
+
+        <h3>Pivot table without Excel desktop software</h3>
+        <p>You can make a pivot table without Excel installed. An <strong>Excel pivot table online</strong> tool works in a modern browser and accepts common spreadsheet formats, so it is useful on a shared computer, a lightweight device, or whenever you need a quick analysis away from your normal desktop setup. The Excel pivot table online browser workflow keeps that process available wherever you work. Upload the file, select the fields, and work with the result on the same page. No account is required for the workflow shown here.</p>
+
+        <p>This <strong>Excel pivot table online</strong> tool processes the spreadsheet locally in your browser. The browser reads the file, groups the records, renders the table and chart, and prepares downloads on your device. An Excel pivot table online session does not need a separate account or desktop installation. The Excel pivot table online process stays on your device while you work. That local approach is useful for a working spreadsheet that should not be sent to an external analysis service. Refreshing the page clears the active working session, giving you a simple reset between files.</p>
+
+        <h3>Export an XLSX pivot table generator result</h3>
+        <p>After checking the summary, export the pivot result as CSV or XLSX, or save the matching chart as PNG. The <strong>Excel pivot table online</strong> export options support different kinds of follow-up work: use XLSX when another analyst needs the table, CSV when a system needs simple data, and PNG when a visual belongs in a slide or email. Exporting from an Excel pivot table online workspace keeps the result view available until you are satisfied with the rows, columns, calculations, and filters.</p>
+
+        <p>An <strong>Excel pivot table online</strong> workflow is especially helpful when the source data changes frequently. Start from the same question each time, choose the same fields, and compare each newly exported summary with the previous one. Each Excel pivot table online report can follow that same transparent sequence. For recurring sales reviews, inventory checks, survey responses, or operational counts, this repeatable method removes manual sorting while keeping the calculation visible and easy to explain.</p>
+
+        <h3>Excel pivot table online questions</h3>
+        <p><strong>Can I create a pivot table online from Excel?</strong> Yes. Upload an XLSX file, choose row, column, and value fields, then select Sum, Average, or Count. The <strong>Excel pivot table online</strong> workspace produces a table and chart from those selections. This Excel pivot table online option is also an XLSX pivot table generator: it reads XLSX files and lets you export a completed summary as an XLSX file too.</p>
+
+        <p><strong>Do I need Excel to use it?</strong> No. The <strong>Excel pivot table online</strong> tool is a pivot table without Excel desktop software, although it works with Excel-compatible XLSX files. This Excel pivot table online option is available in a modern browser. <strong>Is my file private?</strong> The intended workflow processes it locally in your browser. <strong>Which calculation should I choose?</strong> Use Sum for totals, Count for records, and Average when you need a typical value. Begin with a simple question, review the output, and export only when the figures make sense.</p>
+
+        <h3>Use the Excel pivot table online tool now</h3>
+        <p>Click Upload File to start with your spreadsheet, or select Use Sample Data to explore a finished example. This <strong>Excel pivot table online</strong> page brings the guide, working tool, and result display together: configure the summary, validate it against the data preview, export it, and return whenever another spreadsheet needs a faster answer. The Excel pivot table online workflow is ready whenever you need it.</p>
+      </div>
+    </section>
+  );
+}
+
 export default function App() {
+  const chartLandingPage = CHART_LANDING_PAGES[window.location.pathname];
+  const isChartLandingPage = Boolean(chartLandingPage);
   const isPivotTableGeneratorPage = window.location.pathname.endsWith("/pivot-table-generator.html");
-  const isPivotTableLandingPage = isPivotTableGeneratorPage || window.location.pathname.endsWith("/online-pivot-table-maker.html");
-  const toolName = isPivotTableGeneratorPage
+  const isExcelPivotTableOnlinePage = window.location.pathname.endsWith("/excel-pivot-table-online.html");
+  const isPivotTableLandingPage =
+    isPivotTableGeneratorPage || isExcelPivotTableOnlinePage || window.location.pathname.endsWith("/online-pivot-table-maker.html");
+  const toolName = isChartLandingPage
+    ? chartLandingPage.toolName
+    : isExcelPivotTableOnlinePage
+    ? "Excel Pivot Table Online"
+    : isPivotTableGeneratorPage
     ? "Pivot Table Generator"
     : isPivotTableLandingPage
       ? "Free Online Pivot Table Maker"
       : "Free Online Pivot Chart Maker";
-  const [fileName, setFileName] = useState("sales_sample.csv");
-  const [rows, setRows] = useState(SAMPLE_ROWS);
-  const [columns, setColumns] = useState(SAMPLE_COLUMNS);
-  const [columnTypes, setColumnTypes] = useState(getInitialTypes);
-  const [rowFields, setRowFields] = useState(["Region"]);
-  const [columnField, setColumnField] = useState("Category");
-  const [valueField, setValueField] = useState("Sales");
+  const defaultRows = chartLandingPage?.sampleRows || SAMPLE_ROWS;
+  const defaultColumns = chartLandingPage?.sampleColumns || SAMPLE_COLUMNS;
+  const [fileName, setFileName] = useState(chartLandingPage?.sampleFile || "sales_sample.csv");
+  const [rows, setRows] = useState(defaultRows);
+  const [columns, setColumns] = useState(defaultColumns);
+  const [columnTypes, setColumnTypes] = useState(() => getInitialTypes(defaultRows, defaultColumns));
+  const [rowFields, setRowFields] = useState(chartLandingPage ? [chartLandingPage.rowField] : ["Region"]);
+  const [columnField, setColumnField] = useState(chartLandingPage ? chartLandingPage.columnField : "Category");
+  const [valueField, setValueField] = useState(chartLandingPage?.valueField || "Sales");
   const [aggregation, setAggregation] = useState("sum");
   const [filterFields, setFilterFields] = useState([]);
   const [filters, setFilters] = useState({});
   const [filterSearches, setFilterSearches] = useState({});
-  const [dateBuckets, setDateBuckets] = useState({ "Order Date": "month" });
-  const [chartOverride, setChartOverride] = useState("auto");
-  const [chartIntent, setChartIntent] = useState("compare");
+  const [dateBuckets, setDateBuckets] = useState(() =>
+    defaultColumns.reduce((acc, column) => {
+      if (getInitialTypes(defaultRows, defaultColumns)[column] === "date") acc[column] = "month";
+      return acc;
+    }, {})
+  );
+  const [chartOverride, setChartOverride] = useState(chartLandingPage?.chart || "auto");
+  const [chartIntent, setChartIntent] = useState(chartLandingPage?.intent || "compare");
   const [activeView, setActiveView] = useState("chart");
   const [isFullChartOpen, setIsFullChartOpen] = useState(false);
   const [isParsing, setIsParsing] = useState(false);
@@ -886,7 +1161,8 @@ export default function App() {
       setFilters({});
       setFilterSearches({});
       setAggregation("sum");
-      setChartOverride("auto");
+      setChartOverride(chartLandingPage?.chart || "auto");
+      setChartIntent(chartLandingPage?.intent || "compare");
       setActiveView("chart");
     } catch (parseError) {
       setError(parseError.message || "File parsing failed.");
@@ -896,24 +1172,38 @@ export default function App() {
   }
 
   function loadSampleData() {
-    const inferred = getInitialTypes();
-    setFileName("sales_sample.csv");
-    setRows(SAMPLE_ROWS);
-    setColumns(SAMPLE_COLUMNS);
+    const nextRows = chartLandingPage?.sampleRows || SAMPLE_ROWS;
+    const nextColumns = chartLandingPage?.sampleColumns || SAMPLE_COLUMNS;
+    const inferred = getInitialTypes(nextRows, nextColumns);
+    const nextDateBuckets = nextColumns.reduce((acc, column) => {
+      if (inferred[column] === "date") acc[column] = "month";
+      return acc;
+    }, {});
+    setFileName(chartLandingPage?.sampleFile || "sales_sample.csv");
+    setRows(nextRows);
+    setColumns(nextColumns);
     setColumnTypes(inferred);
-    setDateBuckets({ "Order Date": "month" });
-    setValueField("Sales");
-    setRowFields(["Region"]);
-    setColumnField("Category");
+    setDateBuckets(nextDateBuckets);
+    setValueField(chartLandingPage?.valueField || "Sales");
+    setRowFields([chartLandingPage?.rowField || "Region"]);
+    setColumnField(chartLandingPage ? chartLandingPage.columnField : "Category");
     setFilterFields([]);
     setFilters({});
     setFilterSearches({});
     setAggregation("sum");
-    setChartOverride("auto");
-    setChartIntent("compare");
+    setChartOverride(chartLandingPage?.chart || "auto");
+    setChartIntent(chartLandingPage?.intent || "compare");
     setActiveView("chart");
     setError("");
     toolRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  function startChartTool() {
+    if (chartLandingPage) {
+      setChartOverride(chartLandingPage.chart);
+      setChartIntent(chartLandingPage.intent);
+    }
+    fileInputRef.current?.click();
   }
 
   function reconcileFieldRoles(nextValueField) {
@@ -1199,7 +1489,8 @@ export default function App() {
           <span>Pivot Chart Maker</span>
         </a>
         <nav className="nav-links" aria-label="Primary navigation">
-          {!isPivotTableLandingPage ? <a href="/online-pivot-table-maker.html">Pivot Table Maker</a> : null}
+          {isChartLandingPage ? <a href="#chart-guide">{chartLandingPage.chart} chart guide</a> : null}
+          {!isPivotTableLandingPage && !isChartLandingPage ? <a href="/online-pivot-table-maker.html">Pivot Table Maker</a> : null}
           {isPivotTableLandingPage ? <a href="#pivot-table-guide-title">Pivot table guide</a> : null}
           <a href="#features">Features</a>
           <a href="#how-it-works">How It Works</a>
@@ -1212,36 +1503,40 @@ export default function App() {
           <button className="icon-button" type="button" aria-label="Toggle theme">
             <Sun size={18} />
           </button>
-          <button className="primary-button compact" type="button" onClick={() => fileInputRef.current?.click()}>
-            Try the Tool
+          <button className="primary-button compact" type="button" onClick={startChartTool}>
+            {isChartLandingPage ? `Make a ${chartLandingPage.chart} chart` : "Try the Tool"}
           </button>
         </div>
       </header>
 
       <section className="hero-section" id="top">
-        <h1>{isPivotTableGeneratorPage ? "Pivot Table Generator" : isPivotTableLandingPage ? "Online Pivot Table Maker" : "Free Online Pivot Chart Maker"}</h1>
+        <h1>{isChartLandingPage ? chartLandingPage.h1 : isExcelPivotTableOnlinePage ? "Excel Pivot Table Online" : isPivotTableGeneratorPage ? "Pivot Table Generator" : isPivotTableLandingPage ? "Online Pivot Table Maker" : "Free Online Pivot Chart Maker"}</h1>
         <p>
-          {isPivotTableGeneratorPage
+          {isChartLandingPage
+            ? `Create a ${chartLandingPage.chart} chart from ${chartLandingPage.source} data in one browser workspace. Upload your file, verify the summary, and export the finished chart without leaving this page.`
+            : isExcelPivotTableOnlinePage
+            ? "Create an Excel pivot table online from XLSX or CSV data. Build your summary, inspect the results, and export it locally from one browser workspace."
+            : isPivotTableGeneratorPage
             ? "Build a pivot table from CSV or XLSX data with a free, automatic workflow that stays simple from upload to export."
             : isPivotTableLandingPage
             ? "Create a pivot table online from CSV or XLSX data in minutes. This free online pivot table maker runs locally in your browser, so your spreadsheet stays on your device."
             : "Create pivot tables and pivot charts from CSV or XLSX data in minutes. This free online tool runs locally in your browser, so your spreadsheet stays on your device."}
         </p>
         <div className="hero-actions">
-          <button className="primary-button" type="button" onClick={() => fileInputRef.current?.click()}>
+          <button className="primary-button" type="button" onClick={startChartTool}>
             <CloudUpload size={20} />
-            {isPivotTableLandingPage ? "Create a Pivot Table" : "Create a Pivot Chart"}
+            {isChartLandingPage ? chartLandingPage.cta : isPivotTableLandingPage ? "Create a Pivot Table" : "Create a Pivot Chart"}
           </button>
           <button className="secondary-button" type="button" onClick={loadSampleData}>
             <FileText size={20} />
-            Use Sample Data
+            {isChartLandingPage ? "Load This Page's Example" : "Use Sample Data"}
           </button>
         </div>
 
         
       </section>
 
-      <section className="tool-frame" ref={toolRef} aria-label="Pivot chart maker">
+      <section className="tool-frame" ref={toolRef} aria-label={isChartLandingPage ? `${chartLandingPage.keyword} tool` : isExcelPivotTableOnlinePage ? "Excel pivot table online tool" : "Pivot chart maker"}>
         <div className="tool-titlebar">
           <div className="tool-brand">
             <BarChart3 size={18} />
@@ -1708,7 +2003,15 @@ export default function App() {
         </article>
       </section>
 
-      {isPivotTableGeneratorPage ? <PivotTableGeneratorSeoContent /> : isPivotTableLandingPage ? <PivotTableSeoContent /> : null}
+      {isChartLandingPage ? (
+        <ChartLandingSeoContent page={chartLandingPage} />
+      ) : isExcelPivotTableOnlinePage ? (
+        <ExcelPivotTableOnlineSeoContent />
+      ) : isPivotTableGeneratorPage ? (
+        <PivotTableGeneratorSeoContent />
+      ) : isPivotTableLandingPage ? (
+        <PivotTableSeoContent />
+      ) : null}
 
       <section className="seo-section resource-section" id="resources" aria-labelledby="resources-title">
         <div className="seo-section-heading">
