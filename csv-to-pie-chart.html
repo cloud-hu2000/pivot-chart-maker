@@ -21,5 +21,51 @@
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"CSV to Pie Chart Maker","url":"https://www.pivotchartmaker.org/csv-to-pie-chart.html","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"A free browser-based CSV to pie chart maker for part-to-whole comparisons.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
   </head>
-  <body><div id="root"><main><header><a href="/">Pivot Chart Maker</a><nav aria-label="Primary navigation"><a href="/csv-to-bar-chart.html">CSV Bar Chart</a><a href="/csv-to-line-chart.html">CSV Line Chart</a><a href="/online-pivot-table-maker.html">Pivot Table Maker</a><a href="/pivot-chart-examples.html">Examples</a></nav></header><section><h1>CSV to Pie Chart Maker</h1><p>Create a pie chart from CSV data when you need to show how a small number of categories contribute to one total. Upload a clean file, select a category and value, then verify that the shares add up before exporting the chart.</p><h2>Use a pie chart for a clear part-to-whole question</h2><p>Pie charts are most readable when there are only a few categories and the total matters. They can show the share of support requests by type, for example. When the task is comparing very similar values or a long list of groups, a bar chart is usually clearer.</p><p>Prepare the CSV with descriptive headers and one record per row. The tool summarizes values locally in your browser, allowing you to choose the calculation that fits the data without sending the file to a server.</p><h2>Related tools</h2><ul><li><a href="/csv-to-bar-chart.html">Create a bar chart from CSV data</a></li><li><a href="/csv-to-line-chart.html">Create a line chart from CSV data</a></li><li><a href="/excel-to-pie-chart.html">Create a pie chart from Excel data</a></li><li><a href="/online-pivot-table-maker.html">Build a pivot table online</a></li><li><a href="/how-to-create-pivot-chart.html">Learn how to create a pivot chart</a></li></ul></section></main></div><script type="module" src="/src/main.jsx"></script></body>
+  <body>
+    <div id="root">
+      <main>
+        <header>
+          <a href="/">Pivot Chart Maker</a>
+          <nav aria-label="Primary navigation"><a href="/csv-to-bar-chart.html">CSV Bar Chart</a><a href="/csv-to-line-chart.html">CSV Line Chart</a><a href="/online-pivot-table-maker.html">Pivot Table Maker</a><a href="/pivot-chart-examples.html">Examples</a></nav>
+        </header>
+        <article>
+          <h1>CSV to Pie Chart Maker</h1>
+          <p>Create a pie chart from CSV data when a reader needs to understand how a small number of categories contribute to one total. Upload a tidy file, select the category and value fields, inspect the underlying pivot table, and export the finished chart. The interactive tool on this page processes the file in your browser, so the normal workflow does not require sending the spreadsheet to an analysis server.</p>
+
+          <h2>When a CSV pie chart is the right choice</h2>
+          <p>A pie chart answers a part-to-whole question. It works well for a compact set of clearly different shares: a team's budget by department, support requests by issue type, or survey responses split across three to six options. The total must be meaningful. If the categories do not add up to a single whole, a pie chart can imply a relationship that is not there.</p>
+          <p>Keep the number of slices small. With many slices, labels collide and viewers have to compare angles rather than values. A bar chart is usually the better choice for a ranking, for ten or more categories, or for values that are close together. A line chart is better for a change over time. Choosing the chart after defining the question is more reliable than trying to force every CSV into a pie.</p>
+
+          <h2>Prepare the CSV before you upload it</h2>
+          <p>Use one header row and one observation per row. A simple source might have headers such as <code>Issue Type</code>, <code>Team</code>, <code>Opened Date</code>, and <code>Tickets</code>. Avoid title rows above the headers, merged cells copied from a report, blank separator rows, and grand totals that were calculated in advance. Those extras can be treated as records and make the resulting shares misleading.</p>
+          <p>Make sure the value column contains real numbers. Currency signs, commas, and percentages can be interpreted differently across spreadsheets, so preview the field after uploading. If the source file has individual transactions rather than pre-calculated values, use <strong>Count</strong> to show records per category. If it contains amounts such as revenue, cost, or quantity, use <strong>Sum</strong>. Use <strong>Average</strong> only when the question is about a typical amount per category rather than each category's contribution to the total.</p>
+
+          <h2>Create a pie chart from CSV data step by step</h2>
+          <ol>
+            <li>Upload a CSV file or load the example data to see a completed setup.</li>
+            <li>Check the Data Preview and confirm that headers, categories, and numbers were read correctly.</li>
+            <li>Select the field that names each slice as the row field. For example, choose <em>Issue Type</em>.</li>
+            <li>Select the numeric field to summarize, then choose Sum, Count, or Average based on the question.</li>
+            <li>Choose the Pie chart option and review the pivot table before exporting the PNG, CSV, or XLSX result.</li>
+          </ol>
+          <p>The pivot table is an important check, not an optional extra. Its values should add up to the total you expect from the source file. If a slice is unexpectedly large, look for a copied subtotal, a duplicate row, or a numeric value that was stored as text. If the total is correct but the distribution is hard to read, combine genuinely related categories in the original dataset or use a bar chart instead.</p>
+
+          <h2>Make the chart honest and easy to scan</h2>
+          <p>Give the chart a title that names both the subject and the period, such as “Support requests by type — July 2026.” Use descriptive category names rather than internal abbreviations. The most useful pie charts have a visible total, a limited set of slices, and a clear legend. Do not use a pie chart to suggest that a small difference is meaningful when the source data is incomplete or when values overlap.</p>
+          <p>For a monthly report, it can help to keep the category definitions the same from one export to the next. That makes a change in share easier to interpret. However, the current chart should still be based on a fresh checked pivot table. A visual is a summary of a calculation, and the calculation must remain traceable to the CSV rows behind it.</p>
+
+          <h2>Common CSV-to-pie-chart problems</h2>
+          <p><strong>Too many slices:</strong> filter the source to the most useful categories only when that limitation is clearly labeled, or change to a bar chart. <strong>Blank or “Unknown” categories:</strong> correct or remove incomplete source rows before sharing the result. <strong>Shares do not look right:</strong> check that a total row was not included and that the aggregation matches the field. <strong>Dates appear as separate slices:</strong> group the data by a meaningful category first; dates are usually better represented with a line chart.</p>
+          <p><strong>Values are nearly equal:</strong> use a bar chart so readers can compare lengths accurately. <strong>Data contains sensitive information:</strong> remove personal identifiers and confidential columns before creating any chart intended for distribution. The local browser workflow reduces unnecessary transfer, but it does not replace your organization's data-handling rules.</p>
+
+          <h2>Export and share the checked result</h2>
+          <p>Once the table and chart answer the question, export a PNG for slides or a report. Export the pivot table as CSV or XLSX when another person needs to verify the figures. Keeping the visualization and its summarized data together helps a recipient understand both the pattern and the evidence behind it. If you later update the source CSV, repeat the same field choices and compare the new total before treating the charts as comparable.</p>
+
+          <h2>Related tools and guides</h2>
+          <ul><li><a href="/csv-to-bar-chart.html">Create a bar chart from CSV data</a></li><li><a href="/csv-to-line-chart.html">Create a line chart from CSV data</a></li><li><a href="/excel-to-pie-chart.html">Create a pie chart from Excel data</a></li><li><a href="/online-pivot-table-maker.html">Build a pivot table online</a></li><li><a href="/how-to-create-pivot-chart.html">Learn how to create a pivot chart</a></li><li><a href="/about.html">About Pivot Chart Maker</a></li><li><a href="/privacy-policy.html">Privacy Policy</a></li></ul>
+        </article>
+      </main>
+    </div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>

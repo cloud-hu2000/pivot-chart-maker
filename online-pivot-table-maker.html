@@ -43,17 +43,37 @@
         </header>
         <section id="online-pivot-table-maker">
           <h1>Online Pivot Table Maker</h1>
-          <p>Create a pivot table online from a CSV or XLSX file. The interactive tool runs in your browser, so you can group records, calculate totals, and export the result without installing spreadsheet software.</p>
-          <h2>Build a clear pivot table from a clean source file</h2>
-          <p>Start with one header row and one record per row. Choose the field that should label rows, add a column field only when it makes the comparison easier to read, then select a numeric value and an aggregation such as Sum, Average, or Count. Review the resulting table before using it in a report or chart.</p>
-          <p>For example, a sales file can use Region as rows, Category as columns, and Sales as the value. This creates a compact view of each category total by region. You can then export the summary or turn it into a chart.</p>
-          <h2>Related tools and guides</h2>
+          <p>Create a pivot table online from a CSV or XLSX file. The interactive tool runs in your browser, allowing you to group records, calculate totals, review the source data, create a matching chart, and export the result without installing spreadsheet software. Start with a clear question such as “Which region generated the most sales?” rather than adding fields simply because they are available.</p>
+          <h2>What an online pivot table maker does</h2>
+          <p>A pivot table turns a long list of detailed rows into a compact, checkable summary. Instead of manually filtering transactions one at a time, choose a field that defines the groups, a value that should be calculated, and an aggregation. For a sales file, Region can label the rows, Category can label the columns, and Sales can be added with Sum. The resulting grid makes it easier to see both individual category totals and the overall pattern.</p>
+          <p>The table should remain the source of truth for a chart. A bar chart can make a regional comparison quick to read, while the table supplies the exact figures. When a result matters for a report or decision, inspect the table first and make sure the grand total, included row count, and category names match the original data.</p>
+          <h2>Prepare a clean source file</h2>
+          <p>Start with one header row, one record per row, and one value in each cell. Use clear unique headers such as Order Date, Region, Category, Sales, and Quantity. Remove report titles above the header, blank separator rows, merged cells, and pre-calculated subtotal or grand-total rows. Those report-layout elements are useful to a reader, but they are not data records and can distort a pivot calculation.</p>
+          <p>Check numeric fields before uploading. Revenue, quantities, and costs should be stored as numbers rather than as labels that happen to look numeric. Keep dates in a consistent format. If the preview shows a field as text when it should be a number or date, correct the source or change the detected type before trusting the summary. A tidy source table is the quickest way to avoid a confusing output.</p>
+          <h2>Build a pivot table in three decisions</h2>
+          <ol>
+            <li>Choose a row field. This is the category listed down the left side, such as Region, Product, or Month.</li>
+            <li>Optionally choose a column field. Add one only when a second comparison, such as Category within each Region, helps answer the question.</li>
+            <li>Choose a value field and calculation. Use Sum for totals, Count for records, and Average for a typical value.</li>
+          </ol>
+          <p>Begin with the simplest useful configuration: one row field and one numeric value field. Add a column only if it reveals a useful relationship. A crowded table can hide the very pattern it was meant to explain. Filters are valuable when they narrow an explicit question, for example to one year, one product family, or a specific region. After filtering, always note how many rows remain and compare the new total with the unfiltered one.</p>
+          <h2>Check the result before you export</h2>
+          <p>Unexpected values usually have an understandable cause. A large number can come from a source subtotal being counted a second time. Missing numbers can come from a value stored as text. A blank category can reflect missing data rather than a real business segment. Use the Data Preview to inspect a few original rows, then compare them with the pivot table. If the question is about the number of orders, Count may be correct even if a Sales column exists; if the question is about total revenue, Sum of Sales is usually the right choice.</p>
+          <p>Once the table is checked, choose a chart that matches the data. Use bars to compare categories, lines to show a trend over time, and pie charts only for a small number of meaningful parts of one whole. A chart should make a checked result easier to communicate, not replace the calculation. Export the chart as PNG for a presentation and export the pivot table as CSV or XLSX when someone needs the figures behind the visual.</p>
+          <h2>Local browser processing and privacy</h2>
+          <p>This tool is designed to parse, aggregate, render, and export the spreadsheet in the browser on your device. The active file data is used while you work and is cleared from the tool's active session when the page is refreshed. That local workflow is useful for quick analysis, but you should still follow your organization's rules for confidential or personal information and remove columns that do not belong in a shared chart.</p>
+          <h2>Common pivot table questions</h2>
+          <p><strong>Do I need Excel?</strong> No. This browser tool accepts CSV and XLSX files. <strong>Which calculation should I use?</strong> Use Sum for a total, Count for a number of records, and Average for a typical amount. <strong>Why does the total look wrong?</strong> Look for subtotal rows, duplicated records, or a field that was read as text. <strong>Can I make a chart too?</strong> Yes; after checking the pivot table, select a bar, line, or pie chart that fits the comparison.</p>
+          <h2>Related tools, guides, and policies</h2>
           <ul>
             <li><a href="/pivot-table-generator.html">Use the Pivot Table Generator</a></li>
             <li><a href="/excel-pivot-table-online.html">Create an Excel pivot table online</a></li>
             <li><a href="/csv-to-bar-chart.html">Make a bar chart from CSV data</a></li>
             <li><a href="/how-to-create-pivot-chart.html">Learn how to create a pivot chart</a></li>
             <li><a href="/pivot-table-vs-pivot-chart.html">Compare pivot tables and pivot charts</a></li>
+            <li><a href="/about.html">About Pivot Chart Maker</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="/privacy-policy.html">Privacy Policy</a></li>
           </ul>
         </section>
       </main>

@@ -889,6 +889,23 @@ function ExcelPivotTableOnlineSeoContent() {
   );
 }
 
+function SiteFooter() {
+  return (
+    <footer className="site-footer">
+      <div>
+        <a className="footer-brand" href="/">Pivot Chart Maker</a>
+        <p>A free browser-based workspace for making pivot tables and charts from CSV and XLSX files.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+      </nav>
+      <p className="footer-note">© {new Date().getFullYear()} Pivot Chart Maker</p>
+    </footer>
+  );
+}
+
 export default function App() {
   const chartLandingPage = CHART_LANDING_PAGES[window.location.pathname];
   const isChartLandingPage = Boolean(chartLandingPage);
@@ -1497,7 +1514,8 @@ export default function App() {
           <a href="#resources">Guides</a>
           <a href="#privacy">Privacy</a>
           <a href="#faq">FAQ</a>
-          <a href="#contact">Contact</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
         </nav>
         <div className="nav-actions">
           <button className="icon-button" type="button" aria-label="Toggle theme">
@@ -2118,6 +2136,7 @@ export default function App() {
             The app keeps uploaded rows in browser memory while you work. Refreshing the page clears the current session.
             Exported files are generated on your device.
           </p>
+          <p><a href="/privacy-policy.html">Read the full privacy policy, including cookies and third-party advertising information.</a></p>
         </div>
       </section>
 
@@ -2128,6 +2147,8 @@ export default function App() {
         </div>
         <a href="mailto:cloudhu2000@gmail.com">cloudhu2000@gmail.com</a>
       </section>
+
+      <SiteFooter />
     </main>
   );
 }
