@@ -10,6 +10,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: `${projectRoot}/index.html`,
+        onlinePivotTableMaker: `${projectRoot}/online-pivot-table-maker.html`,
         pivotTableGenerator: `${projectRoot}/pivot-table-generator.html`,
         excelPivotTableOnline: `${projectRoot}/excel-pivot-table-online.html`,
         csvToBarChart: `${projectRoot}/csv-to-bar-chart.html`,

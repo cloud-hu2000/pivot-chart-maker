@@ -2040,6 +2040,30 @@ export default function App() {
             <strong>Pivot chart examples</strong>
             <span>Download a sales CSV and recreate a chart from a real worked example.</span>
           </a>
+          <a href="/csv-to-bar-chart.html">
+            <strong>CSV to bar chart</strong>
+            <span>Compare CSV categories and rankings with a focused bar chart.</span>
+          </a>
+          <a href="/csv-to-line-chart.html">
+            <strong>CSV to line chart</strong>
+            <span>Turn date-based CSV data into a clear time-series chart.</span>
+          </a>
+          <a href="/csv-to-pie-chart.html">
+            <strong>CSV to pie chart</strong>
+            <span>Show a small set of CSV categories as shares of a total.</span>
+          </a>
+          <a href="/excel-to-bar-chart.html">
+            <strong>Excel to bar chart</strong>
+            <span>Create a category comparison from an XLSX or CSV file.</span>
+          </a>
+          <a href="/excel-to-line-chart.html">
+            <strong>Excel to line chart</strong>
+            <span>Explore time trends from an Excel-compatible spreadsheet.</span>
+          </a>
+          <a href="/excel-to-pie-chart.html">
+            <strong>Excel to pie chart</strong>
+            <span>Visualize a concise part-to-whole summary from Excel data.</span>
+          </a>
         </div>
       </section>
 
