@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      7 Common Pivot Table Mistakes and How to Fix Them | Pivot Chart Maker
+    </title>
+    <meta
+      name="description"
+      content="Find and fix common pivot table errors, from duplicated totals and text numbers to misleading filters and chart choices."
+    />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://www.pivotchartmaker.org/pivot-table-mistakes.html"
+    />
+    <link rel="stylesheet" href="/guides.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "7 Common Pivot Table Mistakes and How to Fix Them",
+        "mainEntityOfPage": "https://www.pivotchartmaker.org/pivot-table-mistakes.html",
+        "publisher": { "@type": "Organization", "name": "Pivot Chart Maker" }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/">Pivot Chart Maker</a>
+      <nav aria-label="Primary navigation">
+        <a href="/">Free tool</a
+        ><a href="/how-to-create-pivot-chart.html">How-to guide</a
+        ><a href="/clean-data-for-pivot-charts.html">Data cleaning</a
+        ><a href="/about.html">About</a>
+      </nav>
+    </header>
+    <section class="hero">
+      <p class="eyebrow">Troubleshooting guide</p>
+      <h1>7 common pivot table mistakes and how to fix them</h1>
+      <p class="lede">
+        A pivot table can calculate exactly what it is asked to calculate—and
+        still give the wrong answer to your real question. Check these issues
+        before sharing a chart.
+      </p>
+    </section>
+    <main>
+      <h2>1. Including subtotal or grand-total rows</h2>
+      <p>
+        Source exports often include a final Total row or section subtotals. A
+        pivot will treat them as additional records and count them again. Remove
+        every calculated row from the source range, then compare the new pivot
+        grand total with a simple independent total from the source. If a result
+        is suspiciously high, this is the first thing to check.
+      </p>
+      <h2>2. Treating numbers as text</h2>
+      <p>
+        A value can look like a number while being stored as text because of an
+        import, a leading apostrophe, an unusual currency symbol, or mixed
+        content in the column. Text values may be excluded from a sum or grouped
+        unpredictably. Inspect the data preview, standardize the column, and
+        ensure the calculated field contains real numeric values. Do not use a
+        count merely to make missing numeric data appear in the result; that
+        answers a different question.
+      </p>
+      <h2>3. Grouping inconsistent category names</h2>
+      <p>
+        Text grouping is literal. A trailing space, different capitalization, or
+        an old product name may create separate groups. Clean the source values
+        before building the pivot. Keep an explicit “Unknown” category only when
+        it is meaningful to show missing classification. This is especially
+        important for a chart because small, accidental categories clutter the
+        legend and can distract from the real pattern.
+      </p>
+      <h2>4. Using the wrong aggregation</h2>
+      <p>
+        Sum answers “how much in total?”, Count answers “how many records?”, and
+        Average answers “what is a typical value?” They should not be
+        substituted casually. Counting invoice lines does not necessarily count
+        invoices; averaging a total revenue column does not show total revenue.
+        Write the question first, name the unit in the chart title, and check
+        that the selected measure and aggregation match it.
+      </p>
+      <h2>5. Forgetting an active filter</h2>
+      <p>
+        Filters are useful but easy to overlook. A regional or date filter can
+        make a result appear to contradict a previous report when it simply has
+        a different scope. Check the included-row count, document the reporting
+        period, and include important filters in the title or note. For
+        recurring reports, reuse a documented configuration so the comparison
+        stays fair.
+      </p>
+      <h2>6. Looking only at the chart</h2>
+      <p>
+        A chart is a visual summary, not the calculation itself. Check the pivot
+        table before exporting: test a large group, a small group, and the grand
+        total against source rows. The table will reveal blank categories,
+        outliers, and a bad aggregation more readily than the graphic. Keep the
+        summary with the exported chart when someone else needs to verify the
+        result.
+      </p>
+      <h2>7. Choosing a chart that does not fit the question</h2>
+      <p>
+        Use bars to compare categories, lines to show values over a meaningful
+        sequence of time, and pies only for a few parts of one whole. A chart
+        type cannot fix an unclear question or untidy source data. If labels are
+        long or values are close, bars are generally easier to read than slices.
+        When exact numbers matter most, a table may be the best primary output.
+      </p>
+      <aside class="callout">
+        <strong>Use a repeatable verification routine.</strong>
+        <p>
+          Inspect the data preview, set fields deliberately, check the pivot
+          table, then export a chart.
+        </p>
+        <a class="button" href="/">Create a checked pivot chart</a>
+      </aside>
+      <h2>Related guides</h2>
+      <div class="related">
+        <a href="/clean-data-for-pivot-charts.html"
+          >Clean data for pivot charts</a
+        ><a href="/choosing-a-chart-type.html">Choose a chart type</a
+        ><a href="/csv-to-pivot-chart.html">Turn CSV into a pivot chart</a
+        ><a href="/pivot-chart-examples.html">Pivot chart example</a>
+      </div>
+      <h2>Use the same checks every time</h2>
+      <p>A repeatable sequence is more reliable than trying to spot every problem visually: prepare one rectangular source table, inspect the preview, choose fields for a written question, verify the pivot values, then select the chart. Keep the reporting period and important filters visible. That process makes a later correction straightforward because you can identify whether the issue began in the source, the configuration, or the presentation.</p>
+      <p>When another person needs to review the result, share the summarized table alongside the chart and retain the cleaned source copy. That makes it possible to trace a number back to the selected records without recreating the entire analysis from memory, even after the reporting period has closed and the original workbook has changed.</p>
+    </main>
+    <footer>
+      © 2026 Pivot Chart Maker · <a href="/about.html">About</a> ·
+      <a href="/contact.html">Contact</a> ·
+      <a href="/privacy-policy.html">Privacy Policy</a> ·
+      <a href="/terms-of-use.html">Terms of Use</a>
+    </footer>
+  </body>
+</html>

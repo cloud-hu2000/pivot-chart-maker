@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      How to Clean Data for a Pivot Table and Chart | Pivot Chart Maker
+    </title>
+    <meta
+      name="description"
+      content="A practical checklist for cleaning CSV and Excel data before creating a pivot table or pivot chart."
+    />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://www.pivotchartmaker.org/clean-data-for-pivot-charts.html"
+    />
+    <link rel="stylesheet" href="/guides.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "How to Clean Data for a Pivot Table and Chart",
+        "mainEntityOfPage": "https://www.pivotchartmaker.org/clean-data-for-pivot-charts.html",
+        "publisher": { "@type": "Organization", "name": "Pivot Chart Maker" }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/">Pivot Chart Maker</a>
+      <nav aria-label="Primary navigation">
+        <a href="/">Free tool</a
+        ><a href="/how-to-create-pivot-chart.html">How-to guide</a
+        ><a href="/pivot-chart-examples.html">Examples</a
+        ><a href="/about.html">About</a>
+      </nav>
+    </header>
+    <section class="hero">
+      <p class="eyebrow">Data preparation guide</p>
+      <h1>How to clean data before creating a pivot table or chart</h1>
+      <p class="lede">
+        Most confusing pivot-chart results begin in the source file. Use this
+        checklist to turn an export or worksheet into a small, reliable data
+        table.
+      </p>
+    </section>
+    <main>
+      <h2>Start with a table, not a report layout</h2>
+      <p>
+        A pivot table expects records. Each row should describe one transaction,
+        event, person, product, or other observation; each column should
+        describe one property of that record. A sales export might have Order
+        Date, Region, Category, Sales, and Quantity. That structure is different
+        from a presentation-ready report with a title at the top, merged
+        headings, blank spacing rows, and a grand total at the bottom. Keep the
+        report layout in a separate sheet or remove it from the upload copy.
+      </p>
+      <p>
+        Use one header row and make every header unique. Repeated names such as
+        “Amount” can make field selection ambiguous, while blank names make it
+        difficult to know what the tool is grouping. Prefer concise labels that
+        state the data, such as “Order Date” rather than “Date” when several
+        dates exist. If a worksheet contains several independent tables, export
+        each one separately rather than selecting a large range that includes
+        them all.
+      </p>
+      <h2>Remove rows that are already calculations</h2>
+      <p>
+        Subtotal and grand-total rows are a frequent cause of inflated pivot
+        totals. They summarize records that are already present, so adding them
+        again produces double counting. Remove total rows, percentage summaries,
+        section headers, and notes before creating the pivot. A similar problem
+        appears when a monthly export contains cumulative totals in addition to
+        individual transactions; decide which level is the true source record
+        and use only that level.
+      </p>
+      <p>
+        Also look for duplicate records. Duplicates are not always errors: two
+        identical orders may be legitimate. Compare an identifier, date, and
+        source context before deleting anything. The goal is not to make every
+        row visually different; it is to make sure every row represents one
+        valid observation exactly once for the question being asked.
+      </p>
+      <h2>Standardize categories and field types</h2>
+      <p>
+        Pivot tools group text exactly as it appears. “North,” “north,” and
+        “North ” can become three separate categories, even though they mean the
+        same thing. Correct spelling variants, extra spaces, inconsistent
+        punctuation, and placeholder values such as “N/A” or “Unknown” before
+        publishing a chart. If incomplete data must remain, give it an explicit,
+        truthful category rather than allowing blank labels to hide the gap.
+      </p>
+      <p>
+        Check that amounts and quantities are numbers, not text. Currency
+        symbols, commas, and percentage signs can vary by export. Dates also
+        need attention: use a consistent date format and avoid mixing words,
+        serial values, and free-form notes in one column. A data preview after
+        upload is useful because it shows whether the browser recognized the
+        intended field type before a calculation is applied.
+      </p>
+      <h2>Match the cleanup to the analytical question</h2>
+      <p>
+        Ask one question before configuring the pivot. For total sales by
+        region, use Region and Sales, and decide whether returns, tax,
+        discounts, or cancelled orders belong in the definition. For order count
+        by month, verify that each row is an order rather than an order line. A
+        technically correct sum can still be misleading if the source units and
+        inclusion rules are unclear.
+      </p>
+      <p>
+        Filters should narrow a stated scope, such as one year, market, or
+        product family. After filtering, check the number of included records
+        and the grand total. Write the scope in the chart title or accompanying
+        note. This makes a later reader less likely to compare charts that cover
+        different periods or different definitions without noticing.
+      </p>
+      <h2>Verify before exporting</h2>
+      <p>
+        Build the pivot table first, then test it with a few source records.
+        Compare the largest group, a small group, and the grand total. If the
+        values look wrong, work backward: check the selected aggregation, active
+        filters, duplicate records, subtotal rows, and field types. Only after
+        the table is credible should you choose a chart. Use bars for category
+        comparisons, lines for time trends, and pies only for a few parts of a
+        genuine whole.
+      </p>
+      <aside class="callout">
+        <strong>A clean table makes a trustworthy chart.</strong>
+        <p>
+          Use the free browser tool to inspect a source preview, calculate a
+          pivot, and export the checked result.
+        </p>
+        <a class="button" href="/">Open Pivot Chart Maker</a>
+      </aside>
+      <h2>Related guides</h2>
+      <div class="related">
+        <a href="/how-to-create-pivot-chart.html">How to create a pivot chart</a
+        ><a href="/pivot-table-mistakes.html">Common pivot table mistakes</a
+        ><a href="/choosing-a-chart-type.html">How to choose a chart type</a
+        ><a href="/pivot-chart-examples.html">Worked pivot chart example</a>
+      </div>
+      <h2>A reusable cleanup checklist</h2>
+      <p>Before each new analysis, confirm that the range has one header row, each header is unique, each row is one record, and calculations such as subtotals are outside the range. Standardize categories, numbers, and dates; inspect the preview; then verify the pivot’s largest group, a small group, and grand total. Recording these checks creates a repeatable trail from source data to chart instead of relying on a result that cannot be explained later.</p>
+    </main>
+    <footer>
+      © 2026 Pivot Chart Maker · <a href="/about.html">About</a> ·
+      <a href="/contact.html">Contact</a> ·
+      <a href="/privacy-policy.html">Privacy Policy</a> ·
+      <a href="/terms-of-use.html">Terms of Use</a>
+    </footer>
+  </body>
+</html>

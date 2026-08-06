@@ -900,6 +900,7 @@ function SiteFooter() {
         <a href="/about.html">About</a>
         <a href="/contact.html">Contact</a>
         <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="/terms-of-use.html">Terms of Use</a>
       </nav>
       <p className="footer-note">© {new Date().getFullYear()} Pivot Chart Maker</p>
     </footer>
@@ -2081,6 +2082,18 @@ export default function App() {
           <a href="/excel-to-pie-chart.html">
             <strong>Excel to pie chart</strong>
             <span>Visualize a concise part-to-whole summary from Excel data.</span>
+          </a>
+          <a href="/clean-data-for-pivot-charts.html">
+            <strong>Clean data for pivot charts</strong>
+            <span>Use a practical source-data checklist before grouping and charting.</span>
+          </a>
+          <a href="/pivot-table-mistakes.html">
+            <strong>Common pivot table mistakes</strong>
+            <span>Find the source of totals, category, filter, and chart errors.</span>
+          </a>
+          <a href="/choosing-a-chart-type.html">
+            <strong>How to choose a chart type</strong>
+            <span>Match bar, line, and pie charts to the comparison you need.</span>
           </a>
         </div>
       </section>
