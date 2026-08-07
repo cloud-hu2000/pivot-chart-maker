@@ -90,6 +90,13 @@
       </div>
     </section>
 
+    <section class="workflow-section" aria-labelledby="verification-title">
+      <div class="section-intro"><p class="eyebrow">Verification example</p><h2 id="verification-title">Check a sales pivot chart from source to conclusion</h2><p>A worked check is more useful than trusting a chart because it looks plausible.</p></div>
+      <p>Suppose a source file contains Order Date, Region, Category, Sales, and Quantity. The question is “Which region generated the most sales?” Put Region in rows, Sales in values, and use Sum. Do not add Category as a column yet; the simplest layout is easier to verify. Pick one region, filter the source rows to that label, add its Sales values independently, and compare the result with the pivot row. Repeat the check for the largest region and confirm that the pivot grand total matches the sum of all source sales.</p>
+      <p>Only after the table passes those checks should you select a bar chart. Use a title that states the measure and period, such as “Sales by region — January to June 2026.” If the report covers only completed orders or a filtered product family, include that scope in a note. The extra context prevents readers from treating a partial result as a complete business total.</p>
+      <p>If the ranking changes after adding a Category column, investigate the question rather than assuming either chart is wrong. The first view compares overall regional sales; the second exposes product mix within each region. Both can be correct, but they support different conclusions. A good pivot-chart workflow makes that distinction explicit and keeps the summarized values available beside the visual.</p>
+    </section>
+
     <aside class="final-cta"><div><p class="eyebrow">Ready when you are</p><strong>Build a pivot chart from your own data.</strong><p>Upload a CSV or XLSX file, configure the summary, and export the result directly from your browser.</p></div><a class="button" href="/">Open the free tool</a></aside>
   </main>
   <footer>© 2026 Pivot Chart Maker · <a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/privacy-policy.html">Privacy Policy</a> · <a href="/terms-of-use.html">Terms of Use</a></footer>

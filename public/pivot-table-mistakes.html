@@ -127,6 +127,9 @@
       <h2>Use the same checks every time</h2>
       <p>A repeatable sequence is more reliable than trying to spot every problem visually: prepare one rectangular source table, inspect the preview, choose fields for a written question, verify the pivot values, then select the chart. Keep the reporting period and important filters visible. That process makes a later correction straightforward because you can identify whether the issue began in the source, the configuration, or the presentation.</p>
       <p>When another person needs to review the result, share the summarized table alongside the chart and retain the cleaned source copy. That makes it possible to trace a number back to the selected records without recreating the entire analysis from memory, even after the reporting period has closed and the original workbook has changed.</p>
+      <h2>Separate a data error from a surprising result</h2>
+      <p>An unexpected number is not automatically wrong. First reproduce the calculation for one small group from the source rows. If it matches, inspect the question, scope, and business context before changing anything. If it does not match, work through field type, duplicates, totals, filters, and aggregation in that order. This distinction prevents a valid outlier from being “cleaned” away simply because it contradicts an expectation.</p>
+      <p>Record any correction made to the source and rebuild the pivot from the corrected copy. A short change note—such as “removed 14 duplicate ticket rows” or “converted Revenue from text to number”—helps a later reviewer understand why the revised result differs.</p>
     </main>
     <footer>
       © 2026 Pivot Chart Maker · <a href="/about.html">About</a> ·

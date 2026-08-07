@@ -175,6 +175,13 @@
           <p>Before sharing a bar chart, state the question in one sentence and make sure the bars answer it. Check the date range, source rows, category definitions, aggregation, and filters. Then compare the largest bar, a smaller bar, and the grand total with the pivot table. This routine catches most errors caused by source totals, imported text values, or an accidental filter.</p>
           <p>Keep the source file and exported summary together when the decision matters. A reader can then see both the ranking and the figures that support it. The <a href="/pivot-chart-examples.html">worked example</a> shows how a small sales CSV becomes a checked table and a bar chart.</p>
         </section>
+        <section>
+          <h2>Worked CSV example: compare support volume by team</h2>
+          <p>Imagine a CSV with Ticket ID, Created Date, Team, Channel, and Resolution Hours. To compare workload, put Team in rows, Ticket ID in values, and use Count. Check that Ticket ID is unique; otherwise a reopened or duplicated export row can inflate a team’s bar. If the business question changes to response speed, use Resolution Hours with Average instead. The labels may stay the same while the measure and conclusion change completely.</p>
+          <p>Before presenting the ranking, compare one team’s count with a filter in the source file and confirm the grand total equals the number of included tickets. State the period and exclusions in the title, for example “Resolved tickets by team — July 2026, spam excluded.” If teams have very different staffing levels, raw volume does not describe productivity. Add headcount context or calculate tickets per staffed agent in a separate, clearly defined analysis.</p>
+          <p>This example illustrates why bar charts need interpretation as well as correct arithmetic. The tallest bar identifies the largest summarized value, but it does not explain the cause or say whether the outcome is good. Preserve the summarized table and definitions so readers can distinguish what the data proves from what still needs investigation.</p>
+        </section>
+        <footer>© 2026 Pivot Chart Maker · <a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/privacy-policy.html">Privacy Policy</a> · <a href="/terms-of-use.html">Terms of Use</a></footer>
       </main>
     </div>
     <script type="module" src="/src/main.jsx"></script>

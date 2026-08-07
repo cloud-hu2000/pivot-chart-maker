@@ -175,6 +175,13 @@
           <p>Before sharing a pie, verify that every slice belongs to one complete whole and that the pivot-table values add to the expected total. Read the largest and smallest categories back to the worksheet, and check for blank labels, duplicated records, or a copied subtotal. If the audience needs to distinguish similar slices, export a bar chart or the supporting table as well.</p>
           <p>Use the same category definitions from report to report so a change in share has a stable meaning. Read the <a href="/choosing-a-chart-type.html">chart-type guide</a> for cases where a pie is not the strongest choice.</p>
         </section>
+        <section>
+          <h2>Worked Excel example: a department budget with a defined whole</h2>
+          <p>Assume a worksheet lists Department, Budget Type, and Amount. Filter Budget Type to the approved operating budget before calculating department shares. If forecast, capital, and operating amounts are mixed together, the slices no longer describe one meaningful whole. Put Department in rows, Amount in values, use Sum, and verify that the grand total equals the approved budget figure.</p>
+          <p>Check for negative adjustments and unallocated amounts. A conventional pie chart is difficult to interpret with negative slices, and omitting “Unallocated” makes the visible shares add to less than the real total. Resolve those issues in the table or choose bars when positive and negative changes both matter. Combine very small categories only when the “Other” definition is documented and the details remain available elsewhere.</p>
+          <p>Label the largest slices directly and state the currency and period. The chart can show how the approved budget is distributed, but it does not show whether departments spent efficiently or achieved their goals. That would require outcome data and a different analysis. Keeping the claim limited to allocation prevents a clean part-to-whole visual from implying more than its source supports.</p>
+        </section>
+        <footer>© 2026 Pivot Chart Maker · <a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/privacy-policy.html">Privacy Policy</a> · <a href="/terms-of-use.html">Terms of Use</a></footer>
       </main>
     </div>
     <script type="module" src="/src/main.jsx"></script>

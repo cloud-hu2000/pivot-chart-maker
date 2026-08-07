@@ -176,6 +176,13 @@
           <p>Before sharing a line chart, confirm that dates are in chronological order and that each point represents the same interval. Check the first, final, highest, and lowest periods in the pivot table against the original CSV. This comparison catches missing periods, copied cumulative values, and filters that would otherwise turn an import problem into a misleading trend.</p>
           <p>Keep a note of the measurement definition and date range beside the export. It helps readers distinguish a true change in activity from a changed reporting method. See the <a href="/pivot-chart-examples.html">worked pivot-chart example</a> for a transparent table-first workflow.</p>
         </section>
+        <section>
+          <h2>Worked CSV example: monthly activity with a missing period</h2>
+          <p>Suppose a CSV lists Date, Campaign, Channel, and Leads. Group Date by month and sum Leads. If April is absent, do not automatically connect March to May and call the gap a smooth trend. First determine whether April had zero leads or whether its records were not exported. A true zero is data and should be shown; an unknown month is a collection problem and should be labeled or corrected before the chart is used.</p>
+          <p>Check the first month, the last month, the highest point, and one ordinary period against the source rows. Also confirm that Leads contains period totals rather than cumulative year-to-date values. Summing cumulative figures produces an inflated series even though every cell is numeric. When channels were added or tracking rules changed, annotate the change instead of describing the resulting jump as organic growth.</p>
+          <p>Use a title that names the measure and interval, such as “Qualified leads per month — January to June 2026.” Keep the pivot table with the image when exact values matter. A line makes direction easy to see, but the table and reporting notes establish whether the apparent trend is comparable from one period to the next.</p>
+        </section>
+        <footer>© 2026 Pivot Chart Maker · <a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/privacy-policy.html">Privacy Policy</a> · <a href="/terms-of-use.html">Terms of Use</a></footer>
       </main>
     </div>
     <script type="module" src="/src/main.jsx"></script>

@@ -169,6 +169,14 @@
           <p>Inspect the summary values before interpreting the line. Compare the first and last period, a peak, and a low point with source rows. Confirm that the same interval is used throughout the chart and that no source cell contains a cumulative figure by mistake. These checks help you avoid explaining a technical import issue as a business trend.</p>
           <p>Export the checked table with the image whenever exact values are important. The <a href="/choosing-a-chart-type.html">chart-type guide</a> can help if a time line is not the clearest way to communicate your question.</p>
         </section>
+        <section>
+          <h2>Worked Excel example: weekly orders and unequal intervals</h2>
+          <p>Suppose a workbook contains Order Date, Region, Order ID, and Order Value. To show weekly order volume, group Order Date by week and count Order ID. Confirm that the week definition is consistent—some reports begin on Monday while others begin on Sunday—and record the timezone when transactions cross regions. A changed week boundary can move records between points without any change in underlying demand.</p>
+          <p>Check that every point represents a full week. The first and last periods in an export are often partial, so they can look like sharp drops. Either exclude them, wait for the interval to finish, or label them as partial. Do not fill a missing week with zero until you know that no orders occurred; a gap caused by an export failure should remain unknown while the source is corrected.</p>
+          <p>If the analytical question is revenue rather than volume, switch the measure to Sum of Order Value and change the title. Average order value answers a third question and can move in the opposite direction from total revenue. Compare several pivot values with filtered source rows and retain the summarized table alongside the PNG.</p>
+          <p>Trend lines are especially persuasive, so note changes in pricing, tracking, coverage, or definitions that affect comparability. The visual should show the measured sequence; annotations and supporting text should explain known changes without inventing causes that the workbook does not establish.</p>
+        </section>
+        <footer>© 2026 Pivot Chart Maker · <a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/privacy-policy.html">Privacy Policy</a> · <a href="/terms-of-use.html">Terms of Use</a></footer>
       </main>
     </div>
     <script type="module" src="/src/main.jsx"></script>

@@ -169,6 +169,13 @@
           <p>Before you use the export in a meeting or report, compare several bars with the source worksheet and check the pivot grand total. Review filters, duplicated rows, and subtotal lines whenever the scale looks surprising. State the measure, unit, and reporting period in the title so the chart can still be understood when it is separated from the workbook.</p>
           <p>For a repeatable process, save a clean copy of the source table and use the same field choices each cycle. The <a href="/clean-data-for-pivot-charts.html">data-cleaning guide</a> explains the source checks that make this routine reliable.</p>
         </section>
+        <section>
+          <h2>Worked Excel example: revenue ranking with returns</h2>
+          <p>Consider a worksheet with Order ID, Order Date, Product Category, Revenue, and Status. If returned orders remain in the export, decide whether Revenue already contains a negative adjustment or whether Status must be filtered. Removing returned rows when the revenue column already includes negative values can overstate the result. Document the rule, then put Product Category in rows and Revenue in values using Sum.</p>
+          <p>Verify the largest category and one smaller category with worksheet filters, then compare the pivot grand total with a direct sum of the included Revenue cells. If the chart is for a quarterly review, state the quarter and whether amounts are gross or net of returns. Sort bars from largest to smallest for a ranking, but preserve a fixed business order when readers compare the same categories across recurring reports.</p>
+          <p>A difference in bar length is evidence of a difference in the selected measure, not an explanation of why it happened. Product availability, price, customer mix, and the number of orders may all contribute. Keep those hypotheses outside the chart unless the data tests them. This separation makes a simple Excel chart more credible and gives the next analyst a clear question to investigate.</p>
+        </section>
+        <footer>© 2026 Pivot Chart Maker · <a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/privacy-policy.html">Privacy Policy</a> · <a href="/terms-of-use.html">Terms of Use</a></footer>
       </main>
     </div>
     <script type="module" src="/src/main.jsx"></script>
