@@ -1,0 +1,13 @@
+{
+  "redirects": [
+    { "source": "/online-pivot-table-maker.html", "destination": "/", "permanent": true },
+    { "source": "/pivot-table-generator.html", "destination": "/", "permanent": true },
+    { "source": "/excel-pivot-table-online.html", "destination": "/create-pivot-chart-in-excel.html", "permanent": true },
+    { "source": "/csv-to-bar-chart.html", "destination": "/csv-to-pivot-chart.html", "permanent": true },
+    { "source": "/csv-to-line-chart.html", "destination": "/csv-to-pivot-chart.html", "permanent": true },
+    { "source": "/csv-to-pie-chart.html", "destination": "/csv-to-pivot-chart.html", "permanent": true },
+    { "source": "/excel-to-bar-chart.html", "destination": "/create-pivot-chart-in-excel.html", "permanent": true },
+    { "source": "/excel-to-line-chart.html", "destination": "/create-pivot-chart-in-excel.html", "permanent": true },
+    { "source": "/excel-to-pie-chart.html", "destination": "/create-pivot-chart-in-excel.html", "permanent": true }
+  ]
+}

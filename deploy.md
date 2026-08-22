@@ -45,6 +45,21 @@ After deployment:
 - Test the homepage with Google's Rich Results Test and URL Inspection.
 - Test Open Graph rendering with LinkedIn Post Inspector, Facebook Sharing Debugger, or another card preview tool.
 
+## Coverage Remediation
+
+The sitemap intentionally lists only the six substantial, canonical pages. Earlier
+thin chart-generator landing pages are permanently redirected in `vercel.json` to
+the closest relevant guide or to the main tool. Do not add those redirected URLs
+back to the sitemap or link to them internally.
+
+After the production deployment completes:
+
+- Inspect the sitemap in Search Console and request a recrawl of the homepage.
+- Use URL Inspection on one redirected URL and confirm Google sees a single 301
+  hop to its intended destination.
+- Start "Validate fix" only for `Discovered - currently not indexed`; the
+  `Page with redirect` status is expected for legacy URLs and is not an error.
+
 ## Contact
 
 The public contact email is:
