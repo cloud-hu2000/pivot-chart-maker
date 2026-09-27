@@ -1,4 +1,12 @@
 {
+  "rewrites": [
+    { "source": "/tools", "destination": "/tools.html" },
+    { "source": "/chart-maker", "destination": "/chart-maker.html" },
+    { "source": "/csv-viewer", "destination": "/csv-viewer.html" },
+    { "source": "/json-to-csv", "destination": "/json-to-csv.html" },
+    { "source": "/csv-to-json", "destination": "/csv-to-json.html" },
+    { "source": "/csv-to-excel", "destination": "/csv-to-excel.html" }
+  ],
   "redirects": [
     { "source": "/online-pivot-table-maker.html", "destination": "/", "permanent": true },
     { "source": "/pivot-table-generator.html", "destination": "/", "permanent": true },

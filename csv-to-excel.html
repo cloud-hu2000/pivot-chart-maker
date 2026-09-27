@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CSV to Excel</title>
+<meta name="description" content="Convert CSV to XLSX online in your browser. Choose encoding and delimiter, preview rows, and download an Excel workbook."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.pivotchartmaker.org/csv-to-excel"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.pivotchartmaker.org/csv-to-excel"/>
+<meta property="og:title" content="CSV to Excel"/>
+<meta property="og:description" content="Convert CSV to XLSX online in your browser. Choose encoding and delimiter, preview rows, and download an Excel workbook."/>
+<meta property="og:image" content="https://www.pivotchartmaker.org/og-image.svg"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"CSV to Excel","url":"https://www.pivotchartmaker.org/csv-to-excel","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I convert CSV to Excel?","acceptedAnswer":{"@type":"Answer","text":"Choose a CSV file, set its delimiter and encoding if needed, click Convert to XLSX, and download the workbook."}},{"@type":"Question","name":"Will converting CSV to XLSX keep leading zeros?","acceptedAnswer":{"@type":"Answer","text":"Yes. Imported values are written as text, which preserves identifiers such as 00123 exactly."}},{"@type":"Question","name":"Why does my CSV open in one Excel column?","acceptedAnswer":{"@type":"Answer","text":"The delimiter may be different from what Excel expects. Choose semicolon, tab, or pipe as appropriate before converting."}}]}]}</script>
+</head>
+<body data-tool="csv-to-excel">
+<header class="site-header">
+<a class="brand" href="/">Pivot Chart Maker</a>
+<nav aria-label="Primary navigation">
+<a href="/">Pivot chart tool</a>
+<a href="/tools">All tools</a>
+<a href="/chart-maker">Chart Maker</a>
+<a href="/csv-viewer">CSV Viewer</a>
+<a href="/json-to-csv">JSON to CSV</a>
+<a href="/csv-to-json">CSV to JSON</a>
+<a href="/csv-to-excel">CSV to Excel</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Free browser tool</p>
+<h1>CSV to Excel</h1>
+<p class="lede">Turn a CSV into a real XLSX workbook. Choose the source encoding and delimiter, check the table preview, then download the spreadsheet locally.</p>
+</section>
+<section class="tool" aria-label="CSV to Excel tool">
+<h2>Convert CSV to Excel</h2>
+<p>Reads the first row as headers and writes one worksheet. Values are stored as text to preserve exact identifiers.</p>
+<div class="tool-grid">
+<label class="field wide">Choose a file<input id="file" type="file" accept=".csv,.tsv,.txt" />
+</label>
+<label class="field">Delimiter<select id="delimiter">
+<option value="">Detect automatically</option>
+<option value=",">Comma</option>
+<option value=";">Semicolon</option>
+<option value="&#9;">Tab</option>
+<option value="|">Pipe</option>
+</select>
+</label>
+<label class="field">Text encoding<select id="encoding">
+<option value="">Detect BOM / UTF-8</option>
+<option value="utf-8">UTF-8</option>
+<option value="utf-16le">UTF-16 LE</option>
+<option value="windows-1252">Windows-1252</option>
+</select>
+</label>
+</div>
+<div class="actions">
+<button id="convert" type="button">Convert to XLSX</button>
+<button id="download" class="secondary" type="button" disabled>Download XLSX</button>
+</div>
+<p id="tool-status" role="status">Choose a CSV file to start.</p>
+<div id="preview" class="preview" hidden>
+</div>
+<p class="privacy-note">Excel worksheet limits apply: 1,048,576 rows and 16,384 columns. The file stays in your browser.</p>
+</section>
+<article class="guide">
+<section>
+<h2>Why convert CSV to an Excel workbook</h2>
+<p>A CSV file stores rows of text separated by a character such as a comma. It does not contain worksheets, column widths, formulas, filters, or formatting. An XLSX file is an Excel workbook and can be opened in Excel or many other spreadsheet apps. This CSV to Excel converter builds a one-sheet workbook from your table and gives header columns practical widths. It is useful when a recipient expects .xlsx rather than .csv or when you want a spreadsheet file that is easier to share and continue editing.</p>
+</section>
+<section>
+<h2>How to convert CSV to XLSX</h2>
+<p>Choose a local CSV file, confirm its delimiter, and select the encoding if it is not UTF-8. Click Convert to XLSX, inspect the first rows, and then download the workbook. The converter reads the first row as headers and writes every following row beneath them. It creates one sheet called CSV data. If the preview puts a whole record in one cell, the source probably uses semicolons, tabs, or pipes. Change the delimiter and convert again. If the characters look damaged, try the encoding used when the file was created.</p>
+</section>
+<section>
+<h2>Encoding and delimiter problems</h2>
+<p>UTF-8 is common, but older exports may use Windows-1252; some applications export UTF-16 LE. A byte order mark can identify UTF-16 LE or signal UTF-8. An incorrect encoding may replace accented or non-Latin characters with symbols, so verify names in the preview before saving. Delimiters are separate from encoding. In some locales a semicolon separates fields because a comma is used as a decimal mark. Quoted CSV fields can contain separators or line breaks; proper CSV parsing keeps those values in one spreadsheet cell.</p>
+</section>
+<section>
+<h2>Preserving values in XLSX</h2>
+<p>The workbook stores imported cells as text. This keeps exact identifiers, leading zeros, and long numbers from being silently reformatted during conversion. It also means calculations in Excel may require converting selected numeric columns to numbers afterward. This tradeoff is intentional: a converter cannot reliably infer whether 00123 is a code or a number, and it should not guess that an ambiguous date is in one locale's order. Inspect a few records after opening the XLSX, especially dates, IDs, currency symbols, and cells that contain commas.</p>
+</section>
+<section>
+<h2>Limits, privacy, and follow-up work</h2>
+<p>Excel supports at most 1,048,576 rows and 16,384 columns in a worksheet; the converter checks those limits. Very large CSV files can still use substantial browser memory while the workbook is created, so split large exports when practical. Conversion happens locally, with no account and no upload to our server. The downloaded XLSX is a new file; your original CSV is unchanged. If you only need to inspect or make a quick correction before converting, open the source in the <a href='/csv-viewer'>CSV viewer</a> first, export the edited CSV, and then convert that file here. After opening the workbook, consider freezing its header row and enabling filters if it will be used for analysis. Those are workbook editing choices and are best made after you have confirmed the imported text values and column boundaries.</p>
+</section>
+<section class="faq" aria-labelledby="faq-title">
+<h2 id="faq-title">Frequently asked questions</h2>
+<details>
+<summary>How do I convert CSV to Excel?</summary>
+<p>Choose a CSV file, set its delimiter and encoding if needed, click Convert to XLSX, and download the workbook.</p>
+</details>
+<details>
+<summary>Will converting CSV to XLSX keep leading zeros?</summary>
+<p>Yes. Imported values are written as text, which preserves identifiers such as 00123 exactly.</p>
+</details>
+<details>
+<summary>Why does my CSV open in one Excel column?</summary>
+<p>The delimiter may be different from what Excel expects. Choose semicolon, tab, or pipe as appropriate before converting.</p>
+</details>
+</section>
+<section class="related">
+<h2>Related tools</h2>
+<ul>
+<li>
+<a href="/tools">All tools</a>
+</li>
+<li>
+<a href="/chart-maker">Chart Maker</a>
+</li>
+<li>
+<a href="/csv-viewer">CSV Viewer</a>
+</li>
+<li>
+<a href="/json-to-csv">JSON to CSV</a>
+</li>
+<li>
+<a href="/csv-to-json">CSV to JSON</a>
+</li>
+</ul>
+</section>
+</article>
+</main>
+<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a>
+</footer>
+<script type="module" src="/src/tool-pages.js">
+</script>
+</body>
+</html>

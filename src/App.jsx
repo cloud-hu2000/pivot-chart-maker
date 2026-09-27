@@ -1495,6 +1495,7 @@ export default function App() {
           <a href="#features">Features</a>
           <a href="#how-it-works">How It Works</a>
           <a href="#resources">Guides</a>
+          <a href="/tools">Data Tools</a>
           <a href="#privacy">Privacy</a>
           <a href="#faq">FAQ</a>
           <a href="#contact">Contact</a>
@@ -2020,6 +2021,10 @@ export default function App() {
           <p>Use these practical guides to prepare your source data, choose useful summaries, and select a chart that answers a clear question.</p>
         </div>
         <div className="resource-grid">
+          <a href="/tools">
+            <strong>Free data tools</strong>
+            <span>Make charts, inspect CSV files, and convert between CSV, JSON, and Excel.</span>
+          </a>
           <a href="/how-to-create-pivot-chart.html">
             <strong>How to create a pivot chart: FAQ</strong>
             <span>Get a clear workflow plus practical answers for CSV and XLSX data.</span>

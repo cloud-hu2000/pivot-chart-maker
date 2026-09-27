@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>JSON to CSV</title>
+<meta name="description" content="Convert JSON to CSV in your browser. Paste or upload JSON, flatten nested object keys, preview the table, and download CSV."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.pivotchartmaker.org/json-to-csv"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.pivotchartmaker.org/json-to-csv"/>
+<meta property="og:title" content="JSON to CSV"/>
+<meta property="og:description" content="Convert JSON to CSV in your browser. Paste or upload JSON, flatten nested object keys, preview the table, and download CSV."/>
+<meta property="og:image" content="https://www.pivotchartmaker.org/og-image.svg"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"JSON to CSV","url":"https://www.pivotchartmaker.org/json-to-csv","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I convert JSON to CSV?","acceptedAnswer":{"@type":"Answer","text":"Paste or upload valid JSON, click Convert to CSV, review the table, and download the CSV file."}},{"@type":"Question","name":"Can JSON with nested objects become a spreadsheet?","acceptedAnswer":{"@type":"Answer","text":"Yes. Nested object keys become dotted column names such as address.city. Arrays remain JSON text in a cell."}},{"@type":"Question","name":"Does the JSON to CSV converter send data to a server?","acceptedAnswer":{"@type":"Answer","text":"No. Parsing, flattening, previewing, and CSV creation run in your browser."}}]}]}</script>
+</head>
+<body data-tool="json-to-csv">
+<header class="site-header">
+<a class="brand" href="/">Pivot Chart Maker</a>
+<nav aria-label="Primary navigation">
+<a href="/">Pivot chart tool</a>
+<a href="/tools">All tools</a>
+<a href="/chart-maker">Chart Maker</a>
+<a href="/csv-viewer">CSV Viewer</a>
+<a href="/json-to-csv">JSON to CSV</a>
+<a href="/csv-to-json">CSV to JSON</a>
+<a href="/csv-to-excel">CSV to Excel</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Free browser tool</p>
+<h1>JSON to CSV</h1>
+<p class="lede">Paste JSON or choose a file, turn nested records into columns, inspect the table preview, and download a CSV. The conversion runs in your browser.</p>
+</section>
+<section class="tool" aria-label="JSON to CSV tool">
+<h2>Convert JSON to CSV</h2>
+<p>Accepts an array of records or a single object. Nested object keys become dotted column names.</p>
+<div class="tool-grid">
+<label class="field wide">Choose a file<input id="file" type="file" accept=".json,application/json" />
+</label>
+<label class="field wide">Or paste JSON<textarea id="source" placeholder='[{"name":"Ada","team":{"region":"East"}}]'>
+</textarea>
+</label>
+</div>
+<div class="actions">
+<button id="convert" type="button">Convert to CSV</button>
+<button id="download" class="secondary" type="button" disabled>Download CSV</button>
+</div>
+<p id="tool-status" role="status">Paste JSON or choose a file to start.</p>
+<div id="preview" class="preview" hidden>
+</div>
+<p class="privacy-note">When a file is chosen, it takes precedence over pasted text. Arrays remain JSON text in a single cell.</p>
+</section>
+<article class="guide">
+<section>
+<h2>What changes when JSON becomes CSV</h2>
+<p>JSON describes objects, arrays, nested values, booleans, numbers, and nulls. CSV is a flat table: every row shares a set of columns, and cells contain text. A JSON to CSV conversion therefore needs a rule for structure. This tool accepts a top-level array of records or one object. It gathers keys from every record, builds a union of columns, and leaves a cell blank when a record lacks that field. Numbers and booleans are written as their text equivalents. Null becomes an empty cell, which is easy to inspect but does not distinguish null from an absent value.</p>
+</section>
+<section>
+<h2>Flatten nested JSON into spreadsheet columns</h2>
+<p>Nested objects become dotted headers. For example, a record with an address object containing city and country becomes address.city and address.country. This lets you filter or sort those fields separately after opening the CSV in a spreadsheet. Arrays are kept as JSON text in one cell because expanding each array into rows would duplicate other fields and change the number of records. If you need one row per array item, reshape the JSON first according to your analysis question. The preview shows exactly which headers the converter created before you download.</p>
+</section>
+<section>
+<h2>How to convert JSON to CSV</h2>
+<p>Paste valid JSON into the text area or choose a local .json file. Click Convert to CSV and inspect the first rows in the table preview. Then download the result. If both a file and pasted text are present, the selected file takes precedence. The converter writes standard quoted CSV with a UTF-8 byte order mark, which helps Excel recognize non-English characters. Commas, quotes, and line breaks inside a value are quoted so they remain part of the same cell when another application opens the file.</p>
+</section>
+<section>
+<h2>JSON to spreadsheet troubleshooting</h2>
+<p>A parse error usually means the input is not strict JSON. Property names need double quotes, strings use double quotes, and trailing commas are invalid. JavaScript object literals and newline-delimited JSON are different formats; wrap records in a JSON array before converting. If the table has too many sparse columns, the records probably contain different shapes. Standardize key names first, including capitalization, because city and City become separate columns. Deeply nested data can also create long dotted headers; shortening key names in the source makes the final spreadsheet easier to use.</p>
+</section>
+<section>
+<h2>Review data types and protect privacy</h2>
+<p>CSV does not preserve JSON types. A value that looks like 00123 may be changed by a spreadsheet application if it guesses numbers automatically, so use its text import setting for identifiers. Embedded arrays remain JSON strings and can be parsed again later if needed. The file is read locally by your browser; it is not submitted to a conversion server. Refreshing the page clears the working preview. For a very large JSON document, memory requirements depend on both the source and the flattened table, so smaller batches are easier to verify. Once exported, open the CSV in the destination application and compare several rows with the original JSON. Pay special attention to empty values, Unicode text, and fields containing commas or newlines. Those are the places where a downstream importer with different settings can change the apparent table.</p>
+</section>
+<section class="faq" aria-labelledby="faq-title">
+<h2 id="faq-title">Frequently asked questions</h2>
+<details>
+<summary>How do I convert JSON to CSV?</summary>
+<p>Paste or upload valid JSON, click Convert to CSV, review the table, and download the CSV file.</p>
+</details>
+<details>
+<summary>Can JSON with nested objects become a spreadsheet?</summary>
+<p>Yes. Nested object keys become dotted column names such as address.city. Arrays remain JSON text in a cell.</p>
+</details>
+<details>
+<summary>Does the JSON to CSV converter send data to a server?</summary>
+<p>No. Parsing, flattening, previewing, and CSV creation run in your browser.</p>
+</details>
+</section>
+<section class="related">
+<h2>Related tools</h2>
+<ul>
+<li>
+<a href="/tools">All tools</a>
+</li>
+<li>
+<a href="/chart-maker">Chart Maker</a>
+</li>
+<li>
+<a href="/csv-viewer">CSV Viewer</a>
+</li>
+<li>
+<a href="/csv-to-json">CSV to JSON</a>
+</li>
+<li>
+<a href="/csv-to-excel">CSV to Excel</a>
+</li>
+</ul>
+</section>
+</article>
+</main>
+<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a>
+</footer>
+<script type="module" src="/src/tool-pages.js">
+</script>
+</body>
+</html>

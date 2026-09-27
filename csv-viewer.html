@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CSV Viewer</title>
+<meta name="description" content="Open and view a CSV file online in a fast, virtualized table. Search, edit cells, and export CSV locally in your browser."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.pivotchartmaker.org/csv-viewer"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.pivotchartmaker.org/csv-viewer"/>
+<meta property="og:title" content="CSV Viewer"/>
+<meta property="og:description" content="Open and view a CSV file online in a fast, virtualized table. Search, edit cells, and export CSV locally in your browser."/>
+<meta property="og:image" content="https://www.pivotchartmaker.org/og-image.svg"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"CSV Viewer","url":"https://www.pivotchartmaker.org/csv-viewer","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I open a CSV file without Excel?","acceptedAnswer":{"@type":"Answer","text":"Choose the file above. The CSV reader displays it as a searchable table directly in your browser."}},{"@type":"Question","name":"How do I create a CSV file?","acceptedAnswer":{"@type":"Answer","text":"Create a table with one header row, then export or save it as CSV UTF-8 from a spreadsheet app; this viewer can also export an edited CSV."}},{"@type":"Question","name":"Can I edit a CSV online?","acceptedAnswer":{"@type":"Answer","text":"Yes. Click a cell, change its text, leave the cell, and export a new CSV. The original file stays unchanged."}}]}]}</script>
+</head>
+<body data-tool="csv-viewer">
+<header class="site-header">
+<a class="brand" href="/">Pivot Chart Maker</a>
+<nav aria-label="Primary navigation">
+<a href="/">Pivot chart tool</a>
+<a href="/tools">All tools</a>
+<a href="/chart-maker">Chart Maker</a>
+<a href="/csv-viewer">CSV Viewer</a>
+<a href="/json-to-csv">JSON to CSV</a>
+<a href="/csv-to-json">CSV to JSON</a>
+<a href="/csv-to-excel">CSV to Excel</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Free browser tool</p>
+<h1>CSV Viewer</h1>
+<p class="lede">Open a CSV file as a readable table immediately. Search rows, keep the header visible while scrolling, edit a cell, and export an updated CSV. Your file stays on your device.</p>
+</section>
+<section class="tool" aria-label="CSV Viewer tool">
+<h2>Open a CSV file</h2>
+<p>The file is parsed in a background worker. The table renders only visible rows so scrolling stays responsive.</p>
+<div class="tool-grid">
+<label class="field wide">Choose a file<input id="file" type="file" accept=".csv,.tsv,.txt" />
+</label>
+<label class="field">Delimiter<select id="delimiter">
+<option value="">Detect automatically</option>
+<option value=",">Comma</option>
+<option value=";">Semicolon</option>
+<option value="&#9;">Tab</option>
+<option value="|">Pipe</option>
+</select>
+</label>
+<label class="field">Find in rows<input id="search" type="search" placeholder="Search all columns" />
+</label>
+</div>
+<div class="actions">
+<button id="download" class="secondary" type="button" disabled>Export edited CSV</button>
+</div>
+<p id="tool-status" role="status">Choose a CSV file to view.</p>
+<p id="row-count" class="privacy-note">
+</p>
+<div id="table-scroll" class="viewer-scroll" tabindex="0" aria-label="CSV table">
+<table id="viewer-table">
+</table>
+</div>
+<p class="privacy-note">Click a cell to edit. Export includes all loaded rows, even when search filters the display. Maximum file size: 100 MB; preview limit: 300,000 rows.</p>
+</section>
+<article class="guide">
+<section>
+<h2>View CSV as a table instead of raw text</h2>
+<p>A CSV file is plain text with one record per line and fields separated by a delimiter. It does not store fonts, colors, formulas, or multiple worksheets. Opening it in a text editor exposes commas and quote marks, which can make a large file hard to scan. This CSV viewer reads the first row as column headers and presents the remaining rows as a table. The header remains visible while you scroll. Because only the current viewport is drawn, a file with many rows does not fill the page with hundreds of thousands of table elements.</p>
+</section>
+<section>
+<h2>How to open a CSV file online</h2>
+<p>Choose a local CSV file and the browser starts parsing it in a background worker. Rows appear as chunks finish, so you can begin checking the data before the whole file completes. If the columns look wrong, choose the actual delimiter and select the file again; comma, semicolon, tab, and pipe are supported. A semicolon is common in regions where commas are decimal separators. Quoted fields can contain a delimiter or a line break without splitting the record, provided the source follows normal CSV quoting rules. This is useful when addresses or descriptions contain commas.</p>
+</section>
+<section>
+<h2>CSV reader, search, and editor</h2>
+<p>Use the search box to filter rows by text in any column. Search changes the displayed rows, not the underlying data, and clearing it returns to the full table. Click a cell to change its contents, then leave the cell to save the edit in browser memory. Export creates a new CSV containing all loaded rows, including rows hidden by a search. The original file is not overwritten. This is intended for quick inspection and small fixes; for bulk transformations or formulas, use a spreadsheet editor or a dedicated data cleaning workflow.</p>
+</section>
+<section>
+<h2>Why a CSV online viewer may show garbled text</h2>
+<p>Encoding is a common cause of unreadable characters. This viewer works best with UTF-8 CSV files. If text looks damaged, reopen the source in an application that knows its original encoding and save a UTF-8 copy. A leading UTF-8 byte order mark is removed during parsing. Delimiters are another frequent source of trouble: a file that puts an entire record in one column is often using semicolons or tabs rather than commas. Check the first few rows, especially quoted text and empty fields, before making edits or downloading the result.</p>
+</section>
+<section>
+<h2>Large files, privacy, and export</h2>
+<p>A background parser and windowed table keep scrolling practical for substantial files, but your browser still needs memory for the loaded rows. This viewer accepts files under 100 MB and stops the preview after 300,000 rows; those limits are shown in the tool rather than hidden. For larger extracts, split the file or use a database tool. The export is a freshly formatted CSV with a UTF-8 byte order mark for broad spreadsheet compatibility. This CSV formatter also normalizes quoting around fields that contain separators. No account is required and the file contents are handled locally. Keep a copy of the original before editing. The exported file may have different line endings or quoting even when most cell values are unchanged. Compare a few important rows after opening the export in the application that will consume it.</p>
+</section>
+<section class="faq" aria-labelledby="faq-title">
+<h2 id="faq-title">Frequently asked questions</h2>
+<details>
+<summary>How do I open a CSV file without Excel?</summary>
+<p>Choose the file above. The CSV reader displays it as a searchable table directly in your browser.</p>
+</details>
+<details>
+<summary>How do I create a CSV file?</summary>
+<p>Create a table with one header row, then export or save it as CSV UTF-8 from a spreadsheet app; this viewer can also export an edited CSV.</p>
+</details>
+<details>
+<summary>Can I edit a CSV online?</summary>
+<p>Yes. Click a cell, change its text, leave the cell, and export a new CSV. The original file stays unchanged.</p>
+</details>
+</section>
+<section class="related">
+<h2>Related tools</h2>
+<ul>
+<li>
+<a href="/tools">All tools</a>
+</li>
+<li>
+<a href="/chart-maker">Chart Maker</a>
+</li>
+<li>
+<a href="/json-to-csv">JSON to CSV</a>
+</li>
+<li>
+<a href="/csv-to-json">CSV to JSON</a>
+</li>
+<li>
+<a href="/csv-to-excel">CSV to Excel</a>
+</li>
+</ul>
+</section>
+</article>
+</main>
+<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a>
+</footer>
+<script type="module" src="/src/tool-pages.js">
+</script>
+</body>
+</html>

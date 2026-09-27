@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CSV to JSON</title>
+<meta name="description" content="Convert CSV to JSON locally. Upload or paste CSV, choose its delimiter and encoding, preview JSON, and download a file."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.pivotchartmaker.org/csv-to-json"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.pivotchartmaker.org/csv-to-json"/>
+<meta property="og:title" content="CSV to JSON"/>
+<meta property="og:description" content="Convert CSV to JSON locally. Upload or paste CSV, choose its delimiter and encoding, preview JSON, and download a file."/>
+<meta property="og:image" content="https://www.pivotchartmaker.org/og-image.svg"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"CSV to JSON","url":"https://www.pivotchartmaker.org/csv-to-json","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I convert CSV to JSON?","acceptedAnswer":{"@type":"Answer","text":"Upload or paste CSV, confirm the delimiter, click Convert to JSON, and download the resulting array of objects."}},{"@type":"Question","name":"Does CSV to JSON preserve leading zeros?","acceptedAnswer":{"@type":"Answer","text":"Yes. CSV cell values stay strings, so identifiers such as 00123 keep their leading zeros."}},{"@type":"Question","name":"Can I convert JSON back to CSV?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use the linked JSON to CSV tool to flatten objects, preview columns, and export CSV."}}]}]}</script>
+</head>
+<body data-tool="csv-to-json">
+<header class="site-header">
+<a class="brand" href="/">Pivot Chart Maker</a>
+<nav aria-label="Primary navigation">
+<a href="/">Pivot chart tool</a>
+<a href="/tools">All tools</a>
+<a href="/chart-maker">Chart Maker</a>
+<a href="/csv-viewer">CSV Viewer</a>
+<a href="/json-to-csv">JSON to CSV</a>
+<a href="/csv-to-json">CSV to JSON</a>
+<a href="/csv-to-excel">CSV to Excel</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Free browser tool</p>
+<h1>CSV to JSON</h1>
+<p class="lede">Convert a CSV table into an array of JSON objects. Upload or paste CSV, choose delimiter and encoding if needed, preview the result, and download JSON.</p>
+</section>
+<section class="tool" aria-label="CSV to JSON tool">
+<h2>Convert CSV to JSON</h2>
+<p>The first row becomes object keys. Duplicate or blank headers receive unique names.</p>
+<div class="tool-grid">
+<label class="field wide">Choose a file<input id="file" type="file" accept=".csv,.tsv,.txt" />
+</label>
+<label class="field">Delimiter<select id="delimiter">
+<option value="">Detect automatically</option>
+<option value=",">Comma</option>
+<option value=";">Semicolon</option>
+<option value="&#9;">Tab</option>
+<option value="|">Pipe</option>
+</select>
+</label>
+<label class="field">Text encoding<select id="encoding">
+<option value="">Detect BOM / UTF-8</option>
+<option value="utf-8">UTF-8</option>
+<option value="utf-16le">UTF-16 LE</option>
+<option value="windows-1252">Windows-1252</option>
+</select>
+</label>
+<label class="field wide">Or paste CSV<textarea id="source" placeholder="name,region&#10;Ada,East">
+</textarea>
+</label>
+<label class="field wide">JSON preview<textarea id="output" readonly placeholder="Converted JSON appears here">
+</textarea>
+</label>
+</div>
+<div class="actions">
+<button id="convert" type="button">Convert to JSON</button>
+<button id="download" class="secondary" type="button" disabled>Download JSON</button>
+</div>
+<p id="tool-status" role="status">Paste CSV or choose a file to start.</p>
+<p class="privacy-note">When a file is chosen, it takes precedence over pasted text. All CSV values remain strings.</p>
+</section>
+<article class="guide">
+<section>
+<h2>How CSV becomes JSON objects</h2>
+<p>CSV is a table made from plain text. The first record is usually a header, and later records contain values in the same column order. This CSV to JSON converter uses that first row as the keys for each object. It returns an array, with one object per data row. An empty field becomes an empty string. Duplicate headers receive numbered suffixes, and a blank header gets a Column name, so a value is not silently lost because two columns had the same key.</p>
+</section>
+<section>
+<h2>Convert CSV to JSON step by step</h2>
+<p>Upload a CSV file or paste CSV text in the editor. If the file uses semicolons, tabs, or pipes, choose that delimiter; automatic detection works for typical files but can be ambiguous with short samples. Select the original text encoding when a local file was saved in UTF-16 LE or Windows-1252. Click Convert to JSON, inspect the preview, and download the JSON file. When a file is selected, it is used instead of the pasted text. To switch to pasted text, clear the file input first.</p>
+</section>
+<section>
+<h2>Why every value is a string</h2>
+<p>The converter deliberately keeps CSV values as strings. CSV itself does not declare types, so automatic number conversion can destroy leading zeros in postal codes, account IDs, or product numbers. A date such as 03/04/2026 is also ambiguous across countries. After conversion, validate fields with your own schema before turning them into numbers, dates, or booleans. The JSON result is pretty printed for inspection. If you need compact JSON for an API request, a later minification step can remove whitespace without changing the data.</p>
+</section>
+<section>
+<h2>Handle delimiters, quotes, and line breaks</h2>
+<p>Well-formed CSV can put commas or even line breaks inside a quoted field. The parser treats those as part of one value rather than starting a new column or record. A doubled quote inside a quoted field represents one literal quote. If the JSON preview appears shifted, check whether the file uses a different delimiter or has malformed quoting. A header with an extra separator can also create a surprising empty column. Inspect the original first lines in a text editor when the output has more keys than expected.</p>
+</section>
+<section>
+<h2>Work locally and reverse the conversion</h2>
+<p>Parsing and JSON creation happen in your browser; there is no account and no file upload to our server. Browser memory limits still apply to very large CSV files, so convert huge exports in smaller parts when needed. If your source contains nested JSON stored as text inside a CSV cell, the converter keeps that cell as a string rather than guessing how to expand it. To move back in the other direction, use the companion <a href='/json-to-csv'>JSON to CSV converter</a>, which flattens nested object keys into columns before export. A round trip between formats will not recover types or the original nested structure automatically. Keep the original file if it matters. Also check that a downstream API expects an array of objects; some services require a wrapper object, different key names, or numeric values, which you can add after conversion.</p>
+</section>
+<section class="faq" aria-labelledby="faq-title">
+<h2 id="faq-title">Frequently asked questions</h2>
+<details>
+<summary>How do I convert CSV to JSON?</summary>
+<p>Upload or paste CSV, confirm the delimiter, click Convert to JSON, and download the resulting array of objects.</p>
+</details>
+<details>
+<summary>Does CSV to JSON preserve leading zeros?</summary>
+<p>Yes. CSV cell values stay strings, so identifiers such as 00123 keep their leading zeros.</p>
+</details>
+<details>
+<summary>Can I convert JSON back to CSV?</summary>
+<p>Yes. Use the linked JSON to CSV tool to flatten objects, preview columns, and export CSV.</p>
+</details>
+</section>
+<section class="related">
+<h2>Related tools</h2>
+<ul>
+<li>
+<a href="/tools">All tools</a>
+</li>
+<li>
+<a href="/chart-maker">Chart Maker</a>
+</li>
+<li>
+<a href="/csv-viewer">CSV Viewer</a>
+</li>
+<li>
+<a href="/json-to-csv">JSON to CSV</a>
+</li>
+<li>
+<a href="/csv-to-excel">CSV to Excel</a>
+</li>
+</ul>
+</section>
+</article>
+</main>
+<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a>
+</footer>
+<script type="module" src="/src/tool-pages.js">
+</script>
+</body>
+</html>

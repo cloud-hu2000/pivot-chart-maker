@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Chart Maker</title>
+<meta name="description" content="Chart maker for CSV and XLSX files. Choose a chart type and columns, preview your chart, and download PNG or SVG in your browser."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.pivotchartmaker.org/chart-maker"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.pivotchartmaker.org/chart-maker"/>
+<meta property="og:title" content="Chart Maker"/>
+<meta property="og:description" content="Chart maker for CSV and XLSX files. Choose a chart type and columns, preview your chart, and download PNG or SVG in your browser."/>
+<meta property="og:image" content="https://www.pivotchartmaker.org/og-image.svg"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Chart Maker","url":"https://www.pivotchartmaker.org/chart-maker","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I make a chart from a CSV file?","acceptedAnswer":{"@type":"Answer","text":"Upload a CSV with headers, select a label and numeric value column, choose bar, line, or pie, then export PNG or SVG."}},{"@type":"Question","name":"Can I make a chart from an Excel spreadsheet?","acceptedAnswer":{"@type":"Answer","text":"Yes. Upload an XLSX file; the tool reads its first worksheet and lets you choose columns for the chart."}},{"@type":"Question","name":"Does the chart maker upload my data?","acceptedAnswer":{"@type":"Answer","text":"No. File parsing, chart drawing, and image export happen in your browser."}}]}]}</script>
+</head>
+<body data-tool="chart-maker">
+<header class="site-header">
+<a class="brand" href="/">Pivot Chart Maker</a>
+<nav aria-label="Primary navigation">
+<a href="/">Pivot chart tool</a>
+<a href="/tools">All tools</a>
+<a href="/chart-maker">Chart Maker</a>
+<a href="/csv-viewer">CSV Viewer</a>
+<a href="/json-to-csv">JSON to CSV</a>
+<a href="/csv-to-json">CSV to JSON</a>
+<a href="/csv-to-excel">CSV to Excel</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Free browser tool</p>
+<h1>Chart Maker</h1>
+<p class="lede">Turn a spreadsheet into a clear chart in three steps. Upload CSV or XLSX, choose the columns and chart type, then export a PNG or SVG. No account or upload to a server is needed.</p>
+</section>
+<section class="tool" aria-label="Chart Maker tool">
+<h2>Make a chart</h2>
+<p>Upload a table with a header row. The first sheet is used for XLSX files.</p>
+<div class="tool-grid">
+<label class="field wide">Choose a file<input id="file" type="file" accept=".csv,.xlsx" />
+</label>
+<label class="field">Chart type<select id="chart-type">
+<option value="bar">Bar chart</option>
+<option value="line">Line chart</option>
+<option value="pie">Pie chart</option>
+</select>
+</label>
+<label class="field">Labels<select id="label-column">
+</select>
+</label>
+<label class="field">Values<select id="value-column">
+</select>
+</label>
+<label class="field">Chart title<input id="chart-title" type="text" placeholder="Optional title" />
+</label>
+</div>
+<div class="actions">
+<button id="download-png" type="button" disabled>Export PNG</button>
+<button id="download-svg" class="secondary" type="button" disabled>Export SVG</button>
+</div>
+<p id="tool-status" role="status">Choose a CSV or XLSX file to start.</p>
+<div id="chart-preview" aria-label="Chart preview">
+</div>
+<p class="privacy-note">The chart is drawn locally. Categories with the same label are summed; the first 20 categories are shown.</p>
+</section>
+<article class="guide">
+<section>
+<h2>Spreadsheet to chart: start with a tidy table</h2>
+<p>A useful chart begins with one row of column names followed by data rows. Put a category, date, or other label in one column and a numeric measure in another. A spreadsheet to chart workflow becomes much easier when every row represents the same kind of record. Remove report titles, subtotals, merged cells, and explanatory notes before uploading. For XLSX workbooks, this page reads the first worksheet, so move the intended data there or save it as a separate file. For CSV, save a copy in UTF-8 if labels contain accents or non-Latin characters.</p>
+</section>
+<section>
+<h2>Choose the graph maker view that fits the question</h2>
+<p>Use bars to compare products, regions, or other discrete categories. Use a line when the labels form an ordered sequence such as months, and sort the source data into the intended order first. A pie chart works when a small set of nonnegative values represents portions of a whole. Long lists are usually easier to read as bars. The graph maker sums rows that share a label, so repeated regions become one total instead of separate bars. If you need an average or a more complex calculation, prepare that summary in your spreadsheet before creating the chart.</p>
+</section>
+<section>
+<h2>How the Excel chart maker treats values</h2>
+<p>The value selector expects numbers. Empty cells and text in that column are skipped, while numbers with simple thousands commas can be read. Check units before comparing values: a column mixing dollars, percentages, and counts is not a meaningful single series. If a label column contains duplicate names that refer to different things, add a more specific combined label in the source file. The chart deliberately shows the first 20 distinct categories to keep text readable. Its status line tells you when extra categories exist, so a crowded source does not silently produce an illegible image.</p>
+</section>
+<section>
+<h2>Export PNG or SVG for different uses</h2>
+<p>PNG is a raster image at 1920 by 1080 pixels. It is convenient for slides, documents, social posts, and tools that accept ordinary images. SVG is a vector file; lines and text stay sharp when the image is resized. SVG also opens in many design applications for later styling. Review the preview before saving either format, especially the chart title, label order, and outliers. An extreme value can compress smaller categories, and a pie chart with one dominant slice can hide the rest. When that happens, filter or summarize the source first.</p>
+</section>
+<section>
+<h2>Privacy and limits</h2>
+<p>The browser reads the file and draws the chart on your device. The tool does not send your spreadsheet to our server, and it does not require an account. Refreshing the page clears the active selection. Browser memory still matters: a very large workbook can take time to parse, especially on a phone. For a large data set, create a small summary sheet with the categories and values you want to communicate, then upload that sheet. This produces a chart that is faster to create and easier to explain to someone else. Before sharing an exported chart, compare its totals with the source table. If the numbers differ, check for blank values, text in numeric cells, or labels that differ only by spelling. A chart is most reliable when its calculation can be reproduced from the underlying rows.</p>
+</section>
+<section class="faq" aria-labelledby="faq-title">
+<h2 id="faq-title">Frequently asked questions</h2>
+<details>
+<summary>How do I make a chart from a CSV file?</summary>
+<p>Upload a CSV with headers, select a label and numeric value column, choose bar, line, or pie, then export PNG or SVG.</p>
+</details>
+<details>
+<summary>Can I make a chart from an Excel spreadsheet?</summary>
+<p>Yes. Upload an XLSX file; the tool reads its first worksheet and lets you choose columns for the chart.</p>
+</details>
+<details>
+<summary>Does the chart maker upload my data?</summary>
+<p>No. File parsing, chart drawing, and image export happen in your browser.</p>
+</details>
+</section>
+<section class="related">
+<h2>Related tools</h2>
+<ul>
+<li>
+<a href="/tools">All tools</a>
+</li>
+<li>
+<a href="/csv-viewer">CSV Viewer</a>
+</li>
+<li>
+<a href="/json-to-csv">JSON to CSV</a>
+</li>
+<li>
+<a href="/csv-to-json">CSV to JSON</a>
+</li>
+<li>
+<a href="/csv-to-excel">CSV to Excel</a>
+</li>
+</ul>
+</section>
+</article>
+</main>
+<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a>
+</footer>
+<script type="module" src="/src/tool-pages.js">
+</script>
+</body>
+</html>
