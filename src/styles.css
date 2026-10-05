@@ -12,6 +12,22 @@
   box-sizing: border-box;
 }
 
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 24px;
+  padding: 30px 24px;
+  border-top: 1px solid #dce7f4;
+  color: #64748b;
+  text-align: center;
+}
+
+.site-footer a {
+  color: #1155cc;
+  text-underline-offset: 3px;
+}
+
 html {
   scroll-behavior: smooth;
 }

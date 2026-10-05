@@ -1480,6 +1480,7 @@ export default function App() {
   };
 
   return (
+    <>
     <main className="site-shell">
       <header className="top-nav">
         <a className="brand" href="#top" aria-label={toolName}>
@@ -2134,5 +2135,12 @@ export default function App() {
         <a href="mailto:cloudhu2000@gmail.com">cloudhu2000@gmail.com</a>
       </section>
     </main>
+    <footer className="site-footer">
+      <span>© Pivot Chart Maker</span>
+      <span>
+        Our other site: <a href="https://zombieaitrend.com/" target="_blank" rel="noopener">Zombie AI Trend</a>
+      </span>
+    </footer>
+    </>
   );
 }

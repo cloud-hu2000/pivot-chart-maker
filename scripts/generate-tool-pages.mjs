@@ -11,7 +11,7 @@ const links = [
 ];
 const esc = (value) => String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
 const nav = `<header class="site-header"><a class="brand" href="/">Pivot Chart Maker</a><nav aria-label="Primary navigation"><a href="/">Pivot chart tool</a><a href="/tools">All tools</a>${links.map(([url, title]) => `<a href="${url}">${title}</a>`).join("")}</nav></header>`;
-const footer = `<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a></footer>`;
+const footer = `<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a> · Our other site: <a href="https://zombieaitrend.com/" target="_blank" rel="noopener">Zombie AI Trend</a></footer>`;
 const fieldFile = (accept) => `<label class="field wide">Choose a file<input id="file" type="file" accept="${accept}" /></label>`;
 const delimiter = `<label class="field">Delimiter<select id="delimiter"><option value="">Detect automatically</option><option value=",">Comma</option><option value=";">Semicolon</option><option value="&#9;">Tab</option><option value="|">Pipe</option></select></label>`;
 const encoding = `<label class="field">Text encoding<select id="encoding"><option value="">Detect BOM / UTF-8</option><option value="utf-8">UTF-8</option><option value="utf-16le">UTF-16 LE</option><option value="windows-1252">Windows-1252</option></select></label>`;
