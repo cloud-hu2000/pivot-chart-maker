@@ -1,6 +1,8 @@
-import { writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
+import * as XLSX from "@e965/xlsx";
+import { LANDING_PAGES, SAMPLES, renderLandingDocument } from "../src/landing-pages.js";
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const origin = "https://www.pivotchartmaker.org";
@@ -11,7 +13,10 @@ const links = [
 ];
 const esc = (value) => String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
 const nav = `<header class="site-header"><a class="brand" href="/">Pivot Chart Maker</a><nav aria-label="Primary navigation"><a href="/">Pivot chart tool</a><a href="/tools">All tools</a>${links.map(([url, title]) => `<a href="${url}">${title}</a>`).join("")}</nav></header>`;
-const footer = `<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a> · Our other site: <a href="https://zombieaitrend.com/" target="_blank" rel="noopener">Zombie AI Trend</a> · <a href="https://bulbulv4flash.com/" target="_blank" rel="noopener">Bulbul V4 Flash</a> · <a href="https://omnihuman20.com/" target="_blank" rel="noopener">OmniHuman 2.0</a></footer>`;
+
+const footerNetworkLinks = JSON.parse(readFileSync(resolve(root, 'footer-network.links.json'), 'utf8').replace(/^\uFEFF/, ''));
+const footerNetworkHtml = footerNetworkLinks.length ? '<nav aria-label="More websites" data-footer-network="true" style="display:flex;flex-wrap:wrap;gap:12px;padding:12px 0">' + footerNetworkLinks.map(link => '<a href="' + esc(link.url) + '" target="_blank" rel="noopener noreferrer">' + esc(link.label) + '</a>').join('') + '</nav>' : '';
+const footer = `<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a> · Our other site: <a href="https://zombieaitrend.com/" target="_blank" rel="noopener">Zombie AI Trend</a> · <a href="https://bulbulv4flash.com/" target="_blank" rel="noopener">Bulbul V4 Flash</a> · <a href="https://omnihuman20.com/" target="_blank" rel="noopener">OmniHuman 2.0</a>${footerNetworkHtml}</footer>`;
 const fieldFile = (accept) => `<label class="field wide">Choose a file<input id="file" type="file" accept="${accept}" /></label>`;
 const delimiter = `<label class="field">Delimiter<select id="delimiter"><option value="">Detect automatically</option><option value=",">Comma</option><option value=";">Semicolon</option><option value="&#9;">Tab</option><option value="|">Pipe</option></select></label>`;
 const encoding = `<label class="field">Text encoding<select id="encoding"><option value="">Detect BOM / UTF-8</option><option value="utf-8">UTF-8</option><option value="utf-16le">UTF-16 LE</option><option value="windows-1252">Windows-1252</option></select></label>`;
@@ -96,3 +101,17 @@ for (const [slug, data] of Object.entries(pages)) {
 
 const hub = `<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Free Data Tools | Pivot Chart Maker</title><meta name="description" content="Browse free browser-based tools for charts, CSV viewing, JSON conversion, and CSV to Excel. No account; files stay on your device."/><meta name="robots" content="index, follow"/><link rel="canonical" href="${origin}/tools"/><link rel="icon" type="image/svg+xml" href="/favicon.svg"/><link rel="stylesheet" href="/src/tool-pages.css"/></head><body>${nav}<main class="wrap"><section class="hero"><p class="eyebrow">All tools</p><h1>Free Data Tools</h1><p class="lede">Open, convert, and visualize spreadsheets in your browser. Choose a focused tool below and start with your own file. No account is required.</p></section><section class="cards" aria-label="Tools">${links.map(([url, title]) => `<a href="${url}"><strong>${title}</strong><span>${pages[url.slice(1)].lede}</span></a>`).join("")}</section><article class="guide"><h2>Choose the next step for your data</h2><p>Start with the CSV viewer when you want to inspect columns or repair a cell. Choose the chart maker when a visual comparison will explain the numbers more clearly. If another application needs a different file format, convert JSON to CSV, CSV to JSON, or CSV to an Excel workbook. Each page provides a preview and a download so you can check the result before using it elsewhere.</p><p>These tools run in your browser. Files are read on your device rather than sent to a conversion service. Check encoding and delimiters for CSV, keep a header row, and review the preview before exporting. For very large files, split the source into smaller batches when browser memory is limited.</p></article></main>${footer}</body></html>`;
 writeFileSync(resolve(root, "tools.html"), `${hub.replace(/></g, ">\n<")}\n`);
+
+const sampleDir = resolve(root, "public/samples");
+mkdirSync(sampleDir, { recursive: true });
+for (const sample of Object.values(SAMPLES)) {
+  const csv = [sample.columns.join(","), ...sample.rows.map((row) => sample.columns.map((column) => row[column] ?? "").join(","))].join("\n") + "\n";
+  writeFileSync(resolve(sampleDir, sample.fileName), csv);
+  const sheet = XLSX.utils.json_to_sheet(sample.rows, { header: sample.columns });
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, sheet, sample.sheetName);
+  writeFileSync(resolve(sampleDir, sample.xlsxName), XLSX.write(workbook, { type: "buffer", bookType: "xlsx" }));
+}
+for (const page of LANDING_PAGES) {
+  writeFileSync(resolve(root, `${page.slug}.html`), renderLandingDocument(page));
+}

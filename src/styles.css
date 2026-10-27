@@ -234,6 +234,43 @@ select {
   margin-top: 20px;
 }
 
+.sample-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.sample-row button.active {
+  border-color: #1f6feb;
+  background: #e8f1ff;
+  color: #0f4ec2;
+}
+
+.seo-table-wrap {
+  overflow-x: auto;
+}
+
+.seo-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+}
+
+.seo-prose th,
+.seo-prose td {
+  border-bottom: 1px solid #dbe4f0;
+  padding: 8px 10px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.seo-prose ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
 .limit-strip {
   display: flex;
   flex-wrap: wrap;

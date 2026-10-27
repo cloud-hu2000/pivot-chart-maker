@@ -1,0 +1,13 @@
+Region,Category,Sub-Category,Sales,Quantity,Order Date
+East,Technology,Phones,152805,640,2026-01-15
+East,Office Supplies,Binders,108728,830,2026-02-10
+East,Furniture,Chairs,71654,220,2026-03-04
+West,Technology,Accessories,183656,710,2026-01-28
+West,Office Supplies,Paper,126438,930,2026-02-16
+West,Furniture,Tables,94721,260,2026-03-21
+Central,Technology,Machines,101734,410,2026-01-09
+Central,Office Supplies,Storage,81104,510,2026-02-25
+Central,Furniture,Bookcases,63812,185,2026-04-11
+South,Technology,Copiers,90432,340,2026-01-20
+South,Office Supplies,Labels,69735,470,2026-02-03
+South,Furniture,Furnishings,49263,170,2026-03-14

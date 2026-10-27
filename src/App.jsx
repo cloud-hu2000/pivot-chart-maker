@@ -1,3 +1,7 @@
+
+import footerNetworkLinks from '../footer-network.links.json';
+import { FooterNetworkLinks } from './FooterNetworkLinks';
+import { getLandingPage, getSample } from "./landing-pages.js";
 import React, { useMemo, useRef, useState } from "react";
 import Papa from "papaparse";
 import * as XLSX from "@e965/xlsx";
@@ -889,14 +893,108 @@ function ExcelPivotTableOnlineSeoContent() {
   );
 }
 
+function InlineText({ value }) {
+  const parts = [];
+  const pattern = /\[([^\]]+)\]\((https?:\/\/[^)\s]+|\/[^)\s]+)\)/g;
+  let last = 0;
+  for (const match of String(value).matchAll(pattern)) {
+    if (match.index > last) parts.push(value.slice(last, match.index));
+    const external = match[2].startsWith("http");
+    parts.push(
+      <a key={`${match.index}-${match[2]}`} href={match[2]} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+        {match[1]}
+      </a>
+    );
+    last = match.index + match[0].length;
+  }
+  if (last < value.length) parts.push(value.slice(last));
+  return parts;
+}
+
+function LandingSeoContent({ page }) {
+  return (
+    <section className="seo-section pivot-table-longform" id={`${page.slug}-guide`} aria-labelledby={`${page.slug}-title`}>
+      <div className="seo-section-heading">
+        <p className="eyebrow">{page.eyebrow}</p>
+        <h2 id={`${page.slug}-title`}>{page.sections[0].heading}</h2>
+      </div>
+      <div className="seo-prose">
+        {page.sections[0].paragraphs.map((paragraph, index) => (
+          <p key={`lead-${index}`}>
+            <InlineText value={paragraph} />
+          </p>
+        ))}
+        {page.sections.slice(1).map((section) => (
+          <section key={section.heading}>
+            <h3>{section.heading}</h3>
+            {section.paragraphs.map((paragraph, index) => (
+              <p key={`${section.heading}-${index}`}>
+                <InlineText value={paragraph} />
+              </p>
+            ))}
+          </section>
+        ))}
+        <h3>Checked result</h3>
+        <p>{page.example.caption}</p>
+        <div className="seo-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                {page.example.headers.map((header) => (
+                  <th key={header}>{header}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {page.example.rows.map((row, rowIndex) => (
+                <tr key={`${row[0]}-${rowIndex}`}>
+                  {row.map((cell, cellIndex) => (
+                    <td key={`${rowIndex}-${cellIndex}`}>{cell}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p>{page.example.note}</p>
+        <h3>Source note</h3>
+        <p>
+          <InlineText value={page.authority} />
+        </p>
+        <h3>Questions about this page</h3>
+        {page.faq.map((item) => (
+          <section key={item.q}>
+            <h3>{item.q}</h3>
+            <p>
+              <InlineText value={item.a} />
+            </p>
+          </section>
+        ))}
+        <h3>Related pages</h3>
+        <ul>
+          {page.related.map(([href, label]) => (
+            <li key={href}>
+              <a href={href}>{label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 export default function App() {
   const chartLandingPage = CHART_LANDING_PAGES[window.location.pathname];
   const isChartLandingPage = Boolean(chartLandingPage);
+  const landingPage = getLandingPage(window.location.pathname);
+  const initialSample = landingPage ? getSample(landingPage.defaultSample) : null;
   const isPivotTableGeneratorPage = window.location.pathname.endsWith("/pivot-table-generator.html");
   const isExcelPivotTableOnlinePage = window.location.pathname.endsWith("/excel-pivot-table-online.html");
   const isPivotTableLandingPage =
     isPivotTableGeneratorPage || isExcelPivotTableOnlinePage || window.location.pathname.endsWith("/online-pivot-table-maker.html");
-  const toolName = isChartLandingPage
+  const toolName = landingPage
+    ? landingPage.toolName
+    : isChartLandingPage
     ? chartLandingPage.toolName
     : isExcelPivotTableOnlinePage
     ? "Excel Pivot Table Online"
@@ -905,16 +1003,16 @@ export default function App() {
     : isPivotTableLandingPage
       ? "Free Online Pivot Table Maker"
       : "Free Online Pivot Chart Maker";
-  const defaultRows = chartLandingPage?.sampleRows || SAMPLE_ROWS;
-  const defaultColumns = chartLandingPage?.sampleColumns || SAMPLE_COLUMNS;
-  const [fileName, setFileName] = useState(chartLandingPage?.sampleFile || "sales_sample.csv");
+  const defaultRows = initialSample?.rows || chartLandingPage?.sampleRows || SAMPLE_ROWS;
+  const defaultColumns = initialSample?.columns || chartLandingPage?.sampleColumns || SAMPLE_COLUMNS;
+  const [fileName, setFileName] = useState(initialSample?.fileName || chartLandingPage?.sampleFile || "sales_sample.csv");
   const [rows, setRows] = useState(defaultRows);
   const [columns, setColumns] = useState(defaultColumns);
   const [columnTypes, setColumnTypes] = useState(() => getInitialTypes(defaultRows, defaultColumns));
-  const [rowFields, setRowFields] = useState(chartLandingPage ? [chartLandingPage.rowField] : ["Region"]);
-  const [columnField, setColumnField] = useState(chartLandingPage ? chartLandingPage.columnField : "Category");
-  const [valueField, setValueField] = useState(chartLandingPage?.valueField || "Sales");
-  const [aggregation, setAggregation] = useState("sum");
+  const [rowFields, setRowFields] = useState(initialSample ? [initialSample.rowField] : chartLandingPage ? [chartLandingPage.rowField] : ["Region"]);
+  const [columnField, setColumnField] = useState(initialSample ? initialSample.columnField : chartLandingPage ? chartLandingPage.columnField : "Category");
+  const [valueField, setValueField] = useState(initialSample?.valueField || chartLandingPage?.valueField || "Sales");
+  const [aggregation, setAggregation] = useState(initialSample?.aggregation || "sum");
   const [filterFields, setFilterFields] = useState([]);
   const [filters, setFilters] = useState({});
   const [filterSearches, setFilterSearches] = useState({});
@@ -924,9 +1022,10 @@ export default function App() {
       return acc;
     }, {})
   );
-  const [chartOverride, setChartOverride] = useState(chartLandingPage?.chart || "auto");
-  const [chartIntent, setChartIntent] = useState(chartLandingPage?.intent || "compare");
-  const [activeView, setActiveView] = useState("chart");
+  const [chartOverride, setChartOverride] = useState(initialSample?.chart || chartLandingPage?.chart || "auto");
+  const [chartIntent, setChartIntent] = useState(initialSample?.intent || chartLandingPage?.intent || "compare");
+  const [activeView, setActiveView] = useState(landingPage?.defaultView || "chart");
+  const [activeSampleId, setActiveSampleId] = useState(initialSample?.id || "");
   const [isFullChartOpen, setIsFullChartOpen] = useState(false);
   const [isParsing, setIsParsing] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
@@ -1114,10 +1213,10 @@ export default function App() {
 
   async function handleFile(file) {
     setError("");
-    if (!file) return;
+    if (!file) return false;
     if (file.size > MAX_FILE_SIZE) {
       setError("The file is larger than 10MB. Please reduce the data range first.");
-      return;
+      return false;
     }
 
     try {
@@ -1126,17 +1225,17 @@ export default function App() {
       if (!parsed.rows.length) throw new Error("No data rows were detected.");
       if (parsed.rows.length > MAX_ROWS) {
         setError(`This file has ${parsed.rows.length.toLocaleString()} rows. The browser tool supports up to ${MAX_ROWS.toLocaleString()} rows.`);
-        return;
+        return false;
       }
       if (parsed.columns.length > MAX_COLUMNS) {
         setError(`This file has ${parsed.columns.length.toLocaleString()} columns. The browser tool supports up to ${MAX_COLUMNS} columns.`);
-        return;
+        return false;
       }
       if (parsed.rows.length * parsed.columns.length > MAX_CELLS) {
         setError(
           `This file has ${(parsed.rows.length * parsed.columns.length).toLocaleString()} cells. Please reduce it below ${MAX_CELLS.toLocaleString()} cells.`
         );
-        return;
+        return false;
       }
 
       const inferred = inferTypes(parsed.rows, parsed.columns);
@@ -1163,12 +1262,73 @@ export default function App() {
       setAggregation("sum");
       setChartOverride(chartLandingPage?.chart || "auto");
       setChartIntent(chartLandingPage?.intent || "compare");
-      setActiveView("chart");
+      setActiveView(landingPage?.defaultView || "chart");
+      setActiveSampleId("");
+      return true;
     } catch (parseError) {
       setError(parseError.message || "File parsing failed.");
+      return false;
     } finally {
       setIsParsing(false);
     }
+  }
+
+  function loadSampleRows(dataset, name) {
+    const inferred = getInitialTypes(dataset.rows, dataset.columns);
+    const nextDateBuckets = dataset.columns.reduce((acc, column) => {
+      if (inferred[column] === "date") acc[column] = "month";
+      return acc;
+    }, {});
+    setFileName(name);
+    setRows(dataset.rows);
+    setColumns(dataset.columns);
+    setColumnTypes(inferred);
+    setDateBuckets(nextDateBuckets);
+    setValueField(dataset.valueField);
+    setRowFields(dataset.rowField ? [dataset.rowField] : []);
+    setColumnField(dataset.columnField);
+    setFilterFields([]);
+    setFilters({});
+    setFilterSearches({});
+    setAggregation(dataset.aggregation || "sum");
+    setChartOverride(dataset.chart || "auto");
+    setChartIntent(dataset.intent || "compare");
+    setActiveView(landingPage?.defaultView || "chart");
+    setActiveSampleId(dataset.id);
+    toolRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  async function applySample(sampleId) {
+    const dataset = getSample(sampleId);
+    if (!dataset) return;
+    if (landingPage?.loadSampleAsXlsx) {
+      try {
+        const response = await fetch(dataset.xlsxUrl);
+        if (!response.ok) throw new Error(`Sample workbook request failed (${response.status}).`);
+        const file = new File([await response.blob()], dataset.xlsxName, {
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        });
+        const parsed = await handleFile(file);
+        if (!parsed) return;
+        setRowFields(dataset.rowField ? [dataset.rowField] : []);
+        setColumnField(dataset.columnField);
+        setValueField(dataset.valueField);
+        setAggregation(dataset.aggregation || "sum");
+        setChartOverride(dataset.chart || "auto");
+        setChartIntent(dataset.intent || "compare");
+        setActiveView(landingPage.defaultView || "chart");
+        setActiveSampleId(dataset.id);
+        setError("");
+        toolRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      } catch (fetchError) {
+        loadSampleRows(dataset, `${dataset.fileName} (in-page rows)`);
+        setError(fetchError.message || "The sample workbook could not be fetched, so the same rows were loaded from the page.");
+        return;
+      }
+    }
+    setError("");
+    loadSampleRows(dataset, dataset.fileName);
   }
 
   function loadSampleData() {
@@ -1491,7 +1651,7 @@ export default function App() {
         </a>
         <nav className="nav-links" aria-label="Primary navigation">
           {isChartLandingPage ? <a href="#chart-guide">{chartLandingPage.chart} chart guide</a> : null}
-          {!isPivotTableLandingPage && !isChartLandingPage ? <a href="/online-pivot-table-maker.html">Pivot Table Maker</a> : null}
+          {landingPage?.slug !== "online-pivot-table" ? <a href="/online-pivot-table">Online Pivot Table</a> : <a href="/pivot-chart-without-excel">Without Excel</a>}
           {isPivotTableLandingPage ? <a href="#pivot-table-guide-title">Pivot table guide</a> : null}
           <a href="#features">Features</a>
           <a href="#how-it-works">How It Works</a>
@@ -1512,9 +1672,11 @@ export default function App() {
       </header>
 
       <section className="hero-section" id="top">
-        <h1>{isChartLandingPage ? chartLandingPage.h1 : isExcelPivotTableOnlinePage ? "Excel Pivot Table Online" : isPivotTableGeneratorPage ? "Pivot Table Generator" : isPivotTableLandingPage ? "Online Pivot Table Maker" : "Free Online Pivot Chart Maker"}</h1>
+        <h1>{landingPage ? landingPage.h1 : isChartLandingPage ? chartLandingPage.h1 : isExcelPivotTableOnlinePage ? "Excel Pivot Table Online" : isPivotTableGeneratorPage ? "Pivot Table Generator" : isPivotTableLandingPage ? "Online Pivot Table Maker" : "Free Online Pivot Chart Maker"}</h1>
         <p>
-          {isChartLandingPage
+          {landingPage
+            ? landingPage.subtitle
+            : isChartLandingPage
             ? `Create a ${chartLandingPage.chart} chart from ${chartLandingPage.source} data in one browser workspace. Upload your file, verify the summary, and export the finished chart without leaving this page.`
             : isExcelPivotTableOnlinePage
             ? "Create an Excel pivot table online from XLSX or CSV data. Build your summary, inspect the results, and export it locally from one browser workspace."
@@ -1527,13 +1689,25 @@ export default function App() {
         <div className="hero-actions">
           <button className="primary-button" type="button" onClick={startChartTool}>
             <CloudUpload size={20} />
-            {isChartLandingPage ? chartLandingPage.cta : isPivotTableLandingPage ? "Create a Pivot Table" : "Create a Pivot Chart"}
+            {landingPage ? landingPage.cta : isChartLandingPage ? chartLandingPage.cta : isPivotTableLandingPage ? "Create a Pivot Table" : "Create a Pivot Chart"}
           </button>
-          <button className="secondary-button" type="button" onClick={loadSampleData}>
+          <button className="secondary-button" type="button" onClick={landingPage ? () => applySample(landingPage.defaultSample) : loadSampleData}>
             <FileText size={20} />
-            {isChartLandingPage ? "Load This Page's Example" : "Use Sample Data"}
+            {landingPage ? "Load Sample" : isChartLandingPage ? "Load This Page's Example" : "Use Sample Data"}
           </button>
         </div>
+        {landingPage ? (
+          <div className="sample-row" role="group" aria-label="Sample datasets">
+            {landingPage.samples.map((sampleId) => {
+              const sample = getSample(sampleId);
+              return (
+                <button className={activeSampleId === sampleId ? "active" : ""} key={sampleId} type="button" aria-pressed={activeSampleId === sampleId} onClick={() => applySample(sampleId)}>
+                  {sample.button}
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
 
         
       </section>
@@ -1558,7 +1732,7 @@ export default function App() {
               Data Preview
             </button>
           </div>
-          <button className="reset-button" type="button" onClick={loadSampleData}>
+          <button className="reset-button" type="button" onClick={landingPage ? () => applySample(landingPage.defaultSample) : loadSampleData}>
             <RefreshCw size={14} />
             Reset
           </button>
@@ -1576,8 +1750,8 @@ export default function App() {
                   onChange={(event) => handleFile(event.target.files?.[0])}
                 />
                 <Upload size={27} />
-                <strong>Drag and drop CSV or XLSX here</strong>
-                <span>or click to browse</span>
+                <strong>{landingPage?.slug === "xlsx-to-pivot-chart" ? "Drag and drop an XLSX workbook here" : "Drag and drop CSV or XLSX here"}</strong>
+                <span>{landingPage?.slug === "xlsx-to-pivot-chart" ? "First worksheet only. CSV is accepted too." : "or click to browse"}</span>
                 <small>Max 10MB, {MAX_ROWS.toLocaleString()} rows, {MAX_COLUMNS} columns, {MAX_CELLS.toLocaleString()} cells.</small>
               </label>
               <div className="file-chip">
@@ -1956,8 +2130,8 @@ export default function App() {
             <BarChart3 size={28} />
           </span>
           <div>
-            <h2>{isPivotTableLandingPage ? "3. Review and export your pivot table" : "3. Create and export your pivot chart"}</h2>
-            <p>{isPivotTableLandingPage ? "Check the pivot table, then download it as CSV or XLSX or export its chart as PNG." : "Download pivot tables as CSV or XLSX, or export the chart as PNG."}</p>
+            <h2>{landingPage?.defaultView === "table" || isPivotTableLandingPage ? "3. Review and export your pivot table" : "3. Create and export your pivot chart"}</h2>
+            <p>{landingPage?.defaultView === "table" || isPivotTableLandingPage ? "Check the pivot table, then download it as CSV or XLSX or export its chart as PNG." : "Download pivot tables as CSV or XLSX, or export the chart as PNG."}</p>
           </div>
         </article>
       </section>
@@ -2005,7 +2179,9 @@ export default function App() {
         </article>
       </section>
 
-      {isChartLandingPage ? (
+      {landingPage ? (
+        <LandingSeoContent page={landingPage} />
+      ) : isChartLandingPage ? (
         <ChartLandingSeoContent page={chartLandingPage} />
       ) : isExcelPivotTableOnlinePage ? (
         <ExcelPivotTableOnlineSeoContent />
@@ -2022,6 +2198,18 @@ export default function App() {
           <p>Use these practical guides to prepare your source data, choose useful summaries, and select a chart that answers a clear question.</p>
         </div>
         <div className="resource-grid">
+          <a href="/online-pivot-table">
+            <strong>Online pivot table</strong>
+            <span>Open the grouped table first, then chart the same totals if you need a picture.</span>
+          </a>
+          <a href="/pivot-chart-without-excel">
+            <strong>Pivot chart without Excel</strong>
+            <span>Create a bar, line, or pie chart in the browser without installing Excel.</span>
+          </a>
+          <a href="/xlsx-to-pivot-chart">
+            <strong>XLSX to pivot chart</strong>
+            <span>Read the first worksheet of a workbook and chart the summary.</span>
+          </a>
           <a href="/tools">
             <strong>Free data tools</strong>
             <span>Make charts, inspect CSV files, and convert between CSV, JSON, and Excel.</span>
@@ -2138,8 +2326,9 @@ export default function App() {
     <footer className="site-footer">
       <span>© Pivot Chart Maker</span>
       <span>
-        Our other site: <a href="https://zombieaitrend.com/" target="_blank" rel="noopener">Zombie AI Trend</a> · <a href="https://bulbulv4flash.com/" target="_blank" rel="noopener">Bulbul V4 Flash</a> · <a href="https://omnihuman20.com/" target="_blank" rel="noopener">OmniHuman 2.0</a>
+        <a href="/sitemap.xml">Sitemap</a> · Our other site: <a href="https://zombieaitrend.com/" target="_blank" rel="noopener">Zombie AI Trend</a> · <a href="https://bulbulv4flash.com/" target="_blank" rel="noopener">Bulbul V4 Flash</a> · <a href="https://omnihuman20.com/" target="_blank" rel="noopener">OmniHuman 2.0</a>
       </span>
+    <FooterNetworkLinks links={footerNetworkLinks} />
     </footer>
     </>
   );

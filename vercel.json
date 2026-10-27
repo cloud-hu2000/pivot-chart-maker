@@ -1,5 +1,8 @@
 {
   "rewrites": [
+    { "source": "/online-pivot-table", "destination": "/online-pivot-table.html" },
+    { "source": "/pivot-chart-without-excel", "destination": "/pivot-chart-without-excel.html" },
+    { "source": "/xlsx-to-pivot-chart", "destination": "/xlsx-to-pivot-chart.html" },
     { "source": "/tools", "destination": "/tools.html" },
     { "source": "/chart-maker", "destination": "/chart-maker.html" },
     { "source": "/csv-viewer", "destination": "/csv-viewer.html" },
