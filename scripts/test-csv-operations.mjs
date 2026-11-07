@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {countValues,dedupe,unpivot} from '../src/csv-operations.js';
+const rows=[['A','x,1'],['A','x,1'],['a',''],['','x,1']];
+assert.deepEqual(countValues(rows,0).rows,[['A','2','50.00'],['a','1','25.00'],['','1','25.00']]);
+assert.deepEqual(dedupe(rows,[0,1]).rows,[rows[0],rows[2],rows[3]]);
+assert.equal(dedupe(rows,[1]).removed,2);
+assert.deepEqual(unpivot(['Store','Q1','Q2'],[['North','100','']], [1,2]).rows,[['North','Q1','100'],['North','Q2','']]);
+assert.deepEqual(unpivot(['Column','Value','Q'],[['a','b','c']],[2]).headers,['Column','Value','Column_2','Value_2']);
+assert.throws(()=>unpivot(['a','b'],[['1','2']],[0,1]));
+assert.throws(()=>dedupe(rows,[]));
+console.log('CSV operations: all checks passed');

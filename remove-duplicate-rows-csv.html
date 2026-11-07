@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Remove Duplicate Rows in CSV Online</title>
+<meta name="description" content="Remove duplicate CSV rows using one or more columns. Preview the first matching records and download a clean CSV, processed locally in your browser.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.pivotchartmaker.org/remove-duplicate-rows-csv">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Remove Duplicate Rows in CSV Online">
+<meta property="og:description" content="Remove duplicate CSV rows using one or more columns. Preview the first matching records and download a clean CSV, processed locally in your browser.">
+<meta property="og:url" content="https://www.pivotchartmaker.org/remove-duplicate-rows-csv">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Remove Duplicate Rows in CSV Online","url":"https://www.pivotchartmaker.org/remove-duplicate-rows-csv","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</head>
+<body data-csv-operation="dedupe">
+<header class="site-header">
+<a class="brand" href="/">Pivot Chart Maker</a>
+<nav aria-label="Primary navigation">
+<a href="/">Pivot chart tool</a>
+<a href="/tools">All tools</a>
+<a href="/csv-viewer">CSV Viewer</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Free browser tool</p>
+<h1>Remove Duplicate Rows in CSV Online</h1>
+<p class="lede">Choose the columns that define a duplicate, keep the first matching row, and download your cleaned CSV.</p>
+</section>
+<section class="tool" aria-label="Remove Duplicate Rows in CSV Online tool">
+<h2>Remove Duplicate Rows in CSV Online</h2>
+<p>Load a UTF-8 CSV with a header row. Choose a file or paste data; your file stays in your browser.</p>
+<div class="tool-grid">
+<label class="field">Choose CSV file<input id="file" type="file" accept=".csv,.tsv,.txt,text/csv">
+</label>
+<label class="field">Delimiter<select id="delimiter">
+<option value="">Detect automatically</option>
+<option value=",">Comma</option>
+<option value=";">Semicolon</option>
+<option value="&#9;">Tab</option>
+<option value="|">Pipe</option>
+</select>
+</label>
+<label class="field wide">Or paste CSV data<textarea id="source" placeholder="Paste CSV including the header row">
+</textarea>
+</label>
+</div>
+<div class="actions">
+<button id="load" type="button">Load data</button>
+</div>
+<fieldset class="column-picker">
+<legend>Choose one or more matching columns</legend>
+<div id="columns">
+</div>
+</fieldset>
+<div class="actions">
+<button id="run" type="button" disabled>Run tool</button>
+<button id="download" class="secondary" type="button" disabled>Download CSV</button>
+</div>
+<p id="tool-status" role="status" aria-live="polite">Choose a CSV file or paste data to start.</p>
+<div class="preview" id="preview" hidden>
+</div>
+<p class="privacy-note">Limits: 10 MB, 100,000 data rows and 1,000 columns. Unpivot output is limited to 300,000 rows. Preview shows 12 rows; download includes all results.</p>
+</section>
+<article class="guide">
+<section>
+<h2>Example result</h2>
+<p class="example">Input keys: A, B, A. Select the key column and the result keeps A and B, removing the later A row.</p>
+</section>
+<section>
+<h2>How to remove duplicate CSV rows by selected columns</h2>
+<p>Load your CSV in the dedupe tool with the correct delimiter and verify the displayed column names. Blank rows in the source file are skipped on ingest. Select one or more columns that define uniqueness for your task, such as email alone or customer id plus transaction date together. The tool compares entire rows only on those fields; other columns are carried along but ignored for match decisions. When multiple data rows share the same key values under exact comparison, the earliest row in file order is kept and later matches are dropped from the output. Case and spacing in decoded key columns must match exactly for rows to be considered duplicates. Preview shows up to twelve surviving rows; download returns the full deduped CSV with the same column order as the input.</p>
+</section>
+<section>
+<h2>Worked example: subscription list with repeated emails</h2>
+<p>Consider a file with columns email, signup_date, and source. Row two and row four both have email &quot;user@example.com&quot;, signup_date &quot;2024-01-10&quot;, and source &quot;web&quot;; row four appears later in the file. With only email selected as the key, both rows match on one column and the first occurrence (row two) is retained; row four is removed even if signup_date or source differed. If you instead select email and signup_date together, rows that share email but differ on date would both remain. A third row with &quot;User@example.com&quot; would not match &quot;user@example.com&quot; because comparison is case-sensitive. After dedupe, row count drops by the number of discarded duplicates; you can verify by sorting the download on the key columns and confirming no adjacent identical keys remain under your chosen fields.</p>
+</section>
+<section>
+<h2>Duplicate logic on keys you choose</h2>
+<p>Two rows are duplicates when every selected key column has identical text in each corresponding cell. Unselected columns do not affect the decision: a later row with the same id but an updated phone number still deletes if only id is in the key set and the id matches an earlier row. Exact match means no fuzzy deduplication by soundex, domain normalization, or trimmed whitespace unless the cells already match as stored. All-blank keys on multiple lines will collide if those columns are the sole keys, which may or may not be what you want for sparse data. Rows that differ in one key field by a single character count as distinct. For composite keys, partial overlap is insufficient; all chosen fields must match simultaneously.</p>
+</section>
+<section>
+<h2>CSV structure issues that affect deduplication</h2>
+<p>Headers come from row one; if keys include misspelled header names from a bad export, pick the actual column labels shown in the tool. Delimiter errors can concatenate what should be two key fields into one, hiding duplicates or creating false uniqueness. Quoted fields keep embedded delimiters inside one value so &quot;123,456&quot; stays one id. Line endings from Windows or Unix are normalized by the parser but row order follows the sequence in the file as read, which defines which duplicate wins. If your policy is &quot;keep latest by date&quot;, this tool always keeps first by position; you would sort the file appropriately before upload or adjust outside the browser. Skipped blank lines do not participate, so line numbers in a text editor may not match row indices in the preview.</p>
+</section>
+<section>
+<h2>Privacy, preview limits, and output shape</h2>
+<p>Dedupe runs locally like the other CSV utilities on this site; files stay on your device. Output preserves all original columns for kept rows and drops entire duplicate lines rather than merging field values from duplicates into one row. No aggregate statistics are computed here. Preview capped at twelve rows is for layout inspection only; rely on download for reconciliation counts. Large files dedupe in memory; extremely wide or long sheets may require patience or preprocessing. Because processing is ephemeral, download the result before navigating away. The result file remains comma-separated text suitable for re-import elsewhere; encoding follows typical UTF-8 expectations for browser-generated downloads.</p>
+</section>
+<section>
+<h2>Confirming the right rows survived</h2>
+<p>After download, sort by your key columns and scan for repeated keys; none should appear twice if keys were chosen correctly. Compare input and output record counts: their difference equals the number of rows removed. Check edge cases: first-row headers never dedupe against data. Single-row files pass through unchanged. If too many rows vanished, widen or narrow the key set—perhaps you keyed only on zip code when you needed address plus zip. If too few vanished, the selected key may contain extra distinguishing fields or casing splits what you consider one entity. Spot-check a known duplicate pair in the original against the output to confirm the earlier row’s non-key columns are the ones you wanted. Case-sensitive duplicates may need a normalization pass upstream before dedupe if policy requires it.</p>
+</section>
+<section>
+<h2>Typical dedupe scenarios and chaining tools</h2>
+<p>Event registrations, newsletter signups, and lead dumps often need one row per email or per person id. Transaction logs might need dedupe on order id to remove accidental double posts while keeping legitimately repeated product lines on different orders when keyed differently. After dedupe, run the count tool on a status or region column to profile the cleaned set. Wide metrics sheets might unpivot before dedupe if uniqueness applies per id and metric name in long form rather than repeated wide columns. For migration, dedupe before loading a database unique index reduces constraint failures. Document which columns formed the key in your run notes so teammates reproduce the same rule. When business logic requires keeping the newest duplicate, pre-sort descending on a timestamp column in your editor, then dedupe so “first” in file equals newest.</p>
+</section>
+<section>
+<h2>CSV format reference</h2>
+<p>CSV can use quoted fields for commas, quotes, and line breaks. See the <a href="https://www.rfc-editor.org/rfc/rfc4180">CSV format specification, RFC 4180</a>, for details about common CSV conventions. Check the file's encoding and delimiter before processing.</p>
+</section>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<details>
+<summary>Which duplicate row is kept?</summary>
+<p>The first matching row in file order is kept; later rows with the same selected values are removed.</p>
+</details>
+<details>
+<summary>Can I choose multiple columns?</summary>
+<p>Yes. All selected column values must match for two rows to be treated as duplicates.</p>
+</details>
+<details>
+<summary>Are spaces and capitalization ignored?</summary>
+<p>No. Comparison is exact and case sensitive; spaces are preserved.</p>
+</details>
+</section>
+<section class="related">
+<h2>Related tools</h2>
+<ul>
+<li>
+<a href="/count-unique-values-csv">Count Unique Values in CSV Online</a>
+</li>
+<li>
+<a href="/unpivot-csv">Unpivot CSV Online: Wide to Long</a>
+</li>
+<li>
+<a href="/csv-viewer">CSV Viewer</a>
+</li>
+<li>
+<a href="/online-pivot-table">Online Pivot Table</a>
+</li>
+<li>
+<a href="/tools">All tools</a>
+</li>
+</ul>
+</section>
+</article>
+</main>
+<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a> · <a href="/sitemap.xml">Sitemap</a> · Our other site: <a href="https://zombieaitrend.com/" target="_blank" rel="noopener">Zombie AI Trend</a> · <a href="https://bulbulv4flash.com/" target="_blank" rel="noopener">Bulbul V4 Flash</a> · <a href="https://omnihuman20.com/" target="_blank" rel="noopener">OmniHuman 2.0</a>
+</footer>
+<script type="module" src="/src/csv-operations-ui.js">
+</script>
+</body>
+</html>

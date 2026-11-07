@@ -38,6 +38,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: `${projectRoot}/index.html`,
+        countCsv: `${projectRoot}/count-unique-values-csv.html`,
+        dedupeCsv: `${projectRoot}/remove-duplicate-rows-csv.html`,
+        unpivotCsv: `${projectRoot}/unpivot-csv.html`,
         tools: `${projectRoot}/tools.html`,
         chartMaker: `${projectRoot}/chart-maker.html`,
         csvViewer: `${projectRoot}/csv-viewer.html`,

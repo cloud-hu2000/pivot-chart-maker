@@ -1,24 +1,99 @@
 {
   "rewrites": [
-    { "source": "/online-pivot-table", "destination": "/online-pivot-table.html" },
-    { "source": "/pivot-chart-without-excel", "destination": "/pivot-chart-without-excel.html" },
-    { "source": "/xlsx-to-pivot-chart", "destination": "/xlsx-to-pivot-chart.html" },
-    { "source": "/tools", "destination": "/tools.html" },
-    { "source": "/chart-maker", "destination": "/chart-maker.html" },
-    { "source": "/csv-viewer", "destination": "/csv-viewer.html" },
-    { "source": "/json-to-csv", "destination": "/json-to-csv.html" },
-    { "source": "/csv-to-json", "destination": "/csv-to-json.html" },
-    { "source": "/csv-to-excel", "destination": "/csv-to-excel.html" }
+    {
+      "source": "/online-pivot-table",
+      "destination": "/online-pivot-table.html"
+    },
+    {
+      "source": "/pivot-chart-without-excel",
+      "destination": "/pivot-chart-without-excel.html"
+    },
+    {
+      "source": "/xlsx-to-pivot-chart",
+      "destination": "/xlsx-to-pivot-chart.html"
+    },
+    {
+      "source": "/tools",
+      "destination": "/tools.html"
+    },
+    {
+      "source": "/chart-maker",
+      "destination": "/chart-maker.html"
+    },
+    {
+      "source": "/csv-viewer",
+      "destination": "/csv-viewer.html"
+    },
+    {
+      "source": "/json-to-csv",
+      "destination": "/json-to-csv.html"
+    },
+    {
+      "source": "/csv-to-json",
+      "destination": "/csv-to-json.html"
+    },
+    {
+      "source": "/csv-to-excel",
+      "destination": "/csv-to-excel.html"
+    },
+    {
+      "source": "/count-unique-values-csv",
+      "destination": "/count-unique-values-csv.html"
+    },
+    {
+      "source": "/remove-duplicate-rows-csv",
+      "destination": "/remove-duplicate-rows-csv.html"
+    },
+    {
+      "source": "/unpivot-csv",
+      "destination": "/unpivot-csv.html"
+    }
   ],
   "redirects": [
-    { "source": "/online-pivot-table-maker.html", "destination": "/", "permanent": true },
-    { "source": "/pivot-table-generator.html", "destination": "/", "permanent": true },
-    { "source": "/excel-pivot-table-online.html", "destination": "/create-pivot-chart-in-excel.html", "permanent": true },
-    { "source": "/csv-to-bar-chart.html", "destination": "/csv-to-pivot-chart.html", "permanent": true },
-    { "source": "/csv-to-line-chart.html", "destination": "/csv-to-pivot-chart.html", "permanent": true },
-    { "source": "/csv-to-pie-chart.html", "destination": "/csv-to-pivot-chart.html", "permanent": true },
-    { "source": "/excel-to-bar-chart.html", "destination": "/create-pivot-chart-in-excel.html", "permanent": true },
-    { "source": "/excel-to-line-chart.html", "destination": "/create-pivot-chart-in-excel.html", "permanent": true },
-    { "source": "/excel-to-pie-chart.html", "destination": "/create-pivot-chart-in-excel.html", "permanent": true }
+    {
+      "source": "/online-pivot-table-maker.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pivot-table-generator.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/excel-pivot-table-online.html",
+      "destination": "/create-pivot-chart-in-excel.html",
+      "permanent": true
+    },
+    {
+      "source": "/csv-to-bar-chart.html",
+      "destination": "/csv-to-pivot-chart.html",
+      "permanent": true
+    },
+    {
+      "source": "/csv-to-line-chart.html",
+      "destination": "/csv-to-pivot-chart.html",
+      "permanent": true
+    },
+    {
+      "source": "/csv-to-pie-chart.html",
+      "destination": "/csv-to-pivot-chart.html",
+      "permanent": true
+    },
+    {
+      "source": "/excel-to-bar-chart.html",
+      "destination": "/create-pivot-chart-in-excel.html",
+      "permanent": true
+    },
+    {
+      "source": "/excel-to-line-chart.html",
+      "destination": "/create-pivot-chart-in-excel.html",
+      "permanent": true
+    },
+    {
+      "source": "/excel-to-pie-chart.html",
+      "destination": "/create-pivot-chart-in-excel.html",
+      "permanent": true
+    }
   ]
 }

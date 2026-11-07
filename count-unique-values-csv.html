@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Count Unique Values in CSV Online</title>
+<meta name="description" content="Count unique values in a CSV column, see frequencies and percentages, and download all results. Process your data locally in your browser for free.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.pivotchartmaker.org/count-unique-values-csv">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Count Unique Values in CSV Online">
+<meta property="og:description" content="Count unique values in a CSV column, see frequencies and percentages, and download all results. Process your data locally in your browser for free.">
+<meta property="og:url" content="https://www.pivotchartmaker.org/count-unique-values-csv">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Count Unique Values in CSV Online","url":"https://www.pivotchartmaker.org/count-unique-values-csv","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</head>
+<body data-csv-operation="count">
+<header class="site-header">
+<a class="brand" href="/">Pivot Chart Maker</a>
+<nav aria-label="Primary navigation">
+<a href="/">Pivot chart tool</a>
+<a href="/tools">All tools</a>
+<a href="/csv-viewer">CSV Viewer</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Free browser tool</p>
+<h1>Count Unique Values in CSV Online</h1>
+<p class="lede">Count how often each value appears in a CSV column. Review frequencies and percentages, then download the complete result.</p>
+</section>
+<section class="tool" aria-label="Count Unique Values in CSV Online tool">
+<h2>Count Unique Values in CSV Online</h2>
+<p>Load a UTF-8 CSV with a header row. Choose a file or paste data; your file stays in your browser.</p>
+<div class="tool-grid">
+<label class="field">Choose CSV file<input id="file" type="file" accept=".csv,.tsv,.txt,text/csv">
+</label>
+<label class="field">Delimiter<select id="delimiter">
+<option value="">Detect automatically</option>
+<option value=",">Comma</option>
+<option value=";">Semicolon</option>
+<option value="&#9;">Tab</option>
+<option value="|">Pipe</option>
+</select>
+</label>
+<label class="field wide">Or paste CSV data<textarea id="source" placeholder="Paste CSV including the header row">
+</textarea>
+</label>
+</div>
+<div class="actions">
+<button id="load" type="button">Load data</button>
+</div>
+<fieldset class="column-picker">
+<legend>Choose one column to count</legend>
+<div id="columns">
+</div>
+</fieldset>
+<div class="actions">
+<button id="run" type="button" disabled>Run tool</button>
+<button id="download" class="secondary" type="button" disabled>Download CSV</button>
+</div>
+<p id="tool-status" role="status" aria-live="polite">Choose a CSV file or paste data to start.</p>
+<div class="preview" id="preview" hidden>
+</div>
+<p class="privacy-note">Limits: 10 MB, 100,000 data rows and 1,000 columns. Unpivot output is limited to 300,000 rows. Preview shows 12 rows; download includes all results.</p>
+</section>
+<article class="guide">
+<section>
+<h2>Example result</h2>
+<p class="example">Input: Apple, Apple, Banana in a Category column. Output: Apple 2 (66.67%), Banana 1 (33.33%).</p>
+</section>
+<section>
+<h2>How to count distinct values in a CSV column</h2>
+<p>Open the count tool on this page and load your file from disk. The browser parses the sheet without sending it to a server. The first row is treated as column headers, then pick the delimiter that matches your export: comma, semicolon, tab, or pipe. Blank lines in the file are ignored during import. Choose one column from the header list to analyze. Run the count after loading the data and choosing a column. The tool tallies how often each exact cell value appears, treats empty cells as their own category, and expresses each tally as a percentage of all rows in that column with two decimal places. The on-screen table shows a slice of the frequency list; use download to save the complete result set as CSV for sorting, filtering in another editor, or archiving.</p>
+</section>
+<section>
+<h2>Worked example: category column with blanks and near-duplicates</h2>
+<p>Suppose a five-row export has header Category and rows: Apple, apple, Banana, an empty cell, and Apple again. Case and spaces matter: Apple and apple are two separate values, not one merged label. Use a second column containing a record ID so that the row with an empty Category is not a completely blank row; that empty category contributes one occurrence. Frequency output would list Apple twice (two rows), apple once, Banana once, and blank once, with shares of 40%, 20%, 20%, and 20% respectively. If you expected a single “apple” total, the result is telling you the source data used inconsistent casing rather than merging variants. Check the five data rows in the source: five is the denominator and the sum of counts equals five.</p>
+</section>
+<section>
+<h2>What counts as the same value</h2>
+<p>Matching is literal text in the cell after the file is split into fields. Uppercase and lowercase letters differ, so US and us are two keys. Leading or trailing spaces inside the field are preserved, so &quot;East &quot; and &quot;East&quot; do not combine. Punctuation and internal spacing must match exactly. The tool does not trim, fold case, or normalize Unicode forms unless your source file already did. Empty cells are included in the frequency table as their own entry rather than skipped, which helps you see missing-data volume. Duplicate rows in the file each increment the same value’s count; this tool does not collapse duplicates unless you dedupe elsewhere first. If two values look identical on screen but split separately, inspect for hidden characters or delimiter misreads in the source file.</p>
+</section>
+<section>
+<h2>Headers, delimiters, and quoted CSV fields</h2>
+<p>Only the first row supplies column names used in the column list; data rows start on line two. If your vendor file has title rows above headers, strip those lines before upload or counts will attach to the wrong column. European spreadsheets often use semicolon as the field separator while English ones use comma; mis-guessing merges columns and produces nonsense distinct values. Tab- and pipe-delimited logs need the matching setting so commas inside text stay inside one field. Standard double-quote wrapping allows commas, semicolons, or line breaks within a single cell; the parser respects quotes so one marketing tag with commas does not become three pseudo-values. After processing, inspect the result and compare it with a few source rows. Wrong delimiter typically shows one ultra-wide column or many empty-looking columns.</p>
+</section>
+<section>
+<h2>Local processing and what you see in the UI</h2>
+<p>Parsing and aggregation run in your browser session on the machine that loaded the page. The file is not uploaded to this site for counting. That suits audits, HR extracts, and client files where policy restricts cloud tools. Very large files may feel slower or memory-bound depending on device and browser; if the tab struggles, split the source file or work on a column subset in a smaller extract first. The interface shows up to twelve frequency rows in the preview area for a quick sanity check. The download action exports every distinct value and its count and percentage, not capped at twelve. Closing the tab clears in-memory data unless you saved output. Private mode still keeps work local but offers no persistence across sessions beyond what you download.</p>
+</section>
+<section>
+<h2>Reading percentages and validating the total</h2>
+<p>Each percentage is that value’s row count divided by the number of data rows in the chosen column, scaled to one hundred and shown with two decimal places. Rounding can make printed percentages sum to ninety-nine point nine nine or one hundred point zero one; compare integer counts if you need an exact audit. A dominant single value with ninety-plus percent share often means a default code, placeholder, or bulk import error. A long tail of values each at zero point zero one percent may be typos, unit variants, or free text that should be bucketed upstream. Cross-check: sum of counts across all rows in the frequency table should equal the number of non-skipped data lines for that column. If blank appears with high share, plan imputation or filter rules before modeling. Re-run on a sibling column to confirm delimiter choice stayed correct.</p>
+</section>
+<section>
+<h2>When frequency tables help and sensible follow-up</h2>
+<p>Cardinality checks before joins show whether a key column is almost unique or heavily repeated. Survey and form exports benefit from seeing how often each option was chosen, including unanswered blanks. Inventory or SKU columns reveal duplicate codes versus true distinct products when you compare count output to business expectations. After counting, you might dedupe rows on a composite key if repeats explain skewed frequencies, or unpivot wide survey grids so each question becomes one column to count answers separately. For cleanup, use the frequency list to build a correction spreadsheet outside this site, then re-import. Saving the downloaded CSV gives you a stable snapshot for documentation. For keys meant to be unique, a single value with count greater than one flags dedupe candidates without manual pivot tables.</p>
+</section>
+<section>
+<h2>CSV format reference</h2>
+<p>CSV can use quoted fields for commas, quotes, and line breaks. See the <a href="https://www.rfc-editor.org/rfc/rfc4180">CSV format specification, RFC 4180</a>, for details about common CSV conventions. Check the file's encoding and delimiter before processing.</p>
+</section>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<details>
+<summary>Are blank values included?</summary>
+<p>Yes. An empty cell in a nonblank record is counted as a value. Completely blank records are skipped.</p>
+</details>
+<details>
+<summary>Are values case sensitive?</summary>
+<p>Yes. Apple and apple are counted separately, as are values with different spaces.</p>
+</details>
+<details>
+<summary>Does the download include every value?</summary>
+<p>Yes. The preview shows up to 12 rows, while the CSV includes every result.</p>
+</details>
+</section>
+<section class="related">
+<h2>Related tools</h2>
+<ul>
+<li>
+<a href="/remove-duplicate-rows-csv">Remove Duplicate Rows in CSV Online</a>
+</li>
+<li>
+<a href="/unpivot-csv">Unpivot CSV Online: Wide to Long</a>
+</li>
+<li>
+<a href="/csv-viewer">CSV Viewer</a>
+</li>
+<li>
+<a href="/online-pivot-table">Online Pivot Table</a>
+</li>
+<li>
+<a href="/tools">All tools</a>
+</li>
+</ul>
+</section>
+</article>
+</main>
+<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a> · <a href="/sitemap.xml">Sitemap</a> · Our other site: <a href="https://zombieaitrend.com/" target="_blank" rel="noopener">Zombie AI Trend</a> · <a href="https://bulbulv4flash.com/" target="_blank" rel="noopener">Bulbul V4 Flash</a> · <a href="https://omnihuman20.com/" target="_blank" rel="noopener">OmniHuman 2.0</a>
+</footer>
+<script type="module" src="/src/csv-operations-ui.js">
+</script>
+</body>
+</html>

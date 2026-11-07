@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unpivot CSV Online: Wide to Long</title>
+<meta name="description" content="Unpivot CSV columns into rows online. Keep identifier columns, preview the long table, and download all results locally without uploading your file.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.pivotchartmaker.org/unpivot-csv">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Unpivot CSV Online: Wide to Long">
+<meta property="og:description" content="Unpivot CSV columns into rows online. Keep identifier columns, preview the long table, and download all results locally without uploading your file.">
+<meta property="og:url" content="https://www.pivotchartmaker.org/unpivot-csv">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Unpivot CSV Online: Wide to Long","url":"https://www.pivotchartmaker.org/unpivot-csv","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</head>
+<body data-csv-operation="unpivot">
+<header class="site-header">
+<a class="brand" href="/">Pivot Chart Maker</a>
+<nav aria-label="Primary navigation">
+<a href="/">Pivot chart tool</a>
+<a href="/tools">All tools</a>
+<a href="/csv-viewer">CSV Viewer</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Free browser tool</p>
+<h1>Unpivot CSV Online: Wide to Long</h1>
+<p class="lede">Turn selected columns in a wide CSV into attribute and value rows while keeping identifiers alongside each result.</p>
+</section>
+<section class="tool" aria-label="Unpivot CSV Online: Wide to Long tool">
+<h2>Unpivot CSV Online: Wide to Long</h2>
+<p>Load a UTF-8 CSV with a header row. Choose a file or paste data; your file stays in your browser.</p>
+<div class="tool-grid">
+<label class="field">Choose CSV file<input id="file" type="file" accept=".csv,.tsv,.txt,text/csv">
+</label>
+<label class="field">Delimiter<select id="delimiter">
+<option value="">Detect automatically</option>
+<option value=",">Comma</option>
+<option value=";">Semicolon</option>
+<option value="&#9;">Tab</option>
+<option value="|">Pipe</option>
+</select>
+</label>
+<label class="field wide">Or paste CSV data<textarea id="source" placeholder="Paste CSV including the header row">
+</textarea>
+</label>
+</div>
+<div class="actions">
+<button id="load" type="button">Load data</button>
+</div>
+<fieldset class="column-picker">
+<legend>Choose columns to unpivot; unselected columns stay as identifiers</legend>
+<div id="columns">
+</div>
+</fieldset>
+<div class="actions">
+<button id="run" type="button" disabled>Run tool</button>
+<button id="download" class="secondary" type="button" disabled>Download CSV</button>
+</div>
+<p id="tool-status" role="status" aria-live="polite">Choose a CSV file or paste data to start.</p>
+<div class="preview" id="preview" hidden>
+</div>
+<p class="privacy-note">Limits: 10 MB, 100,000 data rows and 1,000 columns. Unpivot output is limited to 300,000 rows. Preview shows 12 rows; download includes all results.</p>
+</section>
+<article class="guide">
+<section>
+<h2>Example result</h2>
+<p class="example">Input: Store, Q1, Q2 / North, 100, 150. Select Q1 and Q2 to get North, Q1, 100 and North, Q2, 150.</p>
+</section>
+<section>
+<h2>How to unpivot a wide CSV to long format</h2>
+<p>Upload a wide CSV, set delimiter, and confirm the header row. Designate one or more identifier columns that stay fixed on each output row, such as product id, store, or respondent id. Mark every column you want melted into values as unpivot targets; you need at least one identifier and at least one value column selected. All unselected columns are retained as identifiers. For each original data row, the tool emits one output row per selected value column, pairing the identifier cells with the column header name and the cell contents from that wide column. Blank cells in wide columns still produce a long row with an empty value field rather than skipping the combination. Preview shows up to twelve long rows; download includes the full unpivoted dataset with consistent long-form headers.</p>
+</section>
+<section>
+<h2>Worked example: quarterly sales columns</h2>
+<p>Wide input headers: Store, Q1_Sales, Q2_Sales, Q3_Sales. One data row: Store &quot;North&quot;, Q1_Sales &quot;100&quot;, Q2_Sales &quot;150&quot;, Q3_Sales blank. With Store as the only identifier and all three quarter columns selected, output has three rows: North, Q1_Sales, 100; North, Q2_Sales, 150; North, Q3_Sales, empty value cell. A second data row for Store &quot;South&quot; with values 80, 90, 70 adds three more lines. Identifiers repeat per melted column by design. If you selected only Q1 and Q2, Q3 would remain as an identifier column. Two identifier columns such as Store and Region would both repeat on each melted row. Row multiplication factor equals the number of selected value columns times the number of input data rows, which guides file size expectations before download.</p>
+</section>
+<section>
+<h2>Identifier columns versus attribute names</h2>
+<p>Identifiers are dimensions you want repeated unchanged while each measure column fans out. Value column headers become entries in the attribute column of the long layout—often conceptually a variable name, period label, or question code. Cell text under each wide header becomes the value column entry without type coercion; numbers and dates remain text as in CSV. Selecting every non-id column unpivots the entire measure block; leaving descriptive static fields as identifiers keeps them on each long row for filtering later. Do not select the same column as both identifier and value. If two wide headers differ only by invisible whitespace, they produce two distinct attribute keys. Exact text rules apply: case and spaces in headers propagate to the long attribute field.</p>
+</section>
+<section>
+<h2>Delimiters, quotes, and empty wide cells</h2>
+<p>Mis-set delimiters break wide headers so melted names look like garbage fragments. Quoted headers with commas inside become single attribute labels when parsed correctly. Empty trailing columns in some exports still unpivot if selected, yielding long rows with blank values. Completely empty input rows are skipped on import and contribute nothing. A wide cell that contains only spaces is that literal string in the value column, distinct from empty unless your source truly left the field null between delimiters. Pipe- or tab-separated wide tables follow the same unpivot rules once delimiter is set. Very wide sheets with dozens of month columns create proportionally many long rows per identifier; ensure downstream tools can handle the expanded row count. Header row must be first; extra preamble rows will mislabel identifiers.</p>
+</section>
+<section>
+<h2>Local unpivot, scale, and download behavior</h2>
+<p>Unpivot executes in the browser without server upload. Memory use grows with input rows multiplied by selected value columns, so thousand-row files with hundreds of columns can become large long outputs. The preview of twelve rows helps verify attribute header naming and identifier repetition pattern before committing to a big download. Download delivers the complete long CSV, not preview-limited. No automatic aggregation or filtering runs after melt; one wide row always becomes exactly as many long rows as there are selected value columns unless you later dedupe or subset elsewhere. Session data clears when you leave unless saved. For regulated data, local melt avoids exposing wide extracts containing many attributes in one cloud pipeline step.</p>
+</section>
+<section>
+<h2>Checking long-format output</h2>
+<p>Validate by picking one identifier from the preview and tracing it through each attribute row you expect from wide headers. Count long rows for one input line; it should equal the number of value columns ticked. Blank wide cells should appear as long rows with empty value fields if those columns were selected, confirming blanks were not dropped silently. Attribute names match the displayed column labels; empty or duplicate headers are renamed on import. Identifiers on all melted lines from the same source row must be identical across non-id fields. If row counts explode beyond expectation, you may have selected numeric id columns as values by mistake. If counts are too low, some wide columns may be unchecked or blank rows dominated import. Sort downloaded output by identifier then attribute to audit completeness against the wide source in a side-by-side review.</p>
+</section>
+<section>
+<h2>Why melt wide sheets and what to do after</h2>
+<p>Charting and many databases prefer one observation per row with a metric name column instead of sprouting period columns. Survey exports with one column per question unpivot for per-question counts or filtering. Panel data with years across the header becomes panel-long for regression prep. After unpivot, use count on the attribute column to see which measures exist per file, or dedupe on identifier plus attribute if wide export accidentally duplicated keys when stacked. You may still need type casting or date parsing outside this tool because values stay text. For reverse needs, pivoting long to wide is a separate manual or spreadsheet operation. Save melted CSV before further transforms. When only a subset of periods matters, select those value columns only to avoid extra long rows. Chain dedupe first if wide rows were duplicate records before melt would duplicate the entire long block.</p>
+</section>
+<section>
+<h2>CSV format reference</h2>
+<p>CSV can use quoted fields for commas, quotes, and line breaks. See the <a href="https://www.rfc-editor.org/rfc/rfc4180">CSV format specification, RFC 4180</a>, for details about common CSV conventions. Check the file's encoding and delimiter before processing.</p>
+</section>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<details>
+<summary>What happens to unselected columns?</summary>
+<p>They remain as identifier columns and are repeated on each output row.</p>
+</details>
+<details>
+<summary>Are empty values dropped?</summary>
+<p>No. Every selected cell produces an output row, including empty values.</p>
+</details>
+<details>
+<summary>How many rows will I get?</summary>
+<p>Each input row produces one output row for each selected column, up to the 300,000-row output limit.</p>
+</details>
+</section>
+<section class="related">
+<h2>Related tools</h2>
+<ul>
+<li>
+<a href="/count-unique-values-csv">Count Unique Values in CSV Online</a>
+</li>
+<li>
+<a href="/remove-duplicate-rows-csv">Remove Duplicate Rows in CSV Online</a>
+</li>
+<li>
+<a href="/csv-viewer">CSV Viewer</a>
+</li>
+<li>
+<a href="/online-pivot-table">Online Pivot Table</a>
+</li>
+<li>
+<a href="/tools">All tools</a>
+</li>
+</ul>
+</section>
+</article>
+</main>
+<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a> · <a href="/sitemap.xml">Sitemap</a> · Our other site: <a href="https://zombieaitrend.com/" target="_blank" rel="noopener">Zombie AI Trend</a> · <a href="https://bulbulv4flash.com/" target="_blank" rel="noopener">Bulbul V4 Flash</a> · <a href="https://omnihuman20.com/" target="_blank" rel="noopener">OmniHuman 2.0</a>
+</footer>
+<script type="module" src="/src/csv-operations-ui.js">
+</script>
+</body>
+</html>
