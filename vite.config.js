@@ -38,6 +38,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: `${projectRoot}/index.html`,
+        transposeCsv: `${projectRoot}/transpose-csv.html`,
+        mergeCsv: `${projectRoot}/merge-csv-files.html`,
+        excelToCsv: `${projectRoot}/excel-to-csv.html`,
         countCsv: `${projectRoot}/count-unique-values-csv.html`,
         dedupeCsv: `${projectRoot}/remove-duplicate-rows-csv.html`,
         unpivotCsv: `${projectRoot}/unpivot-csv.html`,

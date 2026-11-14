@@ -47,6 +47,18 @@
     {
       "source": "/unpivot-csv",
       "destination": "/unpivot-csv.html"
+    },
+    {
+      "source": "/transpose-csv",
+      "destination": "/transpose-csv.html"
+    },
+    {
+      "source": "/merge-csv-files",
+      "destination": "/merge-csv-files.html"
+    },
+    {
+      "source": "/excel-to-csv",
+      "destination": "/excel-to-csv.html"
     }
   ],
   "redirects": [

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Transpose CSV Online</title>
+<meta name="description" content="Transpose CSV rows and columns online. Paste or choose a CSV, preview the rotated table, and download your result locally without uploading your file.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.pivotchartmaker.org/transpose-csv">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:title" content="Transpose CSV Online">
+<meta property="og:description" content="Transpose CSV rows and columns online. Paste or choose a CSV, preview the rotated table, and download your result locally without uploading your file.">
+<meta property="og:url" content="https://www.pivotchartmaker.org/transpose-csv">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Transpose CSV Online","url":"https://www.pivotchartmaker.org/transpose-csv","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</head>
+<body data-table-tool="transpose">
+<header class="site-header">
+<a class="brand" href="/">Pivot Chart Maker</a>
+<nav aria-label="Primary navigation">
+<a href="/">Pivot chart tool</a>
+<a href="/tools">All tools</a>
+<a href="/csv-viewer">CSV Viewer</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Free browser tool</p>
+<h1>Transpose CSV Online</h1>
+<p class="lede">Swap CSV rows and columns, preview the result, and download a new CSV in your browser.</p>
+</section>
+<section class="tool" aria-label="Transpose CSV Online tool">
+<h2>Transpose CSV Online</h2>
+<p>Files are processed locally in your browser. No account required.</p>
+<div class="tool-grid">
+<label class="field">Choose a CSV file<input id="file" type="file" accept=".csv,.tsv,.txt,text/csv" >
+</label>
+<label class="field">Input delimiter<select id="delimiter">
+<option value="">Detect automatically</option>
+<option value=",">Comma</option>
+<option value=";">Semicolon</option>
+<option value="&#9;">Tab</option>
+<option value="|">Pipe</option>
+</select>
+</label>
+<label class="field wide">Or paste CSV data<textarea id="source" placeholder="Paste CSV data">
+</textarea>
+</label>
+</div>
+<div class="actions">
+<button type="button" id="run">Transpose CSV</button>
+<button id="download" class="secondary" type="button" disabled>Download CSV</button>
+</div>
+<p id="tool-status" role="status" aria-live="polite">Choose CSV data to start.</p>
+<div id="preview" class="preview" hidden>
+</div>
+<p class="privacy-note">Maximum 10 MB, 100,001 input rows and 1,000 input columns; at most 2,000 input rows when transposing. Blank records are skipped. Preview shows up to 12 rows; download contains the full result. CSV output uses commas and UTF-8.</p>
+</section>
+<article class="guide">
+<section>
+<h2>Example result</h2>
+<p class="example">Input: a,b,c and 1,2,3. Output: a,1 then b,2 then c,3.</p>
+</section>
+<section>
+<h2>What CSV transpose does</h2>
+<p>CSV transpose turns a row-oriented table into a column-oriented layout, or the reverse, by swapping rows and columns. The first row of your upload is treated as data like every other row, not as a special header that is dropped or kept fixed on the side. After transpose, what was row one becomes column one, row two becomes column two, and so on. If some rows in the original file are shorter than the widest row, the parser pads them with blank cells before rotating so every position is defined. The tool runs entirely in your browser: your file is not uploaded to a server for conversion. You pick a delimiter, run transpose, skim a preview of the first twelve rows of the result, then download the full transposed CSV with every row included. Input is expected to be UTF-8 text with a single header row only in the sense that you may have one; it is still rotated like any other line. Input delimiter choice affects how fields are split on read; comma, semicolon, tab, pipe and automatic detection are supported. Output uses commas. This page accepts CSV only, not Excel workbooks; use the Excel to CSV tool first if your data is in .xlsx or .xls format.</p>
+</section>
+<section>
+<h2>When transpose is useful</h2>
+<p>People use transpose when a report was exported with dates or categories across the top but analysis tools want one row per observation, or when a sensor log stores channels as rows and you need time in the first column instead. It is also handy for reshaping small matrices for charts, joining to another file that shares an ID in the first column, or comparing the same entities listed vertically in one file and horizontally in another. Because the operation is a straight geometric swap with blank padding, it does not interpret types: numbers and dates stay as the text that appeared in each cell. Transpose does not deduplicate columns, merge files, or fix header naming; it only reorients the grid you provide. If you need to combine several CSV exports into one long table, use the CSV merge tool after you have aligned headers manually or ensured each file uses the same header spelling. If you need live formula results from Excel rather than last-saved displayed values, re-save or calculate in Excel before export, because this tool never opens workbooks.</p>
+</section>
+<section>
+<h2>Step-by-step workflow</h2>
+<p>Start by preparing a UTF-8 CSV within the size and shape limits: up to ten megabytes per file, up to one hundred thousand data rows and one thousand columns in the source grid, with transposed output allowed up to two thousand columns. Open the transpose page, choose the delimiter that matches your file, and upload the CSV. Click transpose to parse all rows including the first line, pad short rows to the width of the longest row, build the rotated matrix, and render the preview limited to the first twelve result rows so the page stays responsive. Open the preview table to confirm that output row one matches the first input column read top to bottom, that quoting around commas or semicolons survived correctly, and that trailing empty fields did not collapse in a misleading way. When the layout looks right, download the CSV to get the complete transposed dataset with no row cap on export. Keep your original file unchanged as a backup. For wide inputs, remember the output row count equals the original column count; very wide files can become tall exports that are still valid CSV but heavy in spreadsheet apps.</p>
+</section>
+<section>
+<h2>How padding and rotation work</h2>
+<p>The implementation reads the file as delimited text, splits each line into fields using your selected delimiter with standard CSV quoting rules, and determines the maximum field count across all rows. Any row with fewer fields gets empty strings appended on the right until its length matches that maximum. Then for each original column index, the tool collects the value at that index from row zero, row one, row two, through the last row, and writes that collection as one new row in the output. The first input row becomes the first column of the output, while the first input column becomes the first output row. Blank pads matter when, for example, row five had only three fields but row one had six: positions four through six for row five are treated as empty before the swap, so the transposed columns that came from those positions still exist and show blanks where data was missing. Completely blank input records are skipped; otherwise the tool retains fields and it does not trim spaces inside fields unless your source already had trimmed values.</p>
+</section>
+<section>
+<h2>Concrete input and output example</h2>
+<p>Suppose you upload a comma-separated file with three rows and four columns, with no irregular widths. Row one is: alpha, beta, gamma, delta. Row two is: 1, 2, 3, 4. Row three is: x, y, z, w. After transpose with comma delimiter, you should see four rows. Row one becomes: alpha, 1, x. Row two becomes: beta, 2, y. Row three becomes: gamma, 3, z. Row four becomes: delta, 4, w. Notice how the first output row is the first column of the input read from top to bottom, not a copy of the old header row pinned separately. If the second input row were shorter, say only alpha, 1 with two fields while other rows still had four, padding would add two blank fields on that row before rotation, and the third and fourth output rows would include empty cells in the slot that came from those padded positions. Quoted fields containing commas stay single cells on both read and write; the downloaded file uses quoting when needed for a comma delimiter.</p>
+</section>
+<section>
+<h2>Checking results and delimiter choices</h2>
+<p>Always compare dimensions: output row count should equal the original column count after padding, and output column count should equal the original row count. Spot-check several cells by tracing back to the source coordinates: output at row i column j should equal input at row j column i when both use zero-based indexing on the padded grid. If every line in the preview looks like one giant field, the delimiter is probably wrong for your file, or the file uses a different encoding than UTF-8, which can produce parse errors or odd characters. If transpose fails immediately, read the error message: it may cite file size, row or column limits, parse failures, or encoding problems. The preview is only twelve rows; long files require scrolling in a local editor after download to verify the tail. Empty trailing delimiters at line ends create empty fields that participate in transpose the same as explicit values. Tabs and semicolons are common in European exports; pick the delimiter that matches the file rather than forcing comma. The default setting attempts to detect the input delimiter automatically.</p>
+</section>
+<section>
+<h2>Limits, failures, and related tasks</h2>
+<p>Hard limits are enforced before and during processing: ten megabytes maximum per file, one hundred thousand data rows and one thousand columns on input, and up to two thousand columns in the transposed output shape. Exceeding any limit returns a clear error and no download. Malformed quoting and unrecoverable parse errors stop the run with a message. Invalid UTF-8 can appear as replacement characters, so check the source and preview. Because work happens in the browser, extremely large grids may stress memory or tab performance even when within published caps. Transpose does not support .xlsx or .xls on this page; convert with the Excel to CSV tool, download UTF-8 CSV, then transpose here. To stack multiple CSV files by headers, use merge, not transpose. Merge requires consistent header rows and row widths across files; transpose leaves you with a single file in a new orientation. Neither transpose nor merge recalculates Excel formulas. For Excel sources, exported cached displayed values are what subsequent CSV tools see. If transpose is unsuitable because you only wanted to turn the first row into headers without rotating IDs, you need a different operation than full matrix transpose; this tool always rotates the entire rectangle including row one.</p>
+</section>
+<section>
+<h2>CSV format reference</h2>
+<p>CSV fields may contain commas or line breaks when quoted correctly. See the <a href="https://www.rfc-editor.org/rfc/rfc4180">CSV format specification RFC 4180</a> for common conventions.</p>
+</section>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<details>
+<summary>Is the first row transposed?</summary>
+<p>Yes. Every row, including the first, is rotated.</p>
+</details>
+<details>
+<summary>What happens to short rows?</summary>
+<p>They are padded with empty cells to the width of the longest row.</p>
+</details>
+<details>
+<summary>How is transpose different from unpivot?</summary>
+<p>Transpose swaps the entire grid; unpivot turns selected columns into attribute and value rows.</p>
+</details>
+</section>
+<section class="related">
+<h2>Related tools</h2>
+<ul>
+<li>
+<a href="/merge-csv-files">Merge CSV Files Online</a>
+</li>
+<li>
+<a href="/excel-to-csv">Excel to CSV Converter Online</a>
+</li>
+<li>
+<a href="/unpivot-csv">Unpivot CSV</a>
+</li>
+<li>
+<a href="/csv-viewer">CSV Viewer</a>
+</li>
+<li>
+<a href="/online-pivot-table">Online Pivot Table</a>
+</li>
+<li>
+<a href="/tools">All tools</a>
+</li>
+</ul>
+</section>
+</article>
+</main>
+<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a> · <a href="/sitemap.xml">Sitemap</a> · Our other site: <a href="https://zombieaitrend.com/" target="_blank" rel="noopener">Zombie AI Trend</a> · <a href="https://bulbulv4flash.com/" target="_blank" rel="noopener">Bulbul V4 Flash</a> · <a href="https://omnihuman20.com/" target="_blank" rel="noopener">OmniHuman 2.0</a>
+</footer>
+<script type="module" src="/src/table-transform-ui.js">
+</script>
+</body>
+</html>

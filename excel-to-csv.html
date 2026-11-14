@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Excel to CSV Converter Online</title>
+<meta name="description" content="Convert an Excel worksheet to CSV online. Choose an XLSX or XLS workbook, select a sheet, preview its values, and download CSV in your browser.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.pivotchartmaker.org/excel-to-csv">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:title" content="Excel to CSV Converter Online">
+<meta property="og:description" content="Convert an Excel worksheet to CSV online. Choose an XLSX or XLS workbook, select a sheet, preview its values, and download CSV in your browser.">
+<meta property="og:url" content="https://www.pivotchartmaker.org/excel-to-csv">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Excel to CSV Converter Online","url":"https://www.pivotchartmaker.org/excel-to-csv","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</head>
+<body data-table-tool="excel">
+<header class="site-header">
+<a class="brand" href="/">Pivot Chart Maker</a>
+<nav aria-label="Primary navigation">
+<a href="/">Pivot chart tool</a>
+<a href="/tools">All tools</a>
+<a href="/csv-viewer">CSV Viewer</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Free browser tool</p>
+<h1>Excel to CSV Converter Online</h1>
+<p class="lede">Convert one worksheet from an XLSX or XLS workbook into a downloadable CSV file.</p>
+</section>
+<section class="tool" aria-label="Excel to CSV Converter Online tool">
+<h2>Excel to CSV Converter Online</h2>
+<p>Files are processed locally in your browser. No account required.</p>
+<div class="tool-grid">
+<label class="field">Choose Excel workbook<input id="file" type="file" accept=".xlsx,.xls">
+</label>
+<label class="field">Worksheet<select id="sheet" disabled>
+</select>
+</label>
+</div>
+<div class="actions">
+<button type="button" id="run">Convert worksheet</button>
+<button id="download" class="secondary" type="button" disabled>Download CSV</button>
+</div>
+<p id="tool-status" role="status" aria-live="polite">Choose a workbook to start.</p>
+<div id="preview" class="preview" hidden>
+</div>
+<p class="privacy-note">Maximum 10 MB per workbook; worksheets are limited to 100,001 rows and 1,000 columns. Formulas are not recalculated. Preview shows up to 12 rows; download contains the full result. CSV output uses commas and UTF-8.</p>
+</section>
+<article class="guide">
+<section>
+<h2>Example result</h2>
+<p class="example">A sheet with Item,Qty and Apple,10 exports two CSV rows: Item,Qty and Apple,10.</p>
+</section>
+<section>
+<h2>What Excel to CSV conversion does</h2>
+<p>This tool converts a single worksheet from an Excel .xlsx or .xls workbook into one UTF-8 CSV file. After upload, you select which sheet to export when the workbook contains more than one. Conversion reads the stored cell values that Excel last cached for display: what you would typically see in the cell after opening the file, not live re-evaluation of formulas against a full calculation engine in the browser. Numeric dates, formatted numbers, and text become plain text fields in CSV form. Formatting such as fill colors, fonts, borders, column widths, merged cell presentation, and conditional formatting rules are not carried over. Each run exports exactly one worksheet; other sheets remain in the workbook untouched until you convert them in separate passes. Processing is local to your browser without uploading the workbook to a conversion server. The UI shows a preview of the first twelve rows of the CSV text; the download contains all rows that were read from the used range of that sheet, subject to the same row and column limits as other tools on the site.</p>
+</section>
+<section>
+<h2>When to use this instead of Save As in Excel</h2>
+<p>Use in-browser conversion when you do not have Excel installed, you want a quick one-sheet UTF-8 CSV on another operating system, or you prefer not to email a workbook through unrelated desktop steps. It is appropriate when cached values in the file are trustworthy: you opened and saved the sheet in Excel recently, values are constants, or you accept that formula cells export whatever was last calculated and stored. It is not appropriate when you must guarantee fresh formula results after macro or external data changes without opening Excel, or when you need multiple sheets in one CSV file, because this tool never merges sheets. For CSV-only utilities such as transpose or merge, run Excel to CSV first, then upload the resulting CSV to those pages; they do not accept .xlsx directly. If your workflow needs formatting, pivot tables, or charts, keep the workbook format; CSV is for data interchange, not presentation.</p>
+</section>
+<section>
+<h2>Step-by-step workflow</h2>
+<p>Confirm the workbook is at most ten megabytes and that the target sheet&#39;s used area fits within one hundred thousand data rows and one thousand columns. Choose the .xlsx or .xls file and click Convert. The first sheet is displayed; choose another worksheet and click Convert again to export it. The reader walks the sheet&#39;s populated range, resolves displayed values for each cell, serializes rows using comma separators, and fills the preview with the first twelve lines of the CSV string. Scan the preview for sensible column splits, empty leading rows if the sheet had blank top margin, and formula cells that show zero or old dates suggesting stale cache. Download the CSV for the full export. Open in a text editor or import into your next tool with UTF-8 encoding specified. To convert another sheet, repeat with the same or a new upload; there is no batch all-sheets zip from this page. Save the CSV under a clear name indicating sheet name and export date if you manage many extracts.</p>
+</section>
+<section>
+<h2>Displayed values, formulas, and dates</h2>
+<p>Excel files often store both a formula expression and a cached result. This exporter uses the cached result path appropriate to the file format so cells appear as users last saw them in Excel, without invoking a full recalculation pipeline in JavaScript. That means an IF or VLOOKUP cell exports the last saved outcome, which might differ from what Excel would show after refreshing external links today. Constant cells export their literals directly. Date cells typically export as the displayed serial formatting Excel cached, which may look like a calendar string or a number depending on how the workbook was saved; downstream tools may need explicit date parsing. Empty cells produce empty fields. Cells with errors cached as error displays may export error text visible in the sheet. There is no option here to export formula strings instead of values. If you need formula text, copy from Excel&#39;s formula bar or use a specialized Excel feature. Boolean values become whatever string representation the reader obtains from the cell record.</p>
+</section>
+<section>
+<h2>Concrete conversion example</h2>
+<p>Imagine a small .xlsx sheet named Sales with cells A1:C2 where A1 is Item, B1 is Qty, C1 is Price, A2 is Apple, B2 is 10, C2 contains a formula multiplying quantity by a unit price with cached displayed value 45.50, formatted as currency in Excel but stored as display text 45.50 or a localized variant depending on cache. The CSV header row becomes three fields: Item, Qty, Price. The second row contains Apple, 10, and the displayed cached result, which may include currency symbols from the cell format. A blank row 3 outside the used range does not appear. If row 2 instead held a formula with no cached value in a damaged file, you might see an empty field or an odd token; repairing in Excel and re-saving fixes cache. The downloaded CSV uses commas between fields and quotes values containing commas.</p>
+</section>
+<section>
+<h2>Worksheet selection and range behavior</h2>
+<p>Multi-sheet workbooks require you to choose one worksheet per conversion. Hidden or very hidden sheets may still appear in the list if the reader enumerates them; sheets exceeding the row or column guards are rejected. Leading entirely blank rows and columns at the edge of the used range may still affect how many blank fields appear at the start of a row if the format stores a rectangular used range including blanks. After export, verify column alignment in the preview because merged cells in Excel can confuse rectangular reads: you may see values only in the top-left cell of a merged block with blanks in sibling columns that visually spanned in Excel. Charts, images, and shapes are skipped. Tables defined as Excel tables still export as cell values in the grid. For .xls legacy binaries, support covers the same conceptual behavior though very old files might fail parsing with an error message. One worksheet at a time is a deliberate scope limit, not a multi-select omission you can toggle on.</p>
+</section>
+<section>
+<h2>Limits, failures, and chaining to CSV tools</h2>
+<p>Files above ten megabytes fail early. Sheets with more than one hundred thousand rows or one thousand columns hit limits during read or write. Corrupt archives, password-protected workbooks without provided passwords, or unsupported encryption typically produce errors instead of partial CSV. Browser memory may struggle below theoretical limits on low-end devices. Output is UTF-8 CSV with comma delimiter and RFC-style quoting when fields contain separators or line breaks. After download, transpose can rotate the CSV including its first row as data; merge can append multiple CSV exports if each has valid headers and consistent row widths. Neither chained tool reads Excel natively. If merge reports duplicate headers, fix the CSV header line in an editor. If transpose widens beyond two thousand columns, reduce source rows or split the sheet before conversion. Recalculate important formulas in Excel before export when stale cache would cause wrong downstream analysis.</p>
+</section>
+<section>
+<h2>CSV format reference</h2>
+<p>CSV fields may contain commas or line breaks when quoted correctly. See the <a href="https://www.rfc-editor.org/rfc/rfc4180">CSV format specification RFC 4180</a> for common conventions.</p>
+</section>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<details>
+<summary>Can I select a worksheet?</summary>
+<p>Yes. Convert once to load the workbook and select a sheet, then convert again to export it.</p>
+</details>
+<details>
+<summary>Are Excel formulas recalculated?</summary>
+<p>No. The converter uses stored cached results and does not recalculate formulas.</p>
+</details>
+<details>
+<summary>Does the CSV retain formatting?</summary>
+<p>No. CSV stores values as text rather than workbook formatting, charts or multiple sheets.</p>
+</details>
+</section>
+<section class="related">
+<h2>Related tools</h2>
+<ul>
+<li>
+<a href="/transpose-csv">Transpose CSV Online</a>
+</li>
+<li>
+<a href="/merge-csv-files">Merge CSV Files Online</a>
+</li>
+<li>
+<a href="/unpivot-csv">Unpivot CSV</a>
+</li>
+<li>
+<a href="/csv-viewer">CSV Viewer</a>
+</li>
+<li>
+<a href="/online-pivot-table">Online Pivot Table</a>
+</li>
+<li>
+<a href="/tools">All tools</a>
+</li>
+</ul>
+</section>
+</article>
+</main>
+<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a> · <a href="/sitemap.xml">Sitemap</a> · Our other site: <a href="https://zombieaitrend.com/" target="_blank" rel="noopener">Zombie AI Trend</a> · <a href="https://bulbulv4flash.com/" target="_blank" rel="noopener">Bulbul V4 Flash</a> · <a href="https://omnihuman20.com/" target="_blank" rel="noopener">OmniHuman 2.0</a>
+</footer>
+<script type="module" src="/src/table-transform-ui.js">
+</script>
+</body>
+</html>
