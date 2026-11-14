@@ -2101,6 +2101,13 @@ export default function App() {
         </div>
       ) : null}
 
+      {window.location.pathname === "/" && (
+        <aside className="home-ad" aria-label="Advertisement">
+          <span>Advertisement</span>
+          <iframe title="Advertisement" src="/ad-home.html" width="300" height="250" loading="lazy" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" />
+        </aside>
+      )}
+
       <section className="workflow-strip" id="how-it-works" aria-label="How to create a pivot chart">
         <article>
           <span className="step-number">1</span>
