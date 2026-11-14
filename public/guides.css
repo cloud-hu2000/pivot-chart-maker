@@ -70,3 +70,16 @@ footer { padding: 30px 24px; border-top: 1px solid #dce7f4; text-align: center; 
 .final-cta p { max-width: 620px; margin: 8px 0 0; color: #dbeafe; }
 .final-cta .button { flex: 0 0 auto; margin: 0; background: #fff; color: #0f5fce; }
 @media (max-width: 700px) { .faq-hero { grid-template-columns: 1fr; gap: 28px; padding-top: 48px; } .setup-strip, .chart-choice-grid { grid-template-columns: 1fr; } .setup-strip { margin-top: -18px; } .workflow-section, .choice-section, .questions-section { margin-top: 50px; } .final-cta { align-items: flex-start; flex-direction: column; } .final-cta .button { width: 100%; text-align: center; } }
+.article-ad {
+  margin: 2rem auto;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.article-ad-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #68727d;
+  font-size: 0.75rem;
+  text-align: center;
+}
