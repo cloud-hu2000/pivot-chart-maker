@@ -2,7 +2,7 @@
 import footerNetworkLinks from '../footer-network.links.json';
 import { FooterNetworkLinks } from './FooterNetworkLinks';
 import { getLandingPage, getSample } from "./landing-pages.js";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
 import Papa from "papaparse";
 import * as XLSX from "@e965/xlsx";
 import {
@@ -984,6 +984,11 @@ function LandingSeoContent({ page }) {
 }
 
 export default function App() {
+  const adSlotRef = useRef(null);
+  useLayoutEffect(() => {
+    const ad = document.getElementById("home-ad");
+    if (ad && adSlotRef.current) adSlotRef.current.appendChild(ad);
+  }, []);
   const chartLandingPage = CHART_LANDING_PAGES[window.location.pathname];
   const isChartLandingPage = Boolean(chartLandingPage);
   const landingPage = getLandingPage(window.location.pathname);
@@ -1684,7 +1689,7 @@ export default function App() {
             ? "Build a pivot table from CSV or XLSX data with a free, automatic workflow that stays simple from upload to export."
             : isPivotTableLandingPage
             ? "Create a pivot table online from CSV or XLSX data in minutes. This free online pivot table maker runs locally in your browser, so your spreadsheet stays on your device."
-            : "Create pivot tables and pivot charts from CSV or XLSX data in minutes. This free online tool runs locally in your browser, so your spreadsheet stays on your device."}
+            : "Create pivot tables and pivot charts from CSV or XLSX data in minutes. This free online tool processes your spreadsheet locally in your browser."}
         </p>
         <div className="hero-actions">
           <button className="primary-button" type="button" onClick={startChartTool}>
@@ -2102,10 +2107,7 @@ export default function App() {
       ) : null}
 
       {window.location.pathname === "/" && (
-        <aside className="home-ad" aria-label="Advertisement">
-          <span>Advertisement</span>
-          <iframe title="Advertisement" src="/ad-home.html" width="300" height="250" loading="lazy" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" />
-        </aside>
+        <div ref={adSlotRef} />
       )}
 
       <section className="workflow-strip" id="how-it-works" aria-label="How to create a pivot chart">
@@ -2151,7 +2153,7 @@ export default function App() {
           <div>
             <h2>Local processing</h2>
             <p>All parsing, aggregation, and export happen in your browser.</p>
-            <strong>Your data never leaves your device.</strong>
+            <strong>Spreadsheet processing happens on your device.</strong>
           </div>
         </article>
         <article>
@@ -2284,7 +2286,7 @@ export default function App() {
           </article>
           <article>
             <h3>Does my spreadsheet get uploaded to a server?</h3>
-            <p>No. File parsing, pivot aggregation, chart rendering, and export happen locally in your browser.</p>
+            <p>The tool processes files locally in your browser. The homepage also loads third-party advertising scripts.</p>
           </article>
           <article>
             <h3>Which file formats are supported?</h3>
@@ -2311,6 +2313,7 @@ export default function App() {
           <p>
             Privacy-first Pivot Chart Maker is designed for local spreadsheet analysis. Your CSV or XLSX file is read by
             browser APIs on your device, and the app does not intentionally send spreadsheet contents to a remote server.
+            The homepage also loads third-party advertising scripts, which run in the page and may access its content.
           </p>
         </div>
         <div>
