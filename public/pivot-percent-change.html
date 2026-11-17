@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pivot Percent of Total, Period Change</title>
+<meta name="description" content="Group CSV or XLSX rows by category and period. See percent of the grand total, plus difference and percent change versus the previous period. Browser only.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.pivotchartmaker.org/pivot-percent-change">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/css/pivot-percent-change.css">
+<meta property="og:title" content="Pivot Percent of Total, Period Change">
+<meta property="og:description" content="Group CSV or XLSX rows by category and period. See percent of the grand total, plus difference and percent change versus the previous period. Browser only.">
+<meta property="og:url" content="https://www.pivotchartmaker.org/pivot-percent-change">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Pivot Percent of Total, Period Change","url":"https://www.pivotchartmaker.org/pivot-percent-change","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the previous period?","acceptedAnswer":{"@type":"Answer","text":"The previous period is the label immediately before the current one in the file's sorted unique periods. Dates sort by UTC instant from oldest to newest. Other labels sort after dates, lexicographically, with year-month shapes zero-padded for sorting only. A missing calendar month is not inserted. If the file has 2024-01 and 2024-03, the previous period of 2024-03 is 2024-01."}},{"@type":"Question","name":"What if a group has no row in the previous period?","acceptedAnswer":{"@type":"Answer","text":"Difference and percent change are n/a. The page does not invent a zero for the missing row, and it does not skip back to an older period that the group happens to have."}},{"@type":"Question","name":"When is percent of total n/a?","acceptedAnswer":{"@type":"Answer","text":"Percent of total is n/a when the group-period has no plain number, or when the grand total of plain numbers is missing or zero. The cell is never NaN or Infinity."}},{"@type":"Question","name":"Are blank cells treated as zero?","acceptedAnswer":{"@type":"Answer","text":"No. Blank cells, text, currency symbols, percent signs, and thousands separators are left out of the sum. A blank sum stays blank. A real numeric zero stays zero and is 0 percent when the grand total is not zero."}},{"@type":"Question","name":"Does the online pivot table already show these figures?","acceptedAnswer":{"@type":"Answer","text":"No. The online pivot table calculates Sum, Average, and Count. This page is a separate tool for percent of total and the change versus the previous period."}},{"@type":"Question","name":"Is the spreadsheet uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The browser reads the file on your device. Closing the tab clears the working table unless you downloaded the CSV."}}]}]}</script>
+</head>
+<body>
+<header class="site-header">
+<a class="brand" href="/">Pivot Chart Maker</a>
+<nav aria-label="Primary navigation">
+<a href="/">Pivot chart tool</a>
+<a href="/tools">All tools</a>
+<a href="/csv-viewer">CSV Viewer</a>
+<a href="/pivot-percent-change">Percent and period change</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Free browser tool</p>
+<h1>Pivot Percent of Total, Period Change</h1>
+<p class="lede">Choose a group, a period, and a measure. Each group-period row shows its sum, its percent of the grand total, and the change from the previous period that is actually in the file.</p>
+</section>
+<section class="tool" aria-label="Percent of total and previous period change tool">
+<h2>Calculate percent of total and period change</h2>
+<p>Load a CSV or an XLSX worksheet, then pick the group, the period, and the measure. A selected file is used instead of pasted text. Click Load data again after you change the delimiter. Click Calculate after you change a field. Nothing is uploaded.</p>
+<div class="tool-grid">
+<label class="field">Choose CSV or XLSX<input id="file" type="file" accept=".csv,.tsv,.txt,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></label>
+<label class="field">Delimiter<select id="delimiter">
+<option value="auto">Detect automatically</option>
+<option value=",">Comma</option>
+<option value=";">Semicolon</option>
+<option value="&#9;">Tab</option>
+<option value="|">Pipe</option>
+</select></label>
+<label class="field" id="sheet-wrap" hidden>Worksheet<select id="sheet" disabled></select></label>
+<label class="field">Group field<select id="group-field" disabled></select></label>
+<label class="field">Period field<select id="period-field" disabled></select></label>
+<label class="field">Measure field<select id="measure-field" disabled></select></label>
+<label class="field wide">Or paste CSV<textarea id="source" placeholder="Paste CSV with a header row"></textarea></label>
+</div>
+<div class="actions">
+<button id="load" type="button">Load data</button>
+<button id="example" class="secondary" type="button">Use example rows</button>
+<button id="run" type="button" disabled>Calculate</button>
+<button id="download" class="secondary" type="button" disabled>Download CSV</button>
+</div>
+<p id="tool-status" role="status" aria-live="polite">Choose a CSV or XLSX file, or paste CSV, to start.</p>
+<div id="preview" class="preview" hidden></div>
+<p class="privacy-note">Percent of total divides each numeric group-period sum by the grand total of plain numbers. A missing or zero grand total stays n/a, never NaN. Periods sort oldest to newest, and the previous period is the prior label in that list. A month that is absent is not invented. If this group has no numeric row in that previous period, the change is n/a, not zero. Limits: 10 MB, 100,000 data rows, and 1,000 columns. The preview shows up to 12 rows; the CSV download includes every row.</p>
+</section>
+<noscript><p>This tool needs JavaScript to calculate the groups in your browser.</p></noscript>
+<article class="guide">
+<section>
+<h2>How a result row is built</h2>
+<p>Each source row belongs to one group and one period. The group is the exact text of the group cell, including spaces and letter case. An empty group cell is a real group. The period is the same cell text after trimming spaces from both ends, so a padded date matches the same date without those spaces. Duplicate rows with the same group and the same period become one result row, and their plain numbers are added.</p>
+<p>The measure is a plain number: optional plus or minus, digits, an optional decimal, and an optional exponent such as 1e2. Words, blanks, currency symbols, percent signs, and thousands separators are skipped. They are not added as zero. A group-period whose measure cells are all skipped has a blank Sum. Negative zero is treated as zero. The displayed sum is the numeric total, so 40 and 10 in the same group and period display as 50.</p>
+<p>Percent of total uses one denominator: the grand total of every numeric group-period sum. The grand total adds those sums in the order the groups first appear and, within a group, in the order the periods first appear. Integer amounts stay exact through 9,007,199,254,740,991. A larger finite integer stops the calculation with an error instead of a made-up share. Percent of total is the row sum divided by that grand total, times 100. The result is rounded half away from zero to 6 decimal places, then trailing zeros are removed. One of three is 33.333333. Two of three is 66.666667.</p>
+</section>
+<section>
+<h2>How periods are ordered</h2>
+<p>The file has one list of unique trimmed period labels. That list is sorted before any comparison. A label is a date when it is a real calendar value in one of these shapes: a four-digit year; a year and month with a hyphen or slash, with the month written as one or two digits; a year, month, and day in the same style; or an ISO date-time with a T, hours, minutes, seconds, an optional fraction of a second, and an optional Z or numeric offset. A date-time without an offset is read as UTC. Only the first three fractional digits are kept, as milliseconds. The calendar is checked, so 2024-02-29 is a date and 2023-02-29 is not. 2024-02-31 is not a date and is not rolled into March.</p>
+<p>Date labels sort by their UTC instant from oldest to newest, and they sort before every label that is not a date. Two different labels that land on the same instant stay separate. Their order is the label text, so 2024 comes before 2024-01 when both are present, and the sums are not merged. Labels that are not dates sort by a normalized key: a year-month or year-month-day shape is zero-padded for sorting only, and the original label is what you still see. Every other label sorts by UTF-16 code units. Q1, Q10, and Q2 therefore sort as Q1, then Q10, then Q2. This page does not guess a quarter calendar. An Excel date saved as a serial number stays that number and is not converted into a month.</p>
+<p>The previous period of a label is the label directly before it in this sorted list. It is not the previous label that one group happens to contain, and it is not a calendar month that never appears. If the only periods are 2024-01 and 2024-03, the previous period of 2024-03 is 2024-01. February is not created. The earliest period has no previous period, so its Previous period cell is blank and its change cells are n/a.</p>
+</section>
+<section>
+<h2>When the change is n/a</h2>
+<p>Difference and percent change are calculated only when the same group has a numeric sum in the current period and a numeric sum in that immediate previous period. Difference is the current sum minus the previous sum. Percent change is that difference divided by the previous sum, times 100, with the same 6-decimal rounding. If the previous sum is zero, the difference is still shown and the percent change is n/a, because dividing by zero would not be a real change.</p>
+<p>If the group has no row in the previous period, both change cells are n/a. The page does not invent a zero row, and it does not walk back to an older period the group does have. If the previous row exists but its measure is blank or text, that sum is missing rather than zero, and the change is n/a as well. A current sum that is missing is also n/a, even when the previous sum is a number. None of these cases display NaN or Infinity.</p>
+<p>Percent of total is n/a when the row sum is missing, and also when the grand total is missing or zero. A file of zeros, or positive and negative amounts that cancel, has a zero grand total. The sums and a numeric difference can still appear. The percents do not.</p>
+</section>
+<section>
+<h2>Worked example</h2>
+<p>The rows below are the example button's input. They are a worked example, not a measurement of this site.</p>
+<p class="example">Header Region, Period, Amount. East 2024-01 40, East 2024-01 10, East 2024-02 80, East 2024-04 20, West 2024-04 50, West 2024-01 n/a, North 2024-02 0.</p>
+<p>The unique periods sort as 2024-01, 2024-02, 2024-04. The label 2024-03 is not inserted. The grand total is 200. The text n/a on West's January row is not a number, so it is left out. North's zero is a number and is included.</p>
+<table>
+<caption>Example result. These figures describe the seven input rows above.</caption>
+<thead>
+<tr><th>Group</th><th>Period</th><th>Sum</th><th>Percent of total</th><th>Previous period</th><th>Difference</th><th>Percent change</th></tr>
+</thead>
+<tbody>
+<tr><td>East</td><td>2024-01</td><td>50</td><td>25</td><td></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>East</td><td>2024-02</td><td>80</td><td>40</td><td>2024-01</td><td>30</td><td>60</td></tr>
+<tr><td>East</td><td>2024-04</td><td>20</td><td>10</td><td>2024-02</td><td>-60</td><td>-75</td></tr>
+<tr><td>West</td><td>2024-01</td><td></td><td>n/a</td><td></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>West</td><td>2024-04</td><td>50</td><td>25</td><td>2024-02</td><td>n/a</td><td>n/a</td></tr>
+<tr><td>North</td><td>2024-02</td><td>0</td><td>0</td><td>2024-01</td><td>n/a</td><td>n/a</td></tr>
+</tbody>
+</table>
+<p>East January is two rows, 40 and 10, so the result sum is 50 and the percent of 200 is 25. There is no earlier period, so the change is n/a. East February is 80, which is 40 percent of 200, 30 more than East January, a 60 percent change. East April is 20. Its previous period is 2024-02, because 2024-03 is absent, and East does have a February row: the difference is -60 and the percent change is -75. That is 10 percent of the grand total.</p>
+<p>West April is 50, which is 25 percent of 200. Its previous period is also 2024-02, and West has no row in February. The change is n/a. It is not compared with West January, and February is not filled with zero. West January has the text n/a, so the sum is blank and the percent is n/a. North February is numeric 0, which is 0 percent of 200. North has no January row, so its change is n/a rather than zero minus an invented amount. Use the example button to compare this table with the tool.</p>
+</section>
+<section>
+<h2>CSV and XLSX input</h2>
+<p>Paste CSV or choose a .csv, .tsv, or .txt file. The first non-empty record is the header. Quoted fields can contain the delimiter and doubled quotes. An unclosed quote stops the load with an error and no result table. Automatic delimiter detection chooses among comma, semicolon, tab, and pipe from the header line. CSV text is read as UTF-8. See the <a href="https://www.rfc-editor.org/rfc/rfc4180">CSV format specification, RFC 4180</a>, for quoting, and <a href="https://www.rfc-editor.org/rfc/rfc3339">RFC 3339</a> for the date-time shape this page accepts.</p>
+<p>An .xlsx workbook is read in the browser as Office Open XML. The worksheet list starts on the first sheet, and you can switch sheets. Older binary .xls workbooks are not read. A formula contributes the stored value when the file has one; this page does not recalculate it. A date stored as an Excel serial stays that serial. Save the period as text in a year-month or ISO form when you want the date sort above. See Microsoft's <a href="https://support.microsoft.com/en-us/excel/file-formats-that-are-supported-in-excel">file formats supported in Excel</a> for the difference between .xlsx and older workbooks.</p>
+</section>
+<section>
+<h2>What this page calculates</h2>
+<p>This page calculates the grouped sum, the percent of that grand total, the difference from the previous period in the file, and the percent change from that same previous period. It does not add those columns to the <a href="/online-pivot-table">online pivot table</a>. That page calculates Sum, Average, and Count. It also does not draw the differences as a chart. <a href="/pivot-min-max-distinct">Minimum, maximum, and distinct count</a> answers a different question about each group and does not compare periods.</p>
+<p>The preview lists at most 12 result rows, in group-then-period order. The CSV download contains every row: Group, Period, Sum, Percent of total, Previous period, Difference, and Percent change. Blank sums and blank previous-period cells are empty fields. The letters n/a are written where a percent or a change was not calculated. The browser keeps the table in memory only. Refreshing or closing the tab clears it. There is no account, and the file is not sent to a server for the calculation.</p>
+</section>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<details>
+<summary>What is the previous period?</summary>
+<p>The previous period is the label immediately before the current one in the file's sorted unique periods. Dates sort by UTC instant from oldest to newest. Other labels sort after dates, lexicographically, with year-month shapes zero-padded for sorting only. A missing calendar month is not inserted. If the file has 2024-01 and 2024-03, the previous period of 2024-03 is 2024-01.</p>
+</details>
+<details>
+<summary>What if a group has no row in the previous period?</summary>
+<p>Difference and percent change are n/a. The page does not invent a zero for the missing row, and it does not skip back to an older period that the group happens to have.</p>
+</details>
+<details>
+<summary>When is percent of total n/a?</summary>
+<p>Percent of total is n/a when the group-period has no plain number, or when the grand total of plain numbers is missing or zero. The cell is never NaN or Infinity.</p>
+</details>
+<details>
+<summary>Are blank cells treated as zero?</summary>
+<p>No. Blank cells, text, currency symbols, percent signs, and thousands separators are left out of the sum. A blank sum stays blank. A real numeric zero stays zero and is 0 percent when the grand total is not zero.</p>
+</details>
+<details>
+<summary>Does the online pivot table already show these figures?</summary>
+<p>No. The online pivot table calculates Sum, Average, and Count. This page is a separate tool for percent of total and the change versus the previous period.</p>
+</details>
+<details>
+<summary>Is the spreadsheet uploaded?</summary>
+<p>No. The browser reads the file on your device. Closing the tab clears the working table unless you downloaded the CSV.</p>
+</details>
+</section>
+<section class="related">
+<h2>Related tools</h2>
+<ul>
+<li><a href="/tools">All tools</a></li>
+<li><a href="/online-pivot-table">Online pivot table (Sum, Average, Count)</a></li>
+<li><a href="/pivot-min-max-distinct">Minimum, maximum, and distinct count</a></li>
+<li><a href="/excel-to-csv">Excel to CSV</a></li>
+<li><a href="/csv-viewer">CSV Viewer</a></li>
+</ul>
+</section>
+</article>
+</main>
+<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a> · <a href="/sitemap.xml">Sitemap</a></footer>
+<script type="module" src="/js/pivot-percent-change-ui.js"></script>
+</body>
+</html>

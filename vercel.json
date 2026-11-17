@@ -63,6 +63,10 @@
     {
       "source": "/pivot-min-max-distinct",
       "destination": "/pivot-min-max-distinct.html"
+    },
+    {
+      "source": "/pivot-percent-change",
+      "destination": "/pivot-percent-change.html"
     }
   ],
   "redirects": [
