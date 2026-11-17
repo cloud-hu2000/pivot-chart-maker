@@ -59,6 +59,18 @@
     {
       "source": "/excel-to-csv",
       "destination": "/excel-to-csv.html"
+    },
+    {
+      "source": "/pivot-min-max-distinct",
+      "destination": "/pivot-min-max-distinct.html"
+    },
+    {
+      "source": "/pivot-percent-change",
+      "destination": "/pivot-percent-change.html"
+    },
+    {
+      "source": "/pivot-two-row-dimensions",
+      "destination": "/pivot-two-row-dimensions.html"
     }
   ],
   "redirects": [
