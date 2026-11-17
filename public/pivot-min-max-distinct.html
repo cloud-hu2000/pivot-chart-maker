@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pivot Minimum, Maximum, Distinct Count</title>
+<meta name="description" content="Group a CSV or XLSX by one field and calculate minimum, maximum, and distinct count for a value field. Files are processed only in your browser.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.pivotchartmaker.org/pivot-min-max-distinct">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/css/pivot-min-max-distinct.css">
+<meta property="og:title" content="Pivot Minimum, Maximum, Distinct Count">
+<meta property="og:description" content="Group a CSV or XLSX by one field and calculate minimum, maximum, and distinct count for a value field. Files are processed only in your browser.">
+<meta property="og:url" content="https://www.pivotchartmaker.org/pivot-min-max-distinct">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Pivot Minimum, Maximum, Distinct Count","url":"https://www.pivotchartmaker.org/pivot-min-max-distinct","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are blank cells part of the distinct count?","acceptedAnswer":{"@type":"Answer","text":"Yes. Empty cells in a group count as one distinct value, the empty string. A cell that contains only spaces is a different value, not a blank."}},{"@type":"Question","name":"Do words and blanks change the minimum or maximum?","acceptedAnswer":{"@type":"Answer","text":"No. Minimum and maximum use only cells that are plain numbers after trimming. Text, blanks, currency symbols, percent signs, and thousands separators are ignored. If a group has no plain number, those two cells are left blank rather than shown as zero."}},{"@type":"Question","name":"Is the all-rows distinct count the sum of the group counts?","acceptedAnswer":{"@type":"Answer","text":"No. The all-rows row counts each different value once across the whole file. A value that appears in two groups is still one value in that summary."}},{"@type":"Question","name":"Does the online pivot table already calculate these three figures?","acceptedAnswer":{"@type":"Answer","text":"No. The online pivot table calculates Sum, Average, and Count. This page is a separate tool for minimum, maximum, and distinct count."}},{"@type":"Question","name":"Which Excel sheet is used?","acceptedAnswer":{"@type":"Answer","text":"Choose the worksheet after you load an XLSX file. The first sheet is selected to start. Older .xls files are not read. Formula cells contribute the stored value when the file has one, and the formula is not recalculated here."}},{"@type":"Question","name":"Is the spreadsheet uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The browser reads the file on your device. Closing the tab clears the working table unless you downloaded the CSV."}}]}]}</script>
+</head>
+<body>
+<header class="site-header">
+<a class="brand" href="/">Pivot Chart Maker</a>
+<nav aria-label="Primary navigation">
+<a href="/">Pivot chart tool</a>
+<a href="/tools">All tools</a>
+<a href="/csv-viewer">CSV Viewer</a>
+<a href="/pivot-min-max-distinct">Min, max, distinct</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Free browser tool</p>
+<h1>Pivot Minimum, Maximum, Distinct Count</h1>
+<p class="lede">Choose a row field and a value field. Each group then shows its lowest number, its highest number, and how many different cell values it contains.</p>
+</section>
+<section class="tool" aria-label="Pivot minimum, maximum, and distinct count tool">
+<h2>Calculate minimum, maximum, and distinct count</h2>
+<p>Load a CSV or the first worksheet of an XLSX file, then pick the fields. A selected file is used instead of pasted text. Click Load data again after you change the delimiter. Nothing is uploaded.</p>
+<div class="tool-grid">
+<label class="field">Choose CSV or XLSX<input id="file" type="file" accept=".csv,.tsv,.txt,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></label>
+<label class="field">Delimiter<select id="delimiter">
+<option value="auto">Detect automatically</option>
+<option value=",">Comma</option>
+<option value=";">Semicolon</option>
+<option value="&#9;">Tab</option>
+<option value="|">Pipe</option>
+</select></label>
+<label class="field" id="sheet-wrap" hidden>Worksheet<select id="sheet" disabled></select></label>
+<label class="field">Row field<select id="group-field" disabled></select></label>
+<label class="field">Value field<select id="value-field" disabled></select></label>
+<label class="field wide">Or paste CSV<textarea id="source" placeholder="Paste CSV with a header row"></textarea></label>
+</div>
+<div class="actions">
+<button id="load" type="button">Load data</button>
+<button id="example" class="secondary" type="button">Use example rows</button>
+<button id="run" type="button" disabled>Calculate</button>
+<button id="download" class="secondary" type="button" disabled>Download CSV</button>
+</div>
+<p id="tool-status" role="status" aria-live="polite">Choose a CSV or XLSX file, or paste CSV, to start.</p>
+<div id="preview" class="preview" hidden></div>
+<p class="privacy-note">Minimum and maximum skip blank cells and any cell that is not a plain number. Distinct count uses the exact cell text, so an empty cell counts as one value and 5 differs from 5.0. Limits: 10 MB, 100,000 data rows, and 1,000 columns. The preview shows up to 12 groups; the CSV download includes every group and the all-rows row.</p>
+</section>
+<noscript><p>This tool needs JavaScript to calculate the groups in your browser.</p></noscript>
+<article class="guide">
+<section>
+<h2>What each group reports</h2>
+<p>This page builds one result row for each distinct text value in the row field you choose. The minimum is the smallest plain number in the value field for that group, and the maximum is the largest. Distinct count is the number of different value-field texts in the group, including values that are not numbers. Rows that share the same row-field text are combined, including repeated labels. Letter case and spaces stay as they are, so East and east are separate groups, and a trailing space does not match the same word without that space.</p>
+<p>The result always ends with one all-rows summary. Its minimum and maximum look across every plain number in the file. Its distinct count looks across every value-field text in the file. That summary is marked with the scope <strong>all rows</strong>. A source group that happens to be named (all rows) stays in the table as a normal group; the scope column tells the two rows apart.</p>
+</section>
+<section>
+<h2>Worked example</h2>
+<p class="example">Input header Region, Amount. Rows: East 5, East 1, East 5, West 5, West 9, West n/a, North with a blank amount, North 2.</p>
+<p>East has minimum 1, maximum 5, and distinct count 2, because 5 and 1 are the only different amounts and the repeated 5 does not add another value. West has minimum 5, maximum 9, and distinct count 3: the texts are 5, 9, and n/a. North has minimum 2, maximum 2, and distinct count 2, because the blank amount and the number 2 are different texts, while only 2 is a number. The all-rows row has minimum 1, maximum 9, and distinct count 6. Adding the group distinct counts gives 7, which is not the file-wide count: the amount 5 appears in both East and West, so it is counted once in the summary. The text n/a and the blank North amount are part of the distinct count and are not part of the minimum or maximum.</p>
+<p>Use the example button above to load these eight data rows and compare the table with this list. The download contains the same rows, including the all-rows summary.</p>
+</section>
+<section>
+<h2>Which cells count as numbers</h2>
+<p>A value is a plain number when trimming spaces from both ends leaves an optional plus or minus, digits, an optional decimal point, and an optional exponent such as 1e2 or -0.5. The minimum or maximum cell shows that trimmed text from the first row that reaches the extreme. Later cells with the same numeric value do not replace it, so 1.0 stays 1.0 when it appears before 1, and both still count as two distinct texts.</p>
+<p>Words, currency symbols, percent signs, and thousands separators are not numbers. n/a, $5, 5%, and 1,000 are ignored for minimum and maximum and still count as their own distinct texts. A blank cell is ignored for the two extremes. If a group contains no plain number, minimum and maximum are left blank. They are not filled with zero. A number that is too large to be finite, such as 1e309, is also ignored rather than turned into an invented extreme.</p>
+</section>
+<section>
+<h2>Blanks, spaces, and duplicate labels</h2>
+<p>Empty cells, missing cells on a short row, and null worksheet cells all become the empty string. Every empty string in a group is one distinct value, no matter how many rows are blank. A cell that holds only a space is not empty. It is ignored for minimum and maximum, and it is distinct from both a blank and a trimmed number such as 5. Completely empty records, where every cell is blank, are skipped and do not create a group.</p>
+<p>Duplicate row labels are the normal case for this tool. Three East rows become one East result. The first time a label appears sets its place in the table; later repeats stay on that same row. The tool does not sort labels alphabetically. Headers that repeat, or a blank header, are renamed so each field can be selected: a second Amount becomes Amount (2), and a blank header becomes Column plus its position. Those names are only for the field lists. They do not change the cells underneath.</p>
+</section>
+<section>
+<h2>CSV and XLSX input</h2>
+<p>Paste CSV or choose a .csv, .tsv, or .txt file. The first non-empty record is the header, and the rows under it are the records. Quoted fields can contain the delimiter and doubled quotes. An unclosed quote stops the load with an error and no result table. Automatic delimiter detection looks at the header line and chooses among comma, semicolon, tab, and pipe. If the columns land in the wrong places, pick the delimiter and click Load data again. CSV text is read as UTF-8.</p>
+<p>An .xlsx workbook is read on this page as Office Open XML. After it loads, the worksheet list shows every sheet named in the file, with the first sheet selected. Switch sheets to calculate that sheet instead. Older binary .xls workbooks are not read; save them as .xlsx or CSV first. The reader uses the value stored in the cell. A formula contributes that stored value when the file contains one, and this page does not recalculate the formula. Excel dates that were saved as serial numbers stay numbers, so a date extreme is that serial rather than a formatted calendar string. Text dates stay text and are not treated as numbers unless the cell text itself is a plain number. See Microsoft's <a href="https://support.microsoft.com/en-us/excel/file-formats-that-are-supported-in-excel">file formats supported in Excel</a> for the difference between .xlsx and older workbooks, and the <a href="https://www.rfc-editor.org/rfc/rfc4180">CSV format specification, RFC 4180</a>, for quoting.</p>
+</section>
+<section>
+<h2>What this page does not calculate</h2>
+<p>This tool does not sum a column, average it, or count records. The <a href="/online-pivot-table">online pivot table</a> is a different page, and its aggregations are Sum, Average, and Count. It does not calculate minimum, maximum, or distinct count, and this page does not add those three measures to that pivot. <a href="/count-unique-values-csv">Count unique values in CSV</a> lists how often each text appears in a single column. It does not group by a second field, and it does not report a minimum or maximum. Use this page when the question is, for each group, what is the lowest number, the highest number, and how many different values are present.</p>
+<p>The preview lists at most 12 groups plus the all-rows row when the file has more groups than that. The CSV download is the full result: Group, Minimum, Maximum, Distinct count, and Scope. Empty minimum or maximum cells are empty fields in that file, not zeros. The browser keeps the table in memory only. Refreshing or closing the tab clears it. There is no account, and the file is not sent to a server for the calculation. Very large sheets still use memory on your device. Files over 10 MB, tables over 100,000 data rows, or tables over 1,000 columns stop with an error instead of a partial table.</p>
+</section>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<details>
+<summary>Are blank cells part of the distinct count?</summary>
+<p>Yes. Empty cells in a group count as one distinct value, the empty string. A cell that contains only spaces is a different value, not a blank.</p>
+</details>
+<details>
+<summary>Do words and blanks change the minimum or maximum?</summary>
+<p>No. Minimum and maximum use only cells that are plain numbers after trimming. Text, blanks, currency symbols, percent signs, and thousands separators are ignored. If a group has no plain number, those two cells are left blank rather than shown as zero.</p>
+</details>
+<details>
+<summary>Is the all-rows distinct count the sum of the group counts?</summary>
+<p>No. The all-rows row counts each different value once across the whole file. A value that appears in two groups is still one value in that summary.</p>
+</details>
+<details>
+<summary>Does the online pivot table already calculate these three figures?</summary>
+<p>No. The online pivot table calculates Sum, Average, and Count. This page is a separate tool for minimum, maximum, and distinct count.</p>
+</details>
+<details>
+<summary>Which Excel sheet is used?</summary>
+<p>Choose the worksheet after you load an XLSX file. The first sheet is selected to start. Older .xls files are not read. Formula cells contribute the stored value when the file has one, and the formula is not recalculated here.</p>
+</details>
+<details>
+<summary>Is the spreadsheet uploaded?</summary>
+<p>No. The browser reads the file on your device. Closing the tab clears the working table unless you downloaded the CSV.</p>
+</details>
+</section>
+<section class="related">
+<h2>Related tools</h2>
+<ul>
+<li><a href="/tools">All tools</a></li>
+<li><a href="/online-pivot-table">Online pivot table (Sum, Average, Count)</a></li>
+<li><a href="/count-unique-values-csv">Count unique values in one CSV column</a></li>
+<li><a href="/excel-to-csv">Excel to CSV</a></li>
+<li><a href="/csv-viewer">CSV Viewer</a></li>
+</ul>
+</section>
+</article>
+</main>
+<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a> · <a href="/sitemap.xml">Sitemap</a></footer>
+<script type="module" src="/js/pivot-min-max-distinct-ui.js"></script>
+</body>
+</html>
