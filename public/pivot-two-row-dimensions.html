@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Two Row Pivot Sum, Average, Count</title>
+<meta name="description" content="Group CSV or XLSX data on two row dimensions and an optional column field. Each group that appears shows Sum, Average, and Count. Files stay in your browser.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.pivotchartmaker.org/pivot-two-row-dimensions">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/css/pivot-two-row-dimensions.css">
+<meta property="og:title" content="Two Row Pivot Sum, Average, Count">
+<meta property="og:description" content="Group CSV or XLSX data on two row dimensions and an optional column field. Each group that appears shows Sum, Average, and Count. Files stay in your browser.">
+<meta property="og:url" content="https://www.pivotchartmaker.org/pivot-two-row-dimensions">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Two Row Pivot Sum, Average, Count","url":"https://www.pivotchartmaker.org/pivot-two-row-dimensions","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What if I do not choose a second row field?","acceptedAnswer":{"@type":"Answer","text":"The calculation stops with an error and does not draw a table. This page does not invent a second row dimension, copy the first field, or insert a label such as (all) or (blank)."}},{"@type":"Question","name":"Does an empty cell in the second row field become a new name?","acceptedAnswer":{"@type":"Answer","text":"No. An empty cell, a missing cell on a short row, and a null worksheet cell stay the empty string. That empty label is a real group. It is not renamed."}},{"@type":"Question","name":"Do duplicate labels create extra groups?","acceptedAnswer":{"@type":"Answer","text":"No. Rows that share the same text in both row fields are one group. The same is true of the column field. East and east stay separate, and a trailing space stays separate, because the label is the exact cell text."}},{"@type":"Question","name":"What happens to text and blank amounts?","acceptedAnswer":{"@type":"Answer","text":"They are ignored for Sum, Average, and Count. They are not treated as zero. A group with no plain number has a blank Sum, a blank Average, and Count 0."}},{"@type":"Question","name":"Does a column field fill every combination?","acceptedAnswer":{"@type":"Answer","text":"No. The table lists only combinations that appear in the file. A missing intersection is omitted. It is not filled with zero."}},{"@type":"Question","name":"Is the spreadsheet uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The browser reads the file on your device. Closing the tab clears the working table unless you downloaded the CSV."}}]}]}</script>
+</head>
+<body>
+<header class="site-header">
+<a class="brand" href="/">Pivot Chart Maker</a>
+<nav aria-label="Primary navigation">
+<a href="/">Pivot chart tool</a>
+<a href="/tools">All tools</a>
+<a href="/csv-viewer">CSV Viewer</a>
+<a href="/pivot-two-row-dimensions">Two row dimensions</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Free browser tool</p>
+<h1>Pivot Two Row Dimensions</h1>
+<p class="lede">Choose two row fields and a value field. Add a column field only when each pair should be split by a third label. The table lists combinations that are actually in the file.</p>
+</section>
+<section class="tool" aria-label="Two row dimension pivot tool">
+<h2>Pivot by two row fields</h2>
+<p>Load a CSV or an XLSX worksheet, then pick both row fields. The column field can stay empty. A selected file is used instead of pasted text. Click Load data again after you change the delimiter. Nothing is uploaded.</p>
+<div class="tool-grid">
+<label class="field">Choose CSV or XLSX<input id="file" type="file" accept=".csv,.tsv,.txt,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></label>
+<label class="field">Delimiter<select id="delimiter">
+<option value="auto">Detect automatically</option>
+<option value=",">Comma</option>
+<option value=";">Semicolon</option>
+<option value="&#9;">Tab</option>
+<option value="|">Pipe</option>
+</select></label>
+<label class="field" id="sheet-wrap" hidden>Worksheet<select id="sheet" disabled></select></label>
+<label class="field">First row field<select id="row1-field" disabled></select></label>
+<label class="field">Second row field<select id="row2-field" disabled></select></label>
+<label class="field">Column field<select id="column-field" disabled></select></label>
+<label class="field">Value field<select id="value-field" disabled></select></label>
+<label class="field wide">Or paste CSV<textarea id="source" placeholder="Paste CSV with a header row"></textarea></label>
+</div>
+<div class="actions">
+<button id="load" type="button">Load data</button>
+<button id="example" class="secondary" type="button">Use example rows</button>
+<button id="run" type="button" disabled>Calculate</button>
+<button id="download" class="secondary" type="button" disabled>Download CSV</button>
+</div>
+<p id="tool-status" role="status" aria-live="polite">Choose a CSV or XLSX file, or paste CSV, to start.</p>
+<div id="preview" class="preview" hidden></div>
+<p class="privacy-note">Sum and Average use plain numbers only. Text, blanks, currency symbols, percent signs, and thousands separators are ignored, not counted as zero. Count is the number of plain numbers in the group. Limits: 10 MB, 100,000 data rows, and 1,000 columns. The preview shows up to 12 groups plus the all-rows row; the CSV download includes every group.</p>
+</section>
+<noscript><p>This tool needs JavaScript to group the rows in your browser.</p></noscript>
+<article class="guide">
+<section>
+<h2>Two fields on the row axis</h2>
+<p>This page groups by two row fields at once. Region and Product stay in two columns, so East / Desk and East / Chair are different groups, and West / Desk is different again. That is a second level on the row axis. It is not the same layout as one row field plus one column field. The <a href="/online-pivot-table">online pivot table</a> asks for one row field and an optional column field, and its aggregation is one of Sum, Average, or Count. This page always shows all three measures, and the column field here is an extra split, not a substitute for the second row field.</p>
+<p>Both row fields are required. If the second one is left on “Choose a second row field,” Calculate stops with an error and does not draw a table. The page does not copy the first field into the second, and it does not insert a made-up label such as (all) or (blank) to fill the gap. Clear the error by choosing a different header, then click Calculate again.</p>
+</section>
+<section>
+<h2>Worked example</h2>
+<p class="example">Input header Region, Product, Channel, Amount. Rows: East Desk Online 10, East Desk Online 5, East Desk Store 7, East Chair Online 8, East Chair Store with a blank amount, West Desk Online 4, West Desk Store n/a, West Chair Online 6, West Chair Online 6, North Desk Store 3, east Desk Online 1.</p>
+<p>With Channel left empty, East / Desk is 22, average 7.333333, count 3, because 10, 5, and 7 are the plain numbers and the two Online rows share one group. East / Chair is 8, average 8, count 1; the blank Store amount is ignored. West / Desk is 4, average 4, count 1; n/a is not a number. West / Chair is 12, average 6, count 2. North / Desk is 3, average 3, count 1. The label east is not East, so east / Desk is 1, average 1, count 1. The all-rows row is 50, average 5.555556, count 9. That average is 50 divided by 9. It is not the average of the six group averages.</p>
+<p>Choose Channel as the column field and the same file splits each pair by the channel text that actually occurs. East / Desk / Online is 15, average 7.5, count 2. East / Desk / Store is 7, average 7, count 1. East / Chair / Store stays in the table with a blank sum, a blank average, and count 0, because that row is in the file even though its amount is blank. West, Chair, and Store do not appear together, so there is no West / Chair / Store row and that intersection is not filled with zero. Use the example button, then switch the column field and click Calculate to compare both layouts. The download contains the same rows, including the all-rows summary.</p>
+</section>
+<section>
+<h2>Which cells are numbers</h2>
+<p>A value is a plain number when trimming spaces from both ends leaves an optional plus or minus, digits, an optional decimal point, and an optional exponent such as 1e2 or -0.5. The exponent form 1e2 is the number 100. Words, currency symbols, percent signs, and thousands separators are not numbers. n/a, $5, 5%, and 1,000 are ignored. A blank cell is ignored. Negative zero is stored as zero. A number that is too large to be finite, such as 1e309, is ignored rather than shown as an extreme.</p>
+<p>Sum is the total of the plain numbers in the group. Count is how many of those numbers were included, so it is also the denominator of the average. Average is that sum divided by that count, rounded half away from zero to 6 decimal places, with trailing zeros removed. Integer totals inside the safe integer range are exact. A plain number, or a running total, past 9,007,199,254,740,991 stops with an error instead of a rounded substitute. If a group contains no plain number, Sum and Average are left blank. They are not filled with zero. Count is 0 in that case because zero numeric cells were included.</p>
+</section>
+<section>
+<h2>Labels, blanks, and duplicate rows</h2>
+<p>Empty cells, missing cells on a short row, and null worksheet cells all become the empty string. A row whose second field is empty still belongs to a group: the first label plus that empty second label. The tool does not rename the empty label. Completely empty records, where every cell is blank, are skipped and do not create a group.</p>
+<p>Duplicate labels are the normal case. Three East / Desk rows become one East / Desk result. The first time a pair appears sets its place in the table; later repeats stay on that same row. The tool does not sort labels alphabetically. Letter case and spaces stay as they are. Headers that repeat, or a blank header, are renamed so each field can be selected: a second Amount becomes Amount (2), and a blank header becomes Column plus its position. Those names are only for the field lists. They do not change the cells underneath.</p>
+</section>
+<section>
+<h2>The optional column field</h2>
+<p>Leave the column field on “No column field” when the question is only the two row dimensions. The result then has one row per observed pair, plus the all-rows row. Choose a column field when you also want each pair split by a third label, such as channel or month. Each result row is then one triple that appears in the file. The column label uses the same exact text as the row labels.</p>
+<p>The column field has to be a different header from both row fields. Choosing the same header stops with an error rather than repeating a row label as if it were a new axis. Combinations that never occur are left out. The all-rows row still covers every plain number in the value field once. Its column cell is empty, and its scope is all rows, so it is not another channel.</p>
+</section>
+<section>
+<h2>CSV and XLSX input</h2>
+<p>Paste CSV or choose a .csv, .tsv, or .txt file. The first non-empty record is the header, and the rows under it are the records. Quoted fields can contain the delimiter and doubled quotes. An unclosed quote stops the load with an error and no result table. Automatic delimiter detection looks at the header line and chooses among comma, semicolon, tab, and pipe. If the columns land in the wrong places, pick the delimiter and click Load data again. CSV text is read as UTF-8.</p>
+<p>An .xlsx workbook is read on this page as Office Open XML. After it loads, the worksheet list shows every sheet named in the file, with the first sheet selected. Switch sheets to calculate that sheet instead. Older binary .xls workbooks are not read; save them as .xlsx or CSV first. The reader uses the value stored in the cell. A formula contributes that stored value when the file contains one, and this page does not recalculate the formula. Excel dates that were saved as serial numbers stay numbers. Text dates stay text and are not treated as numbers unless the cell text itself is a plain number. See Microsoft's <a href="https://support.microsoft.com/en-us/excel/file-formats-that-are-supported-in-excel">file formats supported in Excel</a> for the difference between .xlsx and older workbooks, and the <a href="https://www.rfc-editor.org/rfc/rfc4180">CSV format specification, RFC 4180</a>, for quoting.</p>
+</section>
+<section>
+<h2>What this page does not calculate</h2>
+<p>This tool does not calculate minimum, maximum, or distinct count. <a href="/pivot-min-max-distinct">Minimum, maximum, and distinct count</a> answers that question for one row field. This tool also does not calculate percent of total or the change from a previous period. <a href="/pivot-percent-change">Percent of total and period change</a> is a separate page. This page does not draw a chart, and it does not add a second row field to the online pivot table.</p>
+<p>The preview lists at most 12 groups plus the all-rows row when the file has more groups than that. The CSV download is the full result. Empty sum or average cells are empty fields in that file, not zeros. The browser keeps the table in memory only. Refreshing or closing the tab clears it. There is no account, and the file is not sent to a server for the calculation. Very large sheets still use memory on your device. Files over 10 MB, tables over 100,000 data rows, or tables over 1,000 columns stop with an error instead of a partial table.</p>
+</section>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<details>
+<summary>What if I do not choose a second row field?</summary>
+<p>The calculation stops with an error and does not draw a table. This page does not invent a second row dimension, copy the first field, or insert a label such as (all) or (blank).</p>
+</details>
+<details>
+<summary>Does an empty cell in the second row field become a new name?</summary>
+<p>No. An empty cell, a missing cell on a short row, and a null worksheet cell stay the empty string. That empty label is a real group. It is not renamed.</p>
+</details>
+<details>
+<summary>Do duplicate labels create extra groups?</summary>
+<p>No. Rows that share the same text in both row fields are one group. The same is true of the column field. East and east stay separate, and a trailing space stays separate, because the label is the exact cell text.</p>
+</details>
+<details>
+<summary>What happens to text and blank amounts?</summary>
+<p>They are ignored for Sum, Average, and Count. They are not treated as zero. A group with no plain number has a blank Sum, a blank Average, and Count 0.</p>
+</details>
+<details>
+<summary>Does a column field fill every combination?</summary>
+<p>No. The table lists only combinations that appear in the file. A missing intersection is omitted. It is not filled with zero.</p>
+</details>
+<details>
+<summary>Is the spreadsheet uploaded?</summary>
+<p>No. The browser reads the file on your device. Closing the tab clears the working table unless you downloaded the CSV.</p>
+</details>
+</section>
+<section class="related">
+<h2>Related tools</h2>
+<ul>
+<li><a href="/tools">All tools</a></li>
+<li><a href="/online-pivot-table">Online pivot table (one row field)</a></li>
+<li><a href="/pivot-min-max-distinct">Minimum, maximum, and distinct count</a></li>
+<li><a href="/pivot-percent-change">Percent of total and period change</a></li>
+<li><a href="/csv-viewer">CSV Viewer</a></li>
+</ul>
+</section>
+</article>
+</main>
+<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a> · <a href="/sitemap.xml">Sitemap</a></footer>
+<script type="module" src="/js/pivot-two-row-dimensions-ui.js"></script>
+</body>
+</html>

@@ -67,6 +67,10 @@
     {
       "source": "/pivot-percent-change",
       "destination": "/pivot-percent-change.html"
+    },
+    {
+      "source": "/pivot-two-row-dimensions",
+      "destination": "/pivot-two-row-dimensions.html"
     }
   ],
   "redirects": [
