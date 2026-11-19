@@ -79,6 +79,10 @@
     {
       "source": "/export-excel-pivot-table",
       "destination": "/export-excel-pivot-table.html"
+    },
+    {
+      "source": "/calculated-columns",
+      "destination": "/calculated-columns.html"
     }
   ],
   "redirects": [
