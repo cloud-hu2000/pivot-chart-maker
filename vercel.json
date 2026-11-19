@@ -75,6 +75,10 @@
     {
       "source": "/csv-filter",
       "destination": "/csv-filter.html"
+    },
+    {
+      "source": "/export-excel-pivot-table",
+      "destination": "/export-excel-pivot-table.html"
     }
   ],
   "redirects": [
