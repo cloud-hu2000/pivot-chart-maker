@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Filter CSV by Column Conditions</title>
+<meta name="description" content="Filter CSV or XLSX rows by column conditions. Use equals, contains, empty, and number checks with AND or OR, preview matches, and download only those rows.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.pivotchartmaker.org/csv-filter">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/css/csv-filter.css">
+<meta property="og:title" content="Filter CSV by Column Conditions">
+<meta property="og:description" content="Filter CSV or XLSX rows by column conditions. Use equals, contains, empty, and number checks with AND or OR, preview matches, and download only those rows.">
+<meta property="og:url" content="https://www.pivotchartmaker.org/csv-filter">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Filter CSV by Column Conditions","url":"https://www.pivotchartmaker.org/csv-filter","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does the download include rows that failed the filter?","acceptedAnswer":{"@type":"Answer","text":"No. The CSV contains the header and the matching rows only. Rows that fail the AND or OR rules are left out. The CSV viewer is different: its search changes the display, but its export still includes every loaded row."}},{"@type":"Question","name":"Are text matches case sensitive?","acceptedAnswer":{"@type":"Answer","text":"Yes. East and east are different, and a trailing space stays part of the text. Text operators do not trim or ignore capitalization. They also do not apply regular expressions."}},{"@type":"Question","name":"How do number comparisons treat blanks and words?","acceptedAnswer":{"@type":"Answer","text":"A numeric condition matches only when the cell is a plain number. Blank cells, n/a, currency symbols, percent signs, and thousands separators do not match. They are not treated as zero."}},{"@type":"Question","name":"What if no condition is set?","acceptedAnswer":{"@type":"Answer","text":"Filter rows stops with an error and does not show the full table. This page does not treat a missing rule as keep every row."}},{"@type":"Question","name":"Can one filter mix AND and OR?","acceptedAnswer":{"@type":"Answer","text":"No. One control applies to the whole list. AND means every condition must match. OR means any one condition is enough. There are no parentheses or mixed groups."}},{"@type":"Question","name":"Is the spreadsheet uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The browser reads the file on your device. Closing the tab clears the working table unless you downloaded the CSV."}}]}]}</script>
+</head>
+<body>
+<header class="site-header">
+<a class="brand" href="/">Pivot Chart Maker</a>
+<nav aria-label="Primary navigation">
+<a href="/">Pivot chart tool</a>
+<a href="/tools">All tools</a>
+<a href="/csv-viewer">CSV Viewer</a>
+<a href="/csv-filter">CSV filter</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Free browser tool</p>
+<h1>Filter CSV by Column Conditions</h1>
+<p class="lede">Load a CSV or XLSX file, add column rules, and keep only the rows that match. AND requires every rule. OR keeps a row when any one rule matches. The download is those rows, not the original file.</p>
+</section>
+<section class="tool" aria-label="CSV filter tool">
+<h2>Filter rows</h2>
+<p>Load a CSV or an XLSX worksheet, then add one or more column conditions. A selected file is used instead of pasted text. Click Load data again after you change the delimiter. Nothing is uploaded.</p>
+<div class="tool-grid">
+<label class="field">Choose CSV or XLSX<input id="file" type="file" accept=".csv,.tsv,.txt,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></label>
+<label class="field">Delimiter<select id="delimiter">
+<option value="auto">Detect automatically</option>
+<option value=",">Comma</option>
+<option value=";">Semicolon</option>
+<option value="&#9;">Tab</option>
+<option value="|">Pipe</option>
+</select></label>
+<label class="field" id="sheet-wrap" hidden>Worksheet<select id="sheet" disabled></select></label>
+<label class="field">Combine<select id="mode">
+<option value="and">AND — every condition</option>
+<option value="or">OR — any condition</option>
+</select></label>
+<label class="field wide">Or paste CSV<textarea id="source" placeholder="Paste CSV with a header row"></textarea></label>
+</div>
+<div id="conditions" class="conditions" aria-label="Filter conditions"></div>
+<div class="actions">
+<button id="add-condition" class="secondary" type="button">Add condition</button>
+<button id="load" type="button">Load data</button>
+<button id="example" class="secondary" type="button">Use example rows</button>
+<button id="run" type="button">Filter rows</button>
+<button id="download" class="secondary" type="button" disabled>Download matching CSV</button>
+</div>
+<p id="tool-status" role="status" aria-live="polite">Choose a CSV or XLSX file, or paste CSV, to start.</p>
+<div id="preview" class="preview" hidden></div>
+<p class="privacy-note">The download contains the header and the matching rows only. Text comparisons are exact and case sensitive. Number comparisons ignore blanks, words, currency, percents, and thousands separators instead of treating them as zero. Limits: 10 MB, 100,000 data rows, and 1,000 columns. The preview shows up to 12 matches; the CSV download includes every match.</p>
+</section>
+<noscript><p>This tool needs JavaScript to filter the rows in your browser.</p></noscript>
+<article class="guide">
+<section>
+<h2>One mode for the whole list</h2>
+<p>Each condition names a column, an operator, and, except for the empty checks, a comparison value. AND keeps a row only when every condition matches. OR keeps a row when any one condition matches. The same column can appear more than once. This page does not mix AND and OR in one filter, and it does not offer parentheses. If no condition is set, Filter rows stops with an error and does not show the full table. A missing rule is not treated as “keep every row.”</p>
+<p>The <a href="/csv-viewer">CSV viewer</a> can search the displayed table, but its export still includes every loaded row. This page is the separate filter: the preview and the download both use the same match list. Rows that fail the rules are left out of the file you save.</p>
+</section>
+<section>
+<h2>Worked example</h2>
+<p class="example">Input header Region, Product, Amount. Rows: East Desk 10, East Chair 5, West Desk n/a, west Desk 4, East Lamp with a blank amount, North Desk 10.</p>
+<p>Use example rows applies AND with Region equals East and Amount greater than 6. The only match is East, Desk, 10. East, Chair, 5 fails the number rule. East, Lamp has a blank amount, so greater than does not match it. west is not East. West, Desk has n/a, which is not a plain number. North, Desk, 10 fails the region rule. The download for that filter is the header plus East, Desk, 10. It does not include the other five data rows.</p>
+<p>Switch the same file to OR, with Region equals West or Amount equals 10. Amount equals is a text comparison, so the cell must be the characters 10. The matches, in file order, are East, Desk, 10; West, Desk, n/a; and North, Desk, 10. west, Desk, 4 stays out because west is not West and 4 is not 10. East, Chair, 5 and East, Lamp stay out as well. The page does not sort the matches and does not add a row that was not in the file.</p>
+</section>
+<section>
+<h2>Text, blanks, and numbers</h2>
+<p>Text operators are equals, does not equal, contains, does not contain, starts with, and ends with. They compare the cell text as stored. Letter case stays significant, and spaces stay part of the value. East does not equal east, and East with a trailing space does not equal East. These operators do not trim the cell or the comparison value, and they do not apply regular expressions. A blank comparison value is rejected. To test a blank cell, choose “is empty” or “is not empty.”</p>
+<p>Is empty matches only the empty string. A cell that contains spaces is not empty. A missing cell on a short row is the empty string. Is not empty matches every other cell, including 0 and n/a.</p>
+<p>Number operators are greater than, greater than or equal, less than, and less than or equal. A cell matches only when trimming its ends leaves a plain number: an optional plus or minus, digits, an optional decimal point, and an optional exponent such as 1e2. The exponent form 1e2 is the number 100. Words, currency symbols, percent signs, and thousands separators do not match. n/a, $5, 5%, and 1,000 fail a numeric condition. They are not counted as zero. If the comparison value itself is not a plain number, filtering stops with an error and does not pretend that nothing matched. Negative zero is compared as zero. A number that is too large to be finite, such as 1e309, does not match.</p>
+</section>
+<section>
+<h2>CSV and XLSX input</h2>
+<p>Paste CSV or choose a .csv, .tsv, or .txt file. The first non-empty record is the header, and the rows under it are the records. Quoted fields can contain the delimiter and doubled quotes. An unclosed quote stops the load with an error and no result table. Automatic delimiter detection looks at the header line and chooses among comma, semicolon, tab, and pipe. If the columns land in the wrong places, pick the delimiter and click Load data again. CSV text is read as UTF-8. Completely blank records are skipped before filtering, so they are neither matches nor non-matches.</p>
+<p>An .xlsx workbook is read on this page as Office Open XML. After it loads, the worksheet list shows every sheet named in the file, with the first sheet selected. Switch sheets to filter that sheet instead. Older binary .xls workbooks are not read; save them as .xlsx or CSV first. The reader uses the value stored in the cell. A formula contributes that stored value when the file contains one, and this page does not recalculate the formula. Excel dates that were saved as serial numbers stay numbers. A text date stays text, so a number operator does not treat it as a calendar date. See Microsoft's <a href="https://support.microsoft.com/en-us/excel/file-formats-that-are-supported-in-excel">file formats supported in Excel</a> for the difference between .xlsx and older workbooks, and the <a href="https://www.rfc-editor.org/rfc/rfc4180">CSV format specification, RFC 4180</a>, for quoting.</p>
+</section>
+<section>
+<h2>What the download contains</h2>
+<p>The preview lists at most 12 matching rows, in the order they appear in the file. The CSV download contains the header and every match, including matches past the preview. If nothing matches, the download is the header and no data rows. That is a real result, not an error. Changing a condition, the AND/OR control, or the loaded sheet clears the previous download until you click Filter rows again, so the saved file cannot lag behind the rules on screen.</p>
+<p>This tool does not remove duplicate rows. <a href="/remove-duplicate-rows-csv">Remove duplicate CSV rows</a> is a separate page. It also does not build a pivot table, calculate a new column, or sort the matches. The browser keeps the table in memory only. Refreshing or closing the tab clears it. There is no account, and the file is not sent to a server for the filter. Very large sheets still use memory on your device. Files over 10 MB, tables over 100,000 data rows, or tables over 1,000 columns stop with an error instead of a partial match list. Search volume for this page has not been verified.</p>
+</section>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<details>
+<summary>Does the download include rows that failed the filter?</summary>
+<p>No. The CSV contains the header and the matching rows only. Rows that fail the AND or OR rules are left out. The CSV viewer is different: its search changes the display, but its export still includes every loaded row.</p>
+</details>
+<details>
+<summary>Are text matches case sensitive?</summary>
+<p>Yes. East and east are different, and a trailing space stays part of the text. Text operators do not trim or ignore capitalization. They also do not apply regular expressions.</p>
+</details>
+<details>
+<summary>How do number comparisons treat blanks and words?</summary>
+<p>A numeric condition matches only when the cell is a plain number. Blank cells, n/a, currency symbols, percent signs, and thousands separators do not match. They are not treated as zero.</p>
+</details>
+<details>
+<summary>What if no condition is set?</summary>
+<p>Filter rows stops with an error and does not show the full table. This page does not treat a missing rule as keep every row.</p>
+</details>
+<details>
+<summary>Can one filter mix AND and OR?</summary>
+<p>No. One control applies to the whole list. AND means every condition must match. OR means any one condition is enough. There are no parentheses or mixed groups.</p>
+</details>
+<details>
+<summary>Is the spreadsheet uploaded?</summary>
+<p>No. The browser reads the file on your device. Closing the tab clears the working table unless you downloaded the CSV.</p>
+</details>
+</section>
+<section class="related">
+<h2>Related tools</h2>
+<ul>
+<li><a href="/tools">All tools</a></li>
+<li><a href="/csv-viewer">CSV Viewer</a></li>
+<li><a href="/remove-duplicate-rows-csv">Remove duplicate CSV rows</a></li>
+<li><a href="/excel-to-csv">Excel to CSV</a></li>
+</ul>
+</section>
+</article>
+</main>
+<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a> · <a href="/sitemap.xml">Sitemap</a></footer>
+<script type="module" src="/js/csv-filter-ui.js"></script>
+</body>
+</html>

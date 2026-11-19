@@ -71,6 +71,10 @@
     {
       "source": "/pivot-two-row-dimensions",
       "destination": "/pivot-two-row-dimensions.html"
+    },
+    {
+      "source": "/csv-filter",
+      "destination": "/csv-filter.html"
     }
   ],
   "redirects": [
