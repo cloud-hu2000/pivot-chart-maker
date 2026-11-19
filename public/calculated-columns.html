@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calculated CSV Column</title>
+<meta name="description" content="Add one calculated column to a CSV or XLSX table. Name existing columns in an arithmetic formula, store a static number or blank on each row, and download CSV.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.pivotchartmaker.org/calculated-columns">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/css/calculated-columns.css">
+<meta property="og:title" content="Calculated CSV Column">
+<meta property="og:description" content="Add one calculated column to a CSV or XLSX table. Name existing columns in an arithmetic formula, store a static number or blank on each row, and download CSV.">
+<meta property="og:url" content="https://www.pivotchartmaker.org/calculated-columns">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Calculated CSV Column","url":"https://www.pivotchartmaker.org/calculated-columns","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does the download contain an Excel formula?","acceptedAnswer":{"@type":"Answer","text":"No. Each new cell is the static text calculated for that row, or it is blank. The CSV does not contain a formula, and this page does not create a spreadsheet column that recalculates later."}},{"@type":"Question","name":"What happens when a cell is blank or not a plain number?","acceptedAnswer":{"@type":"Answer","text":"The new cell on that row is blank. Blank cells, n/a, currency symbols, percent signs, and thousands separators are not treated as zero."}},{"@type":"Question","name":"Can the formula use another row or a range?","acceptedAnswer":{"@type":"Answer","text":"No. Each result uses only the current row. There is no range, no sum of a column, and no reference to the row above."}},{"@type":"Question","name":"Are column names case sensitive?","acceptedAnswer":{"@type":"Answer","text":"Yes. [Width] matches Width only. Spaces inside the brackets are part of the name. A second header with the same text is renamed, such as Width (2), and the formula must use that name."}},{"@type":"Question","name":"Can the new column replace an existing column?","acceptedAnswer":{"@type":"Answer","text":"No. If the name matches a header already in the file, Add column stops with an error. This page appends a column and does not overwrite one."}},{"@type":"Question","name":"Is the spreadsheet uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The browser reads the file on your device. Closing the tab clears the working table unless you downloaded the CSV."}}]}]}</script>
+</head>
+<body>
+<header class="site-header">
+<a class="brand" href="/">Pivot Chart Maker</a>
+<nav aria-label="Primary navigation">
+<a href="/">Pivot chart tool</a>
+<a href="/tools">All tools</a>
+<a href="/csv-viewer">CSV Viewer</a>
+<a href="/calculated-columns">Calculated column</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Free browser tool</p>
+<h1>Calculated CSV Column</h1>
+<p class="lede">Load a CSV or XLSX file and append one column. The formula names columns that already exist and uses addition, subtraction, multiplication, division, and parentheses on the current row only. The download stores that static text, not an Excel formula.</p>
+</section>
+<section class="tool" aria-label="Calculated column tool">
+<h2>Add a calculated column</h2>
+<p>Load a CSV or an XLSX worksheet, type a formula that names existing columns, and choose a new column name. A selected file is used instead of pasted text. Click Load data again after you change the delimiter. Nothing is uploaded.</p>
+<div class="tool-grid">
+<label class="field">Choose CSV or XLSX<input id="file" type="file" accept=".csv,.tsv,.txt,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></label>
+<label class="field">Delimiter<select id="delimiter">
+<option value="auto">Detect automatically</option>
+<option value=",">Comma</option>
+<option value=";">Semicolon</option>
+<option value="&#9;">Tab</option>
+<option value="|">Pipe</option>
+</select></label>
+<label class="field" id="sheet-wrap" hidden>Worksheet<select id="sheet" disabled></select></label>
+<label class="field wide">Formula<input id="formula" type="text" spellcheck="false" autocomplete="off" placeholder="[Width] + [Height] * 2"></label>
+<label class="field">New column name<input id="column-name" type="text" autocomplete="off" placeholder="Calculated" value="Calculated"></label>
+<label class="field wide">Or paste CSV<textarea id="source" placeholder="Paste CSV with a header row"></textarea></label>
+</div>
+<p id="name-note" class="privacy-note"></p>
+<ul id="column-names" class="column-names" aria-label="Column names"></ul>
+<div class="actions">
+<button id="load" type="button">Load data</button>
+<button id="example" class="secondary" type="button">Use example rows</button>
+<button id="run" type="button">Add column</button>
+<button id="download" class="secondary" type="button" disabled>Download CSV</button>
+</div>
+<p id="tool-status" role="status" aria-live="polite">Choose a CSV or XLSX file, or paste CSV, to start.</p>
+<div id="preview" class="preview" hidden></div>
+<p class="privacy-note">The download keeps every loaded row and adds one static column at the end. A referenced cell counts only when it is a plain number. Blanks, words, currency symbols, percent signs, and thousands separators stay out of the arithmetic and are not treated as zero. Division by zero leaves that new cell blank. Limits: 10 MB, 100,000 data rows, and 1,000 columns including the new one. The formula can be up to 2,000 characters, and the new name can be up to 200 characters. The preview shows up to 12 rows; the CSV download includes every row.</p>
+</section>
+<noscript><p>This tool needs JavaScript to calculate the new column in your browser.</p></noscript>
+<article class="guide">
+<section>
+<h2>One new column for the current row</h2>
+<p>This page appends one column. It reads each data row on its own, writes one static value, and keeps the row even when that value is blank. It does not edit cells, fill a range, or store a formula that recalculates later. The formula cannot name the new column, because that column does not exist until the pass finishes, and this page does not run a second pass.</p>
+<p>A grouped sum belongs on the <a href="/">pivot chart tool</a>. This page does not group rows. It also does not filter them. <a href="/csv-filter">Filter CSV by column conditions</a> is a separate page. The <a href="/csv-viewer">CSV viewer</a> can edit a cell, but it does not calculate a new column from other columns.</p>
+</section>
+<section>
+<h2>Column names and arithmetic</h2>
+<p>Write an existing column name between square brackets. [Width] matches the header Width. It does not match width, and it does not match Width with an extra space. Spaces inside the brackets are part of the name. A number written without brackets, such as 2, is a constant. [2] means a column whose header is the character 2. The formula must name at least one column, so 1 + 2 is rejected.</p>
+<p>The operators are + - * and /. * and / are applied before + and -. Operators at the same level run from left to right. [Width] / 2 / 2 divides by 2, then divides that result by 2. When Width is 8, the new cell is 2. Parentheses change the order. ([Width] + [Height]) * 2 on the tile row below is (2 + 3) * 2, which is 10. A leading minus is allowed, as in -[Width]. Writing two values next to each other is an error. It is not multiplication. This page does not accept functions, comparisons, cell addresses such as A1, or a reference to another row.</p>
+<p>When the file loads, a blank header becomes Column 1, Column 2, and so on, using the column position. When two headers are the same, the first is kept and the later one is renamed. A second Width becomes Width (2). The formula must use that renamed header. A header that contains ] cannot be named, because ] ends the name. Rename that column in the source file if you need to use it.</p>
+</section>
+<section>
+<h2>Worked example</h2>
+<p class="example">Input header Item, Width, Height. Rows: tile 2 3, panel 10 4, label n/a 1, spacer with an empty Width and Height 5, strip 1.5 2.</p>
+<p>Use example rows applies [Width] + [Height] * 2 and names the new column Calculated. Multiplication happens before addition. tile is 2 + 3 * 2, which is 8. panel is 10 + 4 * 2, which is 18. label has n/a in Width, so Calculated is blank. spacer has an empty Width, so Calculated is blank. strip is 1.5 + 2 * 2, which is 5.5. The download keeps all five rows. It does not drop the blank results, and it does not turn n/a into zero.</p>
+<p>On the tile row, [Width] / [Height] is 2 / 3, and the new cell is 0.6666666666666666. The example button does not use that formula. Results are JavaScript numbers written as text. This page does not round them to a fixed number of decimal places. A value such as 0.1 plus 0.2 is stored as 0.30000000000000004.</p>
+</section>
+<section>
+<h2>Plain numbers, blanks, and division</h2>
+<p>A referenced cell is used only when trimming its ends leaves a plain number: an optional plus or minus, digits, an optional decimal point, and an optional exponent such as 1e2. The exponent form 1e2 is the number 100, so the new cell is written as 100. The text 10.0, 010, and 1e1 all become 10 in the calculation. The original cell is still copied unchanged. Only the new cell uses the calculated text. Negative zero is used as zero.</p>
+<p>If any referenced cell on the row is not a plain number, the new cell is blank. Blank cells, words, currency symbols, percent signs, and thousands separators do not count. n/a, $5, 5%, and 1,000 leave the new cell blank. They are not used as zero. That blank reason wins even when another part of the formula would divide by zero. When every referenced cell is a plain number but a divisor is zero, the new cell is blank too. It is not Infinity. A result that is too large to be a finite JavaScript number, such as 1e308 * 10, is also blank. It is not written as Infinity or NaN.</p>
+</section>
+<section>
+<h2>CSV and XLSX input</h2>
+<p>Paste CSV or choose a .csv, .tsv, or .txt file. The first non-empty record is the header, and the rows under it are the records. Quoted fields can contain the delimiter and doubled quotes. An unclosed quote stops the load with an error and no result table. Automatic delimiter detection looks at the header line and chooses among comma, semicolon, tab, and pipe. If the columns land in the wrong places, pick the delimiter and click Load data again. CSV text is read as UTF-8. Completely blank records are skipped before the calculation.</p>
+<p>An .xlsx workbook is read on this page as Office Open XML. After it loads, the worksheet list shows every sheet named in the file, with the first sheet selected. Switch sheets to calculate that sheet instead. Older binary .xls workbooks are not read; save them as .xlsx or CSV first. The reader uses the value stored in the cell. A formula contributes that stored value when the file contains one, and this page does not recalculate the workbook formula. Excel dates that were saved as serial numbers stay numbers. See Microsoft's <a href="https://support.microsoft.com/en-us/excel/file-formats-that-are-supported-in-excel">file formats supported in Excel</a> for the difference between .xlsx and older workbooks, and the <a href="https://www.rfc-editor.org/rfc/rfc4180">CSV format specification, RFC 4180</a>, for quoting.</p>
+</section>
+<section>
+<h2>What the download contains</h2>
+<p>The preview lists at most 12 data rows, in file order, including rows whose new cell is blank. The CSV download contains every loaded row, including rows past the preview. The original columns stay in their original order and keep their original text. The new column is last. Spaces at the ends of the new column name are removed. If that name matches a header already in the file, Add column stops with an error and does not overwrite the column. Changing the formula, the new name, or the loaded sheet clears the previous download until you click Add column again.</p>
+<p>The saved file is CSV text. Opening it in a spreadsheet does not create a calculated column that updates when an input changes. There is no account, and the file is not sent to a server for the calculation. Very large sheets still use memory on your device. Files over 10 MB, tables over 100,000 data rows, or tables that already have 1,000 columns stop with an error instead of a partial column. Search volume for this page has not been verified.</p>
+</section>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<details>
+<summary>Does the download contain an Excel formula?</summary>
+<p>No. Each new cell is the static text calculated for that row, or it is blank. The CSV does not contain a formula, and this page does not create a spreadsheet column that recalculates later.</p>
+</details>
+<details>
+<summary>What happens when a cell is blank or not a plain number?</summary>
+<p>The new cell on that row is blank. Blank cells, n/a, currency symbols, percent signs, and thousands separators are not treated as zero.</p>
+</details>
+<details>
+<summary>Can the formula use another row or a range?</summary>
+<p>No. Each result uses only the current row. There is no range, no sum of a column, and no reference to the row above.</p>
+</details>
+<details>
+<summary>Are column names case sensitive?</summary>
+<p>Yes. [Width] matches Width only. Spaces inside the brackets are part of the name. A second header with the same text is renamed, such as Width (2), and the formula must use that name.</p>
+</details>
+<details>
+<summary>Can the new column replace an existing column?</summary>
+<p>No. If the name matches a header already in the file, Add column stops with an error. This page appends a column and does not overwrite one.</p>
+</details>
+<details>
+<summary>Is the spreadsheet uploaded?</summary>
+<p>No. The browser reads the file on your device. Closing the tab clears the working table unless you downloaded the CSV.</p>
+</details>
+</section>
+<section class="related">
+<h2>Related tools</h2>
+<ul>
+<li><a href="/tools">All tools</a></li>
+<li><a href="/csv-viewer">CSV Viewer</a></li>
+<li><a href="/csv-filter">Filter CSV by column conditions</a></li>
+<li><a href="/excel-to-csv">Excel to CSV</a></li>
+</ul>
+</section>
+</article>
+</main>
+<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a> · <a href="/sitemap.xml">Sitemap</a></footer>
+<script type="module" src="/js/calculated-columns-ui.js"></script>
+</body>
+</html>

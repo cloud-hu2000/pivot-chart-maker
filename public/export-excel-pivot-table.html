@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Export Excel PivotTable XLSX</title>
+<meta name="description" content="Download an XLSX workbook with an Excel PivotTable, pivot cache records, source rows, and a Sum of plain numbers. The refresh-on-load flag is left out.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.pivotchartmaker.org/export-excel-pivot-table">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/css/export-excel-pivot-table.css">
+<meta property="og:title" content="Export Excel PivotTable XLSX">
+<meta property="og:description" content="Download an XLSX workbook with an Excel PivotTable, pivot cache records, source rows, and a Sum of plain numbers. The refresh-on-load flag is left out.">
+<meta property="og:url" content="https://www.pivotchartmaker.org/export-excel-pivot-table">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Export Excel PivotTable XLSX","url":"https://www.pivotchartmaker.org/export-excel-pivot-table","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is inside the downloaded workbook?","acceptedAnswer":{"@type":"Answer","text":"The file is an XLSX workbook with worksheets named Source and Pivot. Source holds the loaded rows. Pivot holds one row per distinct row label, in first-seen order, plus a Grand Total row. The package also contains a pivot cache definition, one pivot cache record per source data row, and a pivot table definition named PivotTable1."}},{"@type":"Question","name":"Does the file set refresh on load?","acceptedAnswer":{"@type":"Answer","text":"The workbook leaves out the refresh-on-load flag. The sums on the Pivot sheet are the sums calculated in the browser. A check that opens this file in desktop Excel was not run."}},{"@type":"Question","name":"Which value cells are included in the sum?","acceptedAnswer":{"@type":"Answer","text":"A value is included only when trimming its ends leaves a plain number. Blank cells, n/a, currency symbols, percent signs, and thousands separators are left out. They are not treated as zero. A group with no plain number has a blank sum. The grand total is the sum of the group sums."}},{"@type":"Question","name":"Do East and east become one row?","acceptedAnswer":{"@type":"Answer","text":"No. The row field uses the exact cell text. East and east are different, and a trailing space stays part of the label. The row field is not trimmed. The value column is trimmed only for the plain-number check."}},{"@type":"Question","name":"Can one column be both the row field and the value column?","acceptedAnswer":{"@type":"Answer","text":"No. Build PivotTable workbook stops with an error. Choose two different columns."}},{"@type":"Question","name":"Is the spreadsheet uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The browser reads the file and builds the workbook on your device. Closing the tab clears the working table unless you downloaded the XLSX."}}]}]}</script>
+</head>
+<body>
+<header class="site-header">
+<a class="brand" href="/">Pivot Chart Maker</a>
+<nav aria-label="Primary navigation">
+<a href="/">Pivot chart tool</a>
+<a href="/tools">All tools</a>
+<a href="/csv-viewer">CSV Viewer</a>
+<a href="/export-excel-pivot-table">Excel PivotTable</a>
+</nav>
+</header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Free browser tool</p>
+<h1>Export Excel PivotTable XLSX</h1>
+<p class="lede">Load a CSV or XLSX file, choose one row field and one value column, and download a workbook. The Source sheet keeps the rows. The Pivot sheet lists each row label and the sum of plain numbers. The file also contains the Office Open XML pivot cache and PivotTable parts.</p>
+</section>
+<section class="tool" aria-label="Excel PivotTable export tool">
+<h2>Build a PivotTable workbook</h2>
+<p>Load a CSV or an XLSX worksheet, then choose the row field and the value column. A selected file is used instead of pasted text. Click Load data again after you change the delimiter. Nothing is uploaded.</p>
+<div class="tool-grid">
+<label class="field">Choose CSV or XLSX<input id="file" type="file" accept=".csv,.tsv,.txt,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></label>
+<label class="field">Delimiter<select id="delimiter">
+<option value="auto">Detect automatically</option>
+<option value=",">Comma</option>
+<option value=";">Semicolon</option>
+<option value="&#9;">Tab</option>
+<option value="|">Pipe</option>
+</select></label>
+<label class="field" id="sheet-wrap" hidden>Worksheet<select id="sheet" disabled></select></label>
+<label class="field">Row field<select id="row-field" disabled><option value="">Load data first</option></select></label>
+<label class="field">Value column<select id="value-field" disabled><option value="">Load data first</option></select></label>
+<label class="field wide">Or paste CSV<textarea id="source" placeholder="Paste CSV with a header row"></textarea></label>
+</div>
+<div class="actions">
+<button id="load" type="button">Load data</button>
+<button id="example" class="secondary" type="button">Use example rows</button>
+<button id="run" type="button">Build PivotTable workbook</button>
+<button id="download" class="secondary" type="button" disabled>Download XLSX</button>
+</div>
+<p id="tool-status" role="status" aria-live="polite">Choose a CSV or XLSX file, or paste CSV, to start.</p>
+<div id="preview" class="preview" hidden></div>
+<p class="privacy-note">The download is an XLSX package with a Source sheet, a Pivot sheet, pivot cache records, and a PivotTable named PivotTable1. Sums use plain numbers only. The preview shows up to 12 groups plus the grand total; the workbook includes every group. Limits: 10 MB, 100,000 data rows, and 1,000 columns. Cell A1 on the Pivot sheet says: Browser sums. No refresh-on-load flag.</p>
+</section>
+<noscript><p>This tool needs JavaScript to build the workbook in your browser.</p></noscript>
+<article class="guide">
+<section>
+<h2>What the workbook contains</h2>
+<p>The download is a zip package in the XLSX format. It has two worksheets. Source stores the header and every loaded data row. Pivot starts the table at cell A3. Each distinct row label appears once, in the order it first appears in the file, with the sum beside it. The last pivot row is Grand Total. The package also contains these parts: a pivot cache definition, pivot cache records, and a pivot table definition named PivotTable1. The cache has one record for each source data row, and the pivot table part points at that cache and at the Source range.</p>
+<p>The on-page preview adds two count columns, Plain numbers and Ignored cells. Those counts stay on this page. They are not extra columns in the PivotTable. The Pivot sheet has the row label and the sum only. Search volume for this page has not been verified.</p>
+</section>
+<section>
+<h2>Worked example</h2>
+<p class="example">Input header Region, Product, Amount. Rows: East Desk 10, East Chair 5, West Desk 7, West Lamp with a blank amount, west Desk n/a.</p>
+<p>Use example rows chooses Region as the row field and Amount as the value column. East appears first and its plain numbers are 10 and 5, so the sum is 15. West appears next. Its plain number is 7, and the blank amount is left out, so the sum is 7. west is a separate label because the text is not West. Its amount is n/a, which is not a plain number, so that sum cell is blank. The grand total is 15 plus 7, which is 22. Three plain numbers are included, and two value cells are left out. The cache still has five records, one per source row, including the blank and the n/a. Product stays on the Source sheet and in the cache, and it does not create pivot rows on this build.</p>
+</section>
+<section>
+<h2>Row labels and plain numbers</h2>
+<p>The row field keeps the exact cell text. Letter case and spaces stay, and the field is not trimmed. East and east are two groups. East with a trailing space is a third group. A blank row label is one group whose label is empty. Labels are not sorted alphabetically. 01 in the row field stays 01, because that column is stored as text. The pivot cache stores those labels as separate shared items, and the Pivot sheet cells use that same list.</p>
+<p>The value column is the only column parsed as numbers. A cell counts after trimming its ends when the remaining text is a plain number: an optional plus or minus, digits, an optional decimal point, and an optional exponent such as 1e2. The stored number is the numeric value, so 10.0 becomes 10, 010 becomes 10, and 1e2 becomes 100. Blank cells, n/a, $5, 5%, and 1,000 stay text in the cache and are left out of the sum. They are not treated as zero. A group whose value cells are all outside that rule has a blank sum, not a zero. Zero is written only when plain numbers add to zero, such as 1 and -1. Sums use JavaScript numbers, so 0.1 plus 0.2 can be stored as 0.30000000000000004.</p>
+</section>
+<section>
+<h2>Refresh-on-load flag</h2>
+<p>The pivot cache definition in this file leaves out the refresh-on-load flag. Cell A1 on the Pivot sheet reads: Browser sums. No refresh-on-load flag. The numbers on that sheet are the sums calculated in the browser before the download. A check that opens the file in desktop Excel was not run for this page. The <a href="/pivot-two-row-dimensions">two row dimensions</a> page is a separate summary: it calculates in the browser and does not write these PivotTable parts.</p>
+</section>
+<section>
+<h2>CSV, XLSX, and limits</h2>
+<p>Paste CSV or choose a .csv, .tsv, or .txt file. The first non-empty record is the header. Quoted fields can contain the delimiter and doubled quotes. An unclosed quote stops the load with an error and no workbook. Automatic delimiter detection looks at the header line and chooses among comma, semicolon, tab, and pipe. CSV text is read as UTF-8. Completely blank records are skipped before the cache is built.</p>
+<p>An .xlsx workbook is read on this page as Office Open XML. After it loads, the worksheet list shows every sheet named in the file, with the first sheet selected. Older binary .xls workbooks are not read; save them as .xlsx or CSV first. The reader uses the value stored in the cell. A formula contributes that stored value when the file contains one, and this page does not recalculate the formula. See Microsoft's <a href="https://support.microsoft.com/en-us/excel/file-formats-that-are-supported-in-excel">file formats supported in Excel</a> and the <a href="https://support.microsoft.com/en-us/office/create-a-pivottable-to-analyze-worksheet-data-a9a84538-bfe9-40a9-a8e9-f99134456576">PivotTable overview</a>.</p>
+<p>Files over 10 MB, tables over 100,000 data rows, or tables over 1,000 columns stop with an error. A column name longer than 255 characters stops before a workbook is built, because an Excel PivotTable field cannot use it. The same column cannot be both the row field and the value column. If the value column has no plain number, the build stops and no file is offered. The browser keeps the table in memory only. There is no account, and the file is not sent to a server. You can inspect a sheet first in the <a href="/csv-viewer">CSV viewer</a>.</p>
+</section>
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<details>
+<summary>What is inside the downloaded workbook?</summary>
+<p>The file is an XLSX workbook with worksheets named Source and Pivot. Source holds the loaded rows. Pivot holds one row per distinct row label, in first-seen order, plus a Grand Total row. The package also contains a pivot cache definition, one pivot cache record per source data row, and a pivot table definition named PivotTable1.</p>
+</details>
+<details>
+<summary>Does the file set refresh on load?</summary>
+<p>The workbook leaves out the refresh-on-load flag. The sums on the Pivot sheet are the sums calculated in the browser. A check that opens this file in desktop Excel was not run.</p>
+</details>
+<details>
+<summary>Which value cells are included in the sum?</summary>
+<p>A value is included only when trimming its ends leaves a plain number. Blank cells, n/a, currency symbols, percent signs, and thousands separators are left out. They are not treated as zero. A group with no plain number has a blank sum. The grand total is the sum of the group sums.</p>
+</details>
+<details>
+<summary>Do East and east become one row?</summary>
+<p>No. The row field uses the exact cell text. East and east are different, and a trailing space stays part of the label. The row field is not trimmed. The value column is trimmed only for the plain-number check.</p>
+</details>
+<details>
+<summary>Can one column be both the row field and the value column?</summary>
+<p>No. Build PivotTable workbook stops with an error. Choose two different columns.</p>
+</details>
+<details>
+<summary>Is the spreadsheet uploaded?</summary>
+<p>No. The browser reads the file and builds the workbook on your device. Closing the tab clears the working table unless you downloaded the XLSX.</p>
+</details>
+</section>
+<section class="related">
+<h2>Related tools</h2>
+<ul>
+<li><a href="/tools">All tools</a></li>
+<li><a href="/csv-viewer">CSV Viewer</a></li>
+<li><a href="/pivot-two-row-dimensions">Two row dimensions</a></li>
+<li><a href="/csv-to-excel">CSV to Excel</a></li>
+</ul>
+</section>
+</article>
+</main>
+<footer>© Pivot Chart Maker · Files are processed in your browser · <a href="/tools">All tools</a> · <a href="/sitemap.xml">Sitemap</a></footer>
+<script type="module" src="/js/export-excel-pivot-table-ui.js"></script>
+</body>
+</html>
